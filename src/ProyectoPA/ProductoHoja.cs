@@ -56,7 +56,7 @@ namespace ProyectoPA
 /****************agregar Stock******************/
         public override void AgregarStock(int cantidad)
         {
-            this.cantidad += cantidad;
+            Cantidad += cantidad;
         }
 /***************imprimir Datos**********************/
         public  override void imprimirDatos() {

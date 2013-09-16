@@ -21,6 +21,7 @@ namespace ProyectoPA
         /************************agregar un nuevo tipo de producto*********************************************/
         public void agregarNuevoTipoDeProducto()
         {
+            
             Console.Clear();
             Console.WriteLine("");
 
@@ -54,18 +55,16 @@ namespace ProyectoPA
                 string categoria = parametros[5];
                 agregarProducto(new ProductoHoja(Idcount, costo, tamaño, peso, nombre, color, categoria, 0));
                 Console.WriteLine("Se ha agregado un nuevo tipo producto");
-               
+                Idcount++;
                 
             }
-            catch (Exception e)
+            catch (FormatException e)
             {
-                Console.WriteLine("Lo hiso mal, hagalo denuevo");
-                Console.WriteLine("Presione ENTER para continuar");
+                Console.WriteLine("Ha ingresado mal , Presione ENTER para volver a intentarlo.");
                 Console.ReadLine();
                 agregarNuevoTipoDeProducto();
-
             }
-            Idcount++;
+           
         }
 
         /************************agregar un nuevo tipo de producto*********************************************/
@@ -125,10 +124,8 @@ namespace ProyectoPA
 
                         if (productos[i].Id == IdDelProducto)
                         {
-                            Console.WriteLine("Ingresando Producto");
                             productos[IdDelProducto].AgregarStock(cantidad);
                             correcto = true;
-                            Console.WriteLine("Producto Ingresado");
                             break;
                         }
                     }
@@ -144,11 +141,11 @@ namespace ProyectoPA
                 }
             }
             
-            catch(Exception e){
-                Console.WriteLine("Se produjo un Error , vuelba a intentarlo");
-                Console.WriteLine("Presione ENTER Para Continuar");
-                Console.ReadLine();
-                }
+             catch(FormatException e){
+            Console.WriteLine("Ha ingresado mal , Presione ENTER para volver a intentarlo.");
+            Console.ReadLine();
+            ingresarProducto();
+            }
             
 
 
@@ -198,35 +195,43 @@ namespace ProyectoPA
                 Console.WriteLine(ID +"|"+ nombre +"|"+ Cantidad + "|");
              
 
-            }
+            }}
           
-        }
+        
 /********************************Ver cualidades de un producto****************************************************/
         public void verCualidadesDeUnProducto()
         {
-            Console.Clear();
-            Console.WriteLine("Ingrese el Id Del Producto");
-            Console.WriteLine("");
-            int IdDelProducto = Convert.ToInt32(Console.ReadLine());
-            Console.Clear();
-            bool correcto = false;
-            for (int i = 0; i < productos.Length; i++)
+            try
             {
-
-                if (productos[i].Id == IdDelProducto)
+                Console.Clear();
+                Console.WriteLine("Ingrese el Id Del Producto");
+                Console.WriteLine("");
+                int IdDelProducto = Convert.ToInt32(Console.ReadLine());
+                Console.Clear();
+                bool correcto = false;
+                for (int i = 0; i < productos.Length; i++)
                 {
-                    Console.Clear();
-                    productos[IdDelProducto].imprimirDatos();
-                    correcto = true;
-                    break;
+
+                    if (productos[i].Id == IdDelProducto)
+                    {
+                        Console.Clear();
+                        productos[IdDelProducto].imprimirDatos();
+                        correcto = true;
+                        break;
+                    }
+                }
+                if (!correcto)
+                {
+                    Console.WriteLine("ERROR , no se encuentra el producto");
+
                 }
             }
-            if (!correcto)
-            {
-                Console.WriteLine("ERROR , no se encuentra el producto");
-                Console.WriteLine("Presione ENTER Para Continuar");
-                Console.ReadLine();
-            }         
+            catch(FormatException e){
+            Console.WriteLine("Ha ingresado mal , Presione ENTER para volver a intentarlo.");
+            Console.ReadLine();
+            verCualidadesDeUnProducto();
+            }
+            }
         }
     }
-}
+

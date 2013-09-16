@@ -75,6 +75,7 @@ namespace ProyectoPA
             this.tamaño = tamaño;
             this.peso = peso;
             this.nombre = nombre;
+            this.id = id;
         }
         //constructor pasandole el nombre y otro producto//
         public Producto(string nombre, Producto pBase)
