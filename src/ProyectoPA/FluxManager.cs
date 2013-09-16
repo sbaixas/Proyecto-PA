@@ -9,7 +9,7 @@ namespace ProyectoPA
     class FluxManager
     {
         private static List<Registro> registros = new List<Registro>();
-        public static void AddLog(Existencia productoVendido)
+        public static void AddLog(Producto productoVendido)
         {
            registros.Add(new Registro(productoVendido, DateTime.Now));
         }

@@ -8,11 +8,11 @@ namespace ProyectoPA
 {
     class Registro
     {
-        Existencia existencia;
+        Producto producto;
         DateTime fecha;
-        public Registro(Existencia existencia, DateTime fecha)
+        public Registro(Producto producto, DateTime fecha)
         {
-            this.existencia = existencia;
+            this.producto = producto;
             this.fecha = fecha;
         }
     }
