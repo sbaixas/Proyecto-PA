@@ -22,7 +22,6 @@ namespace ProyectoPA
         public int Id
         {
             get { return id; }
-            set { id = value; }
         }
 
         private double tamaño;
@@ -74,7 +73,7 @@ namespace ProyectoPA
             this.peso = pBase.peso;
             this.imagePath = pBase.imagePath;
         }
-        public void Init(int costo, double tamaño, double peso, string nombre, string imagePath)
+        public void Init(int id, int costo, double tamaño, double peso, string nombre, string imagePath)
         {
             this.costo = costo;
             this.tamaño = tamaño;
@@ -82,9 +81,8 @@ namespace ProyectoPA
             this.imagePath = imagePath;
             this.nombre = nombre;
         }
-        public abstract void DescontarStock()
+        public abstract void DescontarStock(int cantidad)
         {
-
         }
     }
 }

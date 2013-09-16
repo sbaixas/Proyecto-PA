@@ -29,12 +29,16 @@ namespace ProyectoPA
             get { return cantidad; }
             set { cantidad = value; }
         }
-        public ProductoHoja(int costo, double tamaño, double peso, string nombre, string imagePath, string color, string categoria, int cantidad)
-            :base(costo, tamaño, peso, nombre, imagePath)
+        public ProductoHoja(int id, int costo, double tamaño, double peso, string nombre, string imagePath, string color, string categoria, int cantidad)
+            :base(id, costo, tamaño, peso, nombre, imagePath)
         {
             this.color = color;
             this.categoria = categoria;
             this.cantidad = cantidad;
+        }
+        public override void DescontarStock(int cantidad)
+        {
+            this.cantidad -= cantidad;
         }
     }
 }
