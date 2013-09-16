@@ -7,40 +7,84 @@ using System.Threading.Tasks;
 namespace ProyectoPA
 {
     
-    class Producto
+    abstract class Producto
     {
-        private string tipo;
         private int costo;
+
+        public int Costo
+        {
+            get { return costo; }
+            set { costo = value; }
+        }
+
+        private int id;
+
+        public int Id
+        {
+            get { return id; }
+            set { id = value; }
+        }
 
         private double tamaño;
 
+        public double Tamaño
+        {
+            get { return tamaño; }
+            set { tamaño = value; }
+        }
+
         private double peso;
 
-        private string color;
+        public double Peso
+        {
+            get { return peso; }
+            set { peso = value; }
+        }
+
+        private string nombre;
+
+        public string Nombre
+        {
+            get { return nombre; }
+            set { nombre = value; }
+        }
 
         private string imagePath;
 
-        private string categoría;
-
-        public Producto(string tipo, int costo, double tamaño, double peso, string color, string imagePath, string categoría)
+        public string ImagePath
         {
-            this.tipo = tipo;
+            get { return imagePath; }
+            set { imagePath = value; }
+        }
+
+        public Producto() { }
+        public Producto(int id, int costo, double tamaño, double peso, string nombre, string imagePath)
+        {
             this.costo = costo;
             this.tamaño = tamaño;
             this.peso = peso;
-            this.color = color;
             this.imagePath = imagePath;
-            this.categoría = categoría;
+            this.nombre = nombre;
         }
-        public Producto(Producto pBase)
+        public Producto(string nombre, Producto pBase)
         {
-            this.tipo = pBase.tipo;
+            this.nombre = nombre;
             this.costo = pBase.costo;
             this.tamaño = pBase.tamaño;
             this.peso = pBase.peso;
-            this.color = pBase.color;
             this.imagePath = pBase.imagePath;
-            this.categoría = pBase.categoría;
+        }
+        public void Init(int costo, double tamaño, double peso, string nombre, string imagePath)
+        {
+            this.costo = costo;
+            this.tamaño = tamaño;
+            this.peso = peso;
+            this.imagePath = imagePath;
+            this.nombre = nombre;
+        }
+        public abstract void DescontarStock()
+        {
+
         }
     }
 }

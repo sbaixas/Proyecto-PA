@@ -8,21 +8,20 @@ namespace ProyectoPA
 {
     class Manager
     {
-        private static List<Producto> productos;//Tipos de productos
-        private static List<Existencia> existencias;//Productos Existentes
+        private static List<Producto> productos;
         public static void Crear(int costo, double tamaño, double peso, string color, string imagePath, string categoría)
         {
             
         }
-        public static void Crear(Producto producto)
+        public static void Crear(ProductoHoja producto)
         {
 
         }
-        public static void Ingresar(Producto producto)
+        public static void Ingresar(Producto producto, int nProductos)
         {
 
         }
-        public static void CrearSet(params Producto[] producto)
+        public static void CrearSet()
         {
 
         }
