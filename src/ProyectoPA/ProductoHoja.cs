@@ -60,21 +60,12 @@ namespace ProyectoPA
         }
 /***************imprimir Datos**********************/
         public  override void imprimirDatos() {
-            Console.WriteLine("Producto: "+ Nombre);
+            base.imprimirDatos();
+            Console.WriteLine("- Categoria: " + this.Categoria);
             Console.WriteLine("");
-            Console.WriteLine("- Categoria: " + Categoria);
+            Console.WriteLine("- Color: "+this.Color);
             Console.WriteLine("");
-            Console.WriteLine("- Id: " + Id+"");
-            Console.WriteLine("");
-            Console.WriteLine("- Costo " + Costo+"");
-            Console.WriteLine("");
-            Console.WriteLine("- Tamaño: " + Tamaño+"");
-            Console.WriteLine("");
-            Console.WriteLine("- Peso: " +Peso+"" );
-            Console.WriteLine("");
-            Console.WriteLine("- Color: "+Color);
-            Console.WriteLine("");
-            Console.WriteLine("- Cantidad: " + Cantidad);
+            Console.WriteLine("- Cantidad: " + this.Cantidad);
         }
     }
 }

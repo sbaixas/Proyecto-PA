@@ -104,6 +104,16 @@ namespace ProyectoPA
         }
         public virtual void imprimirDatos()
         {
+            Console.WriteLine("- Id: " + this.Id + "");
+            Console.WriteLine("");
+            Console.WriteLine("Producto: " + this.Nombre);
+            Console.WriteLine("");
+            Console.WriteLine("- Costo " + this.Costo + "");
+            Console.WriteLine("");
+            Console.WriteLine("- Tamaño: " + this.Tamaño + "");
+            Console.WriteLine("");
+            Console.WriteLine("- Peso: " + this.Peso + "");
+            Console.WriteLine("");
         }
     }
 }
