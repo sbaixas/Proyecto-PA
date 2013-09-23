@@ -8,12 +8,27 @@ namespace ProyectoPA
 {
     class Registro
     {
-        Producto producto;
-        DateTime fecha;
+        private Producto producto;
+        
+        private DateTime fecha;
+
         public Registro(Producto producto, DateTime fecha)
         {
             this.producto = producto;
             this.fecha = fecha;
         }
+
+        public DateTime Fecha
+        {
+            get { return fecha; }
+            set { fecha = value; }
+        }
+
+        public Producto Producto 
+        {
+            get { return producto; }
+            set { producto = value; }
+        }
+
     }
 }
