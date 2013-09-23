@@ -63,6 +63,16 @@ namespace ProyectoPA
                 count++;
             }
         }
+        public override void imprimirDatos()
+        {
+            base.imprimirDatos();
+            for (int i = 0; i < productos.Count; i++)
+            {
+                Console.WriteLine("- Producto: " + this.productos[i].Nombre + " X " + cantidades[i]);
+                Console.WriteLine("");
+            }
+
+        }
     }
 }
 
