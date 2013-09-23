@@ -32,7 +32,7 @@ namespace ProyectoPA
 /****************Constructor******************/
         //Dando todos los datos//
         public ProductoHoja(int id, int costo, double tamaño, double peso, string nombre, string color, string categoria, int cantidad)
-            :base(id, costo, tamaño, peso, nombre)
+            :base(costo, tamaño, peso, nombre)
         {
             this.color = color;
             this.categoria = categoria;

@@ -11,6 +11,8 @@ namespace ProyectoPA
     abstract class Producto
     {
 /*******Atributos , Getter y Setters*******/
+        private static int idcount = 0;
+
         private int costo;
 
         public int Costo
@@ -69,13 +71,14 @@ namespace ProyectoPA
         public Producto() { }
 
        //Constructor pasandole todos los atributos//
-        public Producto(int id, int costo, double tamaño, double peso, string nombre)
+        public Producto(int costo, double tamaño, double peso, string nombre)
         {
             this.costo = costo;
             this.tamaño = tamaño;
             this.peso = peso;
             this.nombre = nombre;
-            this.id = id;
+            this.id = idcount;
+            idcount++;
         }
         //constructor pasandole el nombre y otro producto//
         public Producto(string nombre, Producto pBase)
@@ -87,7 +90,7 @@ namespace ProyectoPA
             this.imagePath = pBase.imagePath;
         }
         //????//
-        public void Init(int id, int costo, double tamaño, double peso, string nombre, string imagePath)
+        public void Init(int costo, double tamaño, double peso, string nombre, string imagePath)
         {
             this.costo = costo;
             this.tamaño = tamaño;

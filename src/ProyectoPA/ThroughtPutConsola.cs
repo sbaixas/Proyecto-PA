@@ -129,7 +129,7 @@ namespace ProyectoPA
 
         private static void mostrarProductos()
         {
-            Producto[] productos = Manager.Productos;
+            Producto[] productos = Manager.Productos.ToArray();
             Console.WriteLine("         ID         |       Nombre       |      Cantidad      |");
             for (int i = 0; i < productos.Length; i++)
             {
@@ -174,20 +174,19 @@ namespace ProyectoPA
         {
             try
             {
-                Producto[] productos = Manager.Productos;
+                List <Producto> productos = Manager.Productos;
                 Console.Clear();
                 Console.WriteLine("Ingrese el Id Del Producto");
                 Console.WriteLine("");
                 int IdDelProducto = Convert.ToInt32(Console.ReadLine());
                 Console.Clear();
                 bool correcto = false;
-                for (int i = 0; i < productos.Length; i++)
+                foreach (Producto p in productos)
                 {
-
-                    if (productos[i].Id == IdDelProducto)
+                    if (p.Id == IdDelProducto)
                     {
                         Console.Clear();
-                        productos[IdDelProducto].imprimirDatos();
+                        p.imprimirDatos();
                         correcto = true;
                         break;
                     }
@@ -210,7 +209,7 @@ namespace ProyectoPA
         {
             try
             {
-                Producto[] productos = Manager.Productos;
+
                 Console.Clear();
                 Console.WriteLine("Ingresar un Producto");
                 Console.WriteLine("");

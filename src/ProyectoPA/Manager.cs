@@ -8,9 +8,9 @@ namespace ProyectoPA
 {
     class Manager
     {
-        private static Producto[] productos = new Producto[0];
+        private static List<Producto> productos = new List<Producto>();
 
-        internal static Producto[] Productos
+        internal static List<Producto> Productos
         {
             get { return Manager.productos; }
         }
@@ -25,22 +25,20 @@ namespace ProyectoPA
         /************************agregar un nuevo tipo de producto*********************************************/
         public static void AgregarProducto(Producto productoAAgregar)
         {
-            Producto[] aux = new Producto[productos.Length + 1];
-            for (int i = 0; i < productos.Length; i++)
-            {
-                aux[i] = productos[i];
-            }
-            aux[aux.Length - 1] = productoAAgregar;
-            productos = aux;
-            idCount++;
+            productos.Add(productoAAgregar);
+        }
+
+        public static void AgregarSet(Producto setAAgregar)
+        {
+            productos.Add(setAAgregar);
         }
 
         public static bool IngresarProducto(int IdDelProducto, int cantidad)
         {
-            for (int i = 0; i < productos.Length; i++)
+            foreach (Producto p in productos)
             {
 
-                if (productos[i].Id == IdDelProducto)
+                if (p.Id == IdDelProducto)
                 {
                     productos[IdDelProducto].AgregarStock(cantidad);
                     return true;
