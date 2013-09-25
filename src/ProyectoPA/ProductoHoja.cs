@@ -26,17 +26,22 @@ namespace ProyectoPA
 
         private int cantidad;
 
+        public int Cantidad
+        {
+            get { return cantidad; }
+        }
+
     
 
 
 /****************Constructor******************/
         //Dando todos los datos//
-        public ProductoHoja(int id, int costo, double tamaño, double peso, string nombre, string color, string categoria, int cantidad)
+        public ProductoHoja(int costo, double tamaño, double peso, string nombre, string color, string categoria)
             :base(costo, tamaño, peso, nombre)
         {
             this.color = color;
             this.categoria = categoria;
-            this.cantidad = cantidad;
+            this.cantidad = 0;
         }
 
         //partiendo de un producto existente//
@@ -46,6 +51,7 @@ namespace ProyectoPA
             this.Nombre = nombre;
             this.color = color;
             this.categoria = categoria;
+            this.cantidad = 0;
            
         }
 /****************Descontar Stock******************/
@@ -56,7 +62,7 @@ namespace ProyectoPA
 /****************agregar Stock******************/
         public override void AgregarStock(int cantidad)
         {
-            Cantidad += cantidad;
+            this.cantidad += cantidad;
         }
 /***************imprimir Datos**********************/
         public  override void imprimirDatos() {
@@ -66,6 +72,7 @@ namespace ProyectoPA
             Console.WriteLine("- Color: "+this.Color);
             Console.WriteLine("");
             Console.WriteLine("- Cantidad: " + this.Cantidad);
+            Console.WriteLine("--------------------------------------");
         }
     }
 }
