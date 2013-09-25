@@ -23,9 +23,9 @@ namespace ProyectoPA
         }
 
         /************************agregar un nuevo tipo de producto*********************************************/
-        public static void AgregarProducto(Producto productoAAgregar)
+        public static void AgregarProducto(int costo, double tamaño, double peso, string nombre, string color, string categoria)
         {
-            productos.Add(productoAAgregar);
+            productos.Add(new ProductoHoja(costo, tamaño, peso, nombre, color, categoria));
         }
 
         public static void AgregarSet(Producto setAAgregar)

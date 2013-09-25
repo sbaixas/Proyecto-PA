@@ -113,7 +113,7 @@ namespace ProyectoPA
                 string color = parametros[4];
                 string categoria = parametros[5];
                 Console.WriteLine("Se ha agregado un nuevo tipo producto");
-                Manager.AgregarProducto(new ProductoHoja(costo, tamaño, peso, nombre, color, categoria));
+                Manager.AgregarProducto(costo, tamaño, peso, nombre, color, categoria);
 
             }
             catch
@@ -164,7 +164,6 @@ namespace ProyectoPA
                     {
                         Cantidad = " " + Cantidad;
                     }
-
                 }
                 Console.WriteLine(ID + "|" + nombre + "|" + Cantidad + "|");
             }
