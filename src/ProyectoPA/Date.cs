@@ -21,9 +21,15 @@ namespace ProyectoPA
             this.año = fecha.Year;
         }
 
+        // Cierra el mes contable  // 
         public void cerrar_mes()
         {
             mes++;
+            if (mes==13)
+            {
+                mes=1;
+                año++;
+            }
         }
 
         public int Mes
@@ -38,6 +44,7 @@ namespace ProyectoPA
             set { dia = value; }
         }
 
+        //    Retorna un string con la fecha    //
         public string Retornar_fecha()
         {
             string a = dia + "/" + mes + "/" + año;

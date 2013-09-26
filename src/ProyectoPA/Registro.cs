@@ -18,7 +18,7 @@ namespace ProyectoPA
         private string nombre;
         private int cantidad;
 
-        public Registro(Producto producto, Date fecha)
+        public Registro(Producto producto, Date fecha, int cantidad)
         {
             this.producto = producto;
 
@@ -32,7 +32,7 @@ namespace ProyectoPA
 
             this.nombre = producto.Nombre;
 
-            this.cantidad = producto.Cantidad;
+            this.cantidad = cantidad;
         }
 
         public Date Fecha
