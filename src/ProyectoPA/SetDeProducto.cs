@@ -15,9 +15,9 @@ namespace ProyectoPA
             get { return descuento; }
             set { descuento = value; }
         }
-        private int[] cantidades;
+        private List<int> cantidades;
 
-        public int[] Cantidades
+        public List<int> Cantidades
         {
             get { return cantidades; }
             set { cantidades = value; }
@@ -29,7 +29,7 @@ namespace ProyectoPA
             get { return productos; }
             set { productos = value; }
         }
-        public SetDeProducto(int descuento, int[] cantidades, List<Producto> productos, string nombre, string imagePath)
+        public SetDeProducto(int descuento, List<int> cantidades, List<Producto> productos, string nombre, string imagePath)
             :base()
         {
             int costo = 0;
@@ -61,6 +61,33 @@ namespace ProyectoPA
             {
                 p.AgregarStock(cantidad * cantidades[count]);
                 count++;
+            }
+        }
+        public override void imprimirDatos()
+        {
+            base.imprimirDatos();
+            for (int i = 0; i < productos.Count; i++)
+            {
+                Console.WriteLine("- Producto: " + this.productos[i].Nombre + " X " + cantidades[i]);
+                Console.WriteLine("");
+            }
+            Console.WriteLine("--------------------------------------");
+
+        }
+        public void AgregarProducto(Producto p, int c)
+        {
+            this.productos.Add(p);
+            this.cantidades.Add(c);
+        }
+        public void EliminarProducto(int id)
+        {
+            for (int i = 0; i < productos.Count; i++ )
+            {
+                if (productos[i].Id == id)
+                {
+                    productos.Remove(productos[i]);
+                    cantidades.Remove(cantidades[i]);
+                }
             }
         }
     }

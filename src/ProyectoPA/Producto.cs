@@ -21,7 +21,7 @@ namespace ProyectoPA
             set { costo = value; }
         }
 
-        private int id, cantidad;
+        private int id;
 
         public int Id
         {
@@ -52,11 +52,6 @@ namespace ProyectoPA
             set { nombre = value; }
         }
 
-        public int Cantidad
-        {
-            get { return cantidad; }
-            set { cantidad = value; }
-        }
 
         private string imagePath;
 
@@ -88,6 +83,8 @@ namespace ProyectoPA
             this.tamaño = pBase.tamaño;
             this.peso = pBase.peso;
             this.imagePath = pBase.imagePath;
+            this.id = idcount;
+            idcount++;
         }
         //????//
         public void Init(int costo, double tamaño, double peso, string nombre, string imagePath)
@@ -109,7 +106,7 @@ namespace ProyectoPA
         {
             Console.WriteLine("- Id: " + this.Id + "");
             Console.WriteLine("");
-            Console.WriteLine("Producto: " + this.Nombre);
+            Console.WriteLine("- Producto: " + this.Nombre);
             Console.WriteLine("");
             Console.WriteLine("- Costo " + this.Costo + "");
             Console.WriteLine("");

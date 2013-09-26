@@ -113,7 +113,7 @@ namespace ProyectoPA
                 string color = parametros[4];
                 string categoria = parametros[5];
                 Console.WriteLine("Se ha agregado un nuevo tipo producto");
-                Manager.AgregarProducto(new ProductoHoja(Manager.IdCount, costo, tamaño, peso, nombre, color, categoria, 0));
+                Manager.AgregarProducto(costo, tamaño, peso, nombre, color, categoria);
 
             }
             catch
@@ -131,10 +131,10 @@ namespace ProyectoPA
         {
             Producto[] productos = Manager.Productos.ToArray();
             Console.WriteLine("         ID         |       Nombre       |      Cantidad      |");
-            for (int i = 0; i < productos.Length; i++)
+            foreach(ProductoHoja p in productos)
             {
                 string nombre, ID, Cantidad;
-                ID = " " + productos[i].Id + "";
+                ID = " " + p.Id + "";
                 //Se da un formato para que las columnas considan//
                 while (ID.Length < 20)
                 {
@@ -145,7 +145,7 @@ namespace ProyectoPA
                     }
                 }
 
-                nombre = " " + productos[i].Nombre;
+                nombre = " " + p.Nombre;
 
                 while (nombre.Length < 20)
                 {
@@ -156,7 +156,7 @@ namespace ProyectoPA
                     }
                 }
 
-                Cantidad = " " + productos[i].Cantidad + "";
+                Cantidad = " " + p.Cantidad + "";
                 while (Cantidad.Length < 20)
                 {
                     Cantidad = Cantidad + " ";
@@ -164,7 +164,6 @@ namespace ProyectoPA
                     {
                         Cantidad = " " + Cantidad;
                     }
-
                 }
                 Console.WriteLine(ID + "|" + nombre + "|" + Cantidad + "|");
             }
