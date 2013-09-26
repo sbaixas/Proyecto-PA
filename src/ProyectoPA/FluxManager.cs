@@ -8,10 +8,28 @@ namespace ProyectoPA
 {
     class FluxManager
     {
-        private static List<Registro> registros = new List<Registro>();
-        public static void AddLog(Producto productoVendido)
+        private static List<Registro> registro_venta = new List<Registro>();
+
+        private static List<Registro> registro_ingreso = new List<Registro>();
+
+
+        public static void Ingreso_producto(Producto producto_ingresado, Date fecha)
         {
-           registros.Add(new Registro(productoVendido, DateTime.Now));
+           registro_ingreso.Add(new Registro(producto_ingresado, fecha));
+        }
+
+        public static void Venta_producto(Producto producto_vendido, Date fecha)
+        {
+            registro_ingreso.Add(new Registro(producto_vendido, fecha));
+        }
+
+        public static void Ingreso_set(ProductoHoja set, Date fecha)
+        {
+
+        }
+
+        public static void Venta_set(ProductoHoja set, Date fecha)
+        {
         }
         public static void VerHistorialDeMovimientos()
         {
@@ -22,8 +40,34 @@ namespace ProyectoPA
         public static void GraficarBalances()
         {
         }
-        public static void VerReportesDeSalida()
+        public static void VerReportesDeVenta()
         {
+            int largo = registro_venta.Count;
+            int i;
+            for (i = 0; i < largo; i++)
+            {
+                Registro a = registro_venta[i];
+                Date b = a.Fecha;
+                int cantidad = a.Cantidad;
+                string fecha = b.Retornar_fecha();
+                string nombre = a.Nombre;
+                Console.WriteLine("el " + fecha + " se vendieron " + cantidad + " de " + nombre);           
+            }
+        }
+
+        public static void VerReportesDeIngreso()
+        {
+            int largo = registro_ingreso.Count;
+            int i;
+            for (i = 0; i < largo; i++)
+            {
+                Registro a = registro_venta[i];
+                Date b = a.Fecha;
+                int cantidad = a.Cantidad;
+                string fecha = b.Retornar_fecha();
+                string nombre = a.Nombre;
+                Console.WriteLine("el " + fecha + " se vendieron " + cantidad + " de " + nombre);
+            }
         }
     }
 }

@@ -10,15 +10,32 @@ namespace ProyectoPA
     {
         private Producto producto;
         
-        private DateTime fecha;
+        private Date fecha;
 
-        public Registro(Producto producto, DateTime fecha)
+        private int precio;
+        private double tamaño;
+        private double peso;
+        private string nombre;
+        private int cantidad;
+
+        public Registro(Producto producto, Date fecha)
         {
             this.producto = producto;
+
             this.fecha = fecha;
+
+            this.tamaño = producto.Tamaño;
+
+            this.precio = producto.Costo;
+
+            this.peso = producto.Peso;
+
+            this.nombre = producto.Nombre;
+
+            this.cantidad = producto.Cantidad;
         }
 
-        public DateTime Fecha
+        public Date Fecha
         {
             get { return fecha; }
             set { fecha = value; }
@@ -28,6 +45,36 @@ namespace ProyectoPA
         {
             get { return producto; }
             set { producto = value; }
+        }
+
+        public string Nombre
+        {
+            get { return nombre; }
+            set { nombre = value; }
+        }
+
+        public int Cantidad
+        {
+            get { return cantidad; }
+            set { cantidad = value; }
+        }
+
+        public double Peso
+        {
+            get { return peso; }
+            set { peso = value; }
+        }
+
+        public double Tamaño
+        {
+            get { return tamaño; }
+            set { tamaño = value; }
+        }
+
+        public int Precio
+        {
+            get { return precio; }
+            set { tamaño = value; }
         }
 
     }
