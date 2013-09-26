@@ -12,25 +12,17 @@ namespace ProyectoPA
 
         private static List<Registro> registro_ingreso = new List<Registro>();
 
-
-        public static void Ingreso_producto(Producto producto_ingresado, Date fecha)
+        public static void Ingreso_producto(Producto producto_ingresado, Date fecha, int cantidad)
         {
-           registro_ingreso.Add(new Registro(producto_ingresado, fecha));
+           registro_ingreso.Add(new Registro(producto_ingresado, fecha, cantidad));
         }
 
-        public static void Venta_producto(Producto producto_vendido, Date fecha)
+        public static void Venta_producto(Producto producto_vendido, Date fecha, int cantidad)
         {
-            registro_ingreso.Add(new Registro(producto_vendido, fecha));
+            registro_ingreso.Add(new Registro(producto_vendido, fecha, cantidad));
         }
 
-        public static void Ingreso_set(ProductoHoja set, Date fecha)
-        {
-
-        }
-
-        public static void Venta_set(ProductoHoja set, Date fecha)
-        {
-        }
+        
         public static void VerHistorialDeMovimientos()
         {
         }
