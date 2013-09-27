@@ -152,6 +152,14 @@ namespace ProyectoPA
             }
             return false;
         }
+        public static void Vender(int id, int cantidad)
+        {
+
+        }
+        public static void Guardad()
+        {
+
+        }
     }
 }
 
