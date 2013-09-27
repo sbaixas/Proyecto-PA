@@ -41,7 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="consoleMng.cs" />
+    <Compile Include="ConsoleMng.cs" />
+    <Compile Include="CustomStreamManager.cs" />
     <Compile Include="Date.cs" />
     <Compile Include="FluxManager.cs" />
     <Compile Include="optionTree.cs" />

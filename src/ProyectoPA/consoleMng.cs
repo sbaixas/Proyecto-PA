@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProyectoPA
 {
-    class consoleMng
+    class ConsoleMng
     {
         //Atributos//
         private optionTree current;
@@ -20,7 +20,7 @@ namespace ProyectoPA
         }
 
         //Contructor//
-        public consoleMng()
+        public ConsoleMng()
         {
             optionTree raiz = new optionTree("main", null, Id);
             current = raiz;

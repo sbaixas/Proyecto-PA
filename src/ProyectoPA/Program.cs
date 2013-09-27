@@ -11,7 +11,6 @@ namespace ProyectoPA
     {
         static void Main(string[] args)
         {
-            ThroughtPutConsola.Init();
         }
     }
 }

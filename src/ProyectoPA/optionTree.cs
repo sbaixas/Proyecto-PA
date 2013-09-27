@@ -48,8 +48,8 @@ namespace ProyectoPA
         public optionTree(string titulo, optionTree padre, int id)
         {
             exe = false;
-            optionId = consoleMng.Id;
-            consoleMng.Id++;
+            optionId = ConsoleMng.Id;
+            ConsoleMng.Id++;
             this.titulo = titulo;
             subOptions = null;
         }
@@ -96,7 +96,7 @@ namespace ProyectoPA
             if (subOptions == null)
             {
                 subOptions = new optionTree[1];
-                subOptions[0] = new optionTree(nombreDeLaNuevaSubOpsion, this, consoleMng.Id);
+                subOptions[0] = new optionTree(nombreDeLaNuevaSubOpsion, this, ConsoleMng.Id);
                 subOptions[0].backOption = this;
             }
             else
@@ -106,7 +106,7 @@ namespace ProyectoPA
                 {
                     aux[i] = subOptions[i];
                 }
-                aux[aux.Length - 1] = new optionTree(nombreDeLaNuevaSubOpsion, this, consoleMng.Id);
+                aux[aux.Length - 1] = new optionTree(nombreDeLaNuevaSubOpsion, this, ConsoleMng.Id);
                 aux[aux.Length - 1].BackOption = this;
                 this.subOptions = aux;
             }
