@@ -11,7 +11,9 @@ namespace ProyectoPA
     {
         static void Main(string[] args)
         {
-            ThroughtPutConsola.Init();
+            Console.SetWindowSize(135, 50);   
+            consoleMng x = new consoleMng();
+
         }
     }
 }
