@@ -12,6 +12,8 @@ namespace ProyectoPA
 
         private static List<Registro> registro_ingreso = new List<Registro>();
 
+        private int bajo_inventario;
+
         public static void Ingreso_producto(Producto producto_ingresado, Date fecha, int cantidad)
         {
            registro_ingreso.Add(new Registro(producto_ingresado, fecha, cantidad));
@@ -21,7 +23,6 @@ namespace ProyectoPA
         {
             registro_ingreso.Add(new Registro(producto_vendido, fecha, cantidad));
         }
-
         
         public static void VerHistorialDeMovimientos()
         {
