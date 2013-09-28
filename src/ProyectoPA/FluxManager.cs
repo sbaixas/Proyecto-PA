@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 
 namespace ProyectoPA
 {
+    [Serializable]
     class FluxManager
     {
         private static List<Registro> registro_venta = new List<Registro>();
 
         private static List<Registro> registro_ingreso = new List<Registro>();
 
-        private int bajo_inventario;
+        private int balance = 0;
 
         public static void Ingreso_producto(Producto producto_ingresado, Date fecha, int cantidad)
         {
@@ -23,7 +24,18 @@ namespace ProyectoPA
         {
             registro_ingreso.Add(new Registro(producto_vendido, fecha, cantidad));
         }
-        
+
+        public List<Registro> Registro_venta
+        {
+            get { return registro_venta; }
+            set { registro_venta = value; }
+        }
+
+        public List<Registro> Registro_ingreso
+        {
+            get { return registro_ingreso; }
+            set { registro_ingreso = value; }
+        }
         public static void VerHistorialDeMovimientos()
         {
         }
