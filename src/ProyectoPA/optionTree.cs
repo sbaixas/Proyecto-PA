@@ -5,7 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace ProyectoPA
-{
+{   
+    //bozzo//
     class optionTree
     {
         //atributos//
@@ -13,9 +14,8 @@ namespace ProyectoPA
         private string titulo;
         private int optionId;
         private optionTree backOption;
-        private bool exe;
-
-
+        private string categoria;
+        
 
         //Getters y Setters//
         public optionTree[] SubOptions
@@ -38,65 +38,60 @@ namespace ProyectoPA
             get { return backOption; }
             set { backOption = value; }
         }
-        public bool Exe
+        public string Categoria
         {
-            get { return exe; }
-            set { exe = value; }
+            get { return categoria; }
+            set { categoria = value; }
         }
 
         //Constructor//
-        public optionTree(string titulo, optionTree padre, int id)
+        public optionTree(string titulo, string categoria, optionTree padre, int id)
         {
-            exe = false;
-            optionId = ConsoleMng.Id;
-            ConsoleMng.Id++;
+            
+            optionId = consoleMng.Id;
+            consoleMng.Id++;
             this.titulo = titulo;
+            this.categoria = categoria;
             subOptions = null;
+            consoleMng.TodadLasOpciones.Add(this);
         }
 
         //Metodos//
         public void showInfo()
         {
-
-            Console.WriteLine("Titulo: " + titulo);
-            Console.WriteLine("");
-            Console.WriteLine("OptionID = " + optionId);
-            Console.WriteLine("");
-            if (backOption != null)
-            {
-
-                Console.WriteLine("padre =" + backOption.titulo);
-
-            }
-            else
-            {
-                Console.WriteLine("padre = soy la raiz :)");
-
-            }
-
-            Console.WriteLine("");
+            int numeroDeSubOpciones;
             if (subOptions != null)
             {
-
-                Console.WriteLine("numero de hijos = " + subOptions.Length);
-
+                numeroDeSubOpciones = subOptions.Length;
             }
-            else
+            else {
+                numeroDeSubOpciones = 0;
+            }
+
+            string ID, Nombre , categoria , subopciones ;
+
+            if (backOption == null)
             {
-                Console.WriteLine("numero de hijos = 0");
+
+                Categoria = "raiz";
+
             }
-            Console.WriteLine("");
-            Console.WriteLine("----------------------------------------------------------");
-            Console.WriteLine("");
+            ID = TableMaker.darFormatoDeColumna(12 , OptionId);
+            subopciones = TableMaker.darFormatoDeColumna(12, numeroDeSubOpciones);
+            Nombre = TableMaker.darFormatoDeColumna(30, Titulo);
+            categoria = TableMaker.darFormatoDeColumna(30, Categoria);
+            string[] output = new string[]{ID , Nombre , categoria , subopciones };
+            TableMaker.ImprimirFila(output);
+
         }
 
-        public void agregarHijo(string nombreDeLaNuevaSubOpsion)
+        public void agregarHijo(string nombreDeLaNuevaSubOpsion , string categoriaDeLaNuevaOpcion)
         {
 
             if (subOptions == null)
             {
                 subOptions = new optionTree[1];
-                subOptions[0] = new optionTree(nombreDeLaNuevaSubOpsion, this, ConsoleMng.Id);
+                subOptions[0] = new optionTree(nombreDeLaNuevaSubOpsion, categoriaDeLaNuevaOpcion, this, consoleMng.Id);
                 subOptions[0].backOption = this;
             }
             else
@@ -106,10 +101,11 @@ namespace ProyectoPA
                 {
                     aux[i] = subOptions[i];
                 }
-                aux[aux.Length - 1] = new optionTree(nombreDeLaNuevaSubOpsion, this, ConsoleMng.Id);
+                aux[aux.Length - 1] = new optionTree(nombreDeLaNuevaSubOpsion, categoriaDeLaNuevaOpcion , this, consoleMng.Id);
                 aux[aux.Length - 1].BackOption = this;
                 this.subOptions = aux;
             }
+            
 
         }
 
@@ -141,6 +137,7 @@ namespace ProyectoPA
                 {
                     Console.Write("-");
                 }
+
                 for (int k = 0; k < subOptions.Length; k++)
                 {
                     if (subOptions[k].titulo == "Volver" || subOptions[k].titulo == "Salir")
@@ -154,15 +151,11 @@ namespace ProyectoPA
                     {
                         Console.WriteLine("");
                         Console.WriteLine("");
-                        Console.WriteLine("  " + subOptions[k].optionId + "" + ") " + subOptions[k].titulo);
+                        int aux = k + 1;
+                        Console.WriteLine("  " + aux + "" + ") " + subOptions[k].titulo);
                     }
                 }
             }
-        }
-
-        public void dejarComoExe()
-        {
-            this.exe = true;
         }
 
     }

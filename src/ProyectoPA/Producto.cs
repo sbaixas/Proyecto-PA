@@ -12,8 +12,12 @@ namespace ProyectoPA
     {
 /*******Atributos , Getter y Setters*******/
         private static int idcount = 0;
-
+        private int id;
         private int costo;
+        private double tamaño;
+        private double peso;
+        private string nombre;
+        private string imagePath;
 
         public int Costo
         {
@@ -21,22 +25,21 @@ namespace ProyectoPA
             set { costo = value; }
         }
 
-        private int id;
+        
 
         public int Id
         {
             get { return id; }
         }
 
-        private double tamaño;
-
+        
         public double Tamaño
         {
             get { return tamaño; }
             set { tamaño = value; }
         }
 
-        private double peso;
+       
 
         public double Peso
         {
@@ -44,7 +47,7 @@ namespace ProyectoPA
             set { peso = value; }
         }
 
-        private string nombre;
+        
 
         public string Nombre
         {
@@ -53,7 +56,7 @@ namespace ProyectoPA
         }
 
 
-        private string imagePath;
+        
 
         public string ImagePath
         {
