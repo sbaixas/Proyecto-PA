@@ -38,16 +38,16 @@ namespace ProyectoPA
             set { mes = value; }
         }
 
-        public int Dia
+        public int Año
         {
-            get { return dia; }
-            set { dia = value; }
+            get { return año; }
+            set { año = value; }
         }
 
         //    Retorna un string con la fecha    //
         public string Retornar_fecha()
         {
-            string a = dia + "/" + mes + "/" + año;
+            string a =  mes + "/" + año;
             return a;
         }
     }
