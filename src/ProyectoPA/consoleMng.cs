@@ -31,6 +31,7 @@ namespace ProyectoPA
         //Contructor (main del console manager)//
         public consoleMng()
         {
+            Console.SetWindowSize(130, 50);
             Introduccion();
             TodadLasOpciones = new List<optionTree>();
 
@@ -53,6 +54,7 @@ namespace ProyectoPA
             raiz.SubOptions[0].agregarHijo("Agregar Set De Productos", "Opciones De Producto");
             raiz.SubOptions[0].agregarHijo("Modificar Producto", "Opciones De Producto");
             raiz.SubOptions[0].agregarHijo("Mostrar Lista De Productos", "Opciones De Producto");
+            raiz.SubOptions[0].agregarHijo("Mostrar Detalles de Producto", "Opciones De Producto");
                 //opciones para modificar producto//
                  raiz.SubOptions[0].SubOptions[3].agregarHijo("Modicar Nombre", "Modificar ProductoHoja");
                  raiz.SubOptions[0].SubOptions[3].agregarHijo("Modicar Costo", "Modificar ProductoHoja");
@@ -69,7 +71,7 @@ namespace ProyectoPA
             navegar();
 
             //dejar como comentario si no se esta programando//
-            //mostrarTodadLasOpciones();Console.ReadLine();//
+            mostrarTodadLasOpciones();Console.ReadLine();
             
             
         }
@@ -173,8 +175,6 @@ namespace ProyectoPA
                     retorno = -1;
                 }
             }
-            Console.WriteLine(retorno);
-
             return retorno;
         }
         public void navegar()
@@ -242,11 +242,19 @@ namespace ProyectoPA
 			}
             return input;
         }
+        public string pedirDatos(string nombreDelParametro)
+        { 
+                Console.WriteLine("");
+                Console.WriteLine("Ingrese " + nombreDelParametro);
+                string input = Console.ReadLine();
+                return input;
+        }
+
         public void ejecutarMetodo(int OpcionId)
         {
             bool realizacionDeUnaAccion = false;
             //para que no quede tan grande el metodo ejecutar metodo//
-            if (8<= OpcionId && OpcionId <= 13)
+            /*if (8< OpcionId && OpcionId <= 13)
             {
                 ejecutarModificarProductoHoja(OpcionId);
             }
@@ -257,8 +265,11 @@ namespace ProyectoPA
             if (7== OpcionId)
             {
                 ImprimirProductos(OpcionId);
+            }*/
+            if(8 == OpcionId){
+                imprirmirDatosDeProducto();
             }
-            //CUANDO SE TERMINE LA ACCION//
+            //CUANDO SE TERMINE LA ACCION///
             if (realizacionDeUnaAccion)
             {
                 {
@@ -270,6 +281,7 @@ namespace ProyectoPA
                 Console.ReadLine();
                 VolverAlMenuPrincipal();
             }
+            
         }
         public bool ejecutarAgregarOIngresarProductoHoja(int OpcionId) {
             bool realizacionDeUnaAccion = false;
@@ -569,20 +581,66 @@ namespace ProyectoPA
             //FIN//
             return realizacionDeUnaAccion;
         }
+        public bool imprirmirDatosDeProducto()
+        {
+            bool realizacionDeUnaAccion = false;
+            try
+            {
+                Console.Clear();
+                int i = Convert.ToInt32(pedirDatos("Id Del Producto"));
+
+                Console.Clear();
+                Console.WriteLine("");
+                Console.WriteLine("  " + Manager.Productos.ElementAt(i).Nombre + "");
+                for (int j = 0; j < Manager.Productos.ElementAt(i).Nombre.Length + 2; j++)
+                {
+                    Console.Write("-");
+                }
+                Console.WriteLine(" ");
+                Console.WriteLine(" - Id: " + Manager.Productos.ElementAt(i).Id + "");
+                Console.WriteLine("");
+                Console.WriteLine(" - Costo " + Manager.Productos.ElementAt(i).Costo + "");
+                Console.WriteLine("");
+                Console.WriteLine(" - Tamaño: " + Manager.Productos.ElementAt(i).Tamaño + "");
+                Console.WriteLine("");
+                Console.WriteLine(" - Peso: " + Manager.Productos.ElementAt(i).Peso + "");
+                Console.WriteLine("");
+                Console.WriteLine("");
+                Console.WriteLine(" Presione ENTER para volver al menu principal");
+                Console.ReadLine();
+                realizacionDeUnaAccion = true;
+                
+                VolverAlMenuPrincipal();
+            }
+            catch (FormatException)
+                {
+                    realizacionDeUnaAccion = false;
+                    Console.Clear();
+                    Console.WriteLine();
+                    Console.WriteLine("Has Ingresado Mal, La accion no se ha realizado, presiona ENTER para volver al menu principal");
+                    Console.ReadLine();
+                    VolverAlMenuPrincipal();
+                }
+            catch (NullReferenceException)
+            {
+                realizacionDeUnaAccion = false;
+                Console.Clear();
+                Console.WriteLine();
+                Console.WriteLine("El producto señalado no existe , presiona ENTER para volver al menu principal");
+                Console.ReadLine();
+                VolverAlMenuPrincipal();
+            }
+            return realizacionDeUnaAccion;
+        }
+        
 
         public bool ImprimirProductos(int OptionId) {
             bool realizacionDeUnaAccion = false;
-            /*private static int idcount = 0;
-        private int id;
-        private int costo;
-        private double tamaño;
-        private double peso;
-        private string nombre;
-        private string imagePath;*/
             
                 Console.Clear();
                 string[] parametros = new string[] { "ID", "Nombre", "Costo", "Tamaño","Peso" };
                 int[] formato = new int[] { 12, 30, 12, 12 ,12};
+
                 int porteDeLaLinea = TableMaker.ImprimirParametros(parametros, formato);
                 string[] ID = new string[Manager.Productos.Count];
                 string[] Nombre = new string[Manager.Productos.Count];
@@ -602,23 +660,23 @@ namespace ProyectoPA
                     Costo[i] = TableMaker.darFormatoDeColumna(12, Costo[i]);
                     Tamaño[i] = TableMaker.darFormatoDeColumna(12, Tamaño[i]);
                     Peso[i] = TableMaker.darFormatoDeColumna(12, Peso[i]);
-                    string[] output = new string[] { ID[i], Nombre[i], Costo[i], Tamaño[i] , Peso[i] };
+                    string[] output = new string[] { ID[i], Nombre[i], Costo[i], Tamaño[i], Peso[i] };
                     TableMaker.ImprimirFila(output);
                     Console.WriteLine("");
                 }
-                for (int i = 0; i < porteDeLaLinea; i++)
-                {
-                    Console.Write("-");
-                }
-                Console.WriteLine("");
-                Console.WriteLine("");
-                Console.WriteLine("Presione ENTER para volver al menu principal");
-                Console.ReadLine();
-                VolverAlMenuPrincipal();
-                
-                
-            
+                    for (int i = 0; i < porteDeLaLinea; i++)
+                    {
+                        Console.Write("-");
+                    }
+                    Console.WriteLine("");
+                    Console.WriteLine("");
+                    Console.WriteLine("Presione ENTER para volver al menu principal");
+                    Console.ReadLine();
+                    VolverAlMenuPrincipal();
 
+
+
+                
             return realizacionDeUnaAccion;
         }
         
