@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace ProyectoPA
 {
-    [Serializable]
     class FluxManager
     {
         private static Date date;
@@ -171,7 +170,7 @@ namespace ProyectoPA
             }
         }
 
-        public static List<Producto> Ranking_producto()
+       /*public static List<Producto> Ranking_producto()
         {
             List<Producto> ranking = new List<Producto>();
             string a;
@@ -181,6 +180,6 @@ namespace ProyectoPA
             
 
 
-        }
+        }*/
     }
 }

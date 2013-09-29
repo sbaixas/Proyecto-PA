@@ -13,6 +13,7 @@ namespace ProyectoPA
         internal static List<Producto> Productos
         {
             get { return Manager.productos; }
+            set { Manager.productos = value; }
         }
 
         private static int idCount = 0;
@@ -20,7 +21,9 @@ namespace ProyectoPA
         public static int IdCount
         {
             get { return Manager.idCount; }
+            set { Manager.idCount = value; }
         }
+
 
         /************************agregar un nuevo tipo de producto*********************************************/
         public static void AgregarProducto(int costo, double tamaño, double peso, string nombre, string color, string categoria)
