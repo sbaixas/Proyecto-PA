@@ -9,7 +9,7 @@ namespace ProyectoPA
     //bozzo//
     class consoleMng
     {
-        
+
         //Atributos//
         private optionTree current;
         private optionTree MenuPrincipal;
@@ -27,7 +27,7 @@ namespace ProyectoPA
             get { return consoleMng.todadLasOpciones; }
             set { consoleMng.todadLasOpciones = value; }
         }
-        
+
         //Contructor (main del console manager)//
         public consoleMng()
         {
@@ -36,58 +36,86 @@ namespace ProyectoPA
             TodadLasOpciones = new List<optionTree>();
 
             //se crea el primer menu//
-            optionTree raiz = new optionTree("main","raiz", null, Id);
+            optionTree raiz = new optionTree("main", "raiz", null, Id);
             MenuPrincipal = raiz;
             current = raiz;
             //testing//
             Manager.AgregarProducto(3000, 2033, 4544, "ferrari rojo", "rojo", "vehiculo");
             Manager.AgregarProducto(30000, 20534, 452, "platano", "verde", "fruta");
-            Manager.AgregarProducto(30000, 204, 4533 , "playStation" , "azul" , "juegos");
+            Manager.AgregarProducto(30000, 204, 4533, "playStation", "azul", "juegos");
 
             //se agregan las 2 subopciones principales//
-            raiz.agregarHijo("Productos"," Manager");
+            raiz.agregarHijo("Productos", " Manager");
             raiz.agregarHijo("Registro", "Flux Manager");
 
             //opciones para productos//
-            raiz.SubOptions[0].agregarHijo("Agregar Producto", "Opciones De Producto");
-            raiz.SubOptions[0].agregarHijo("Ingresar Producto", "Opciones De Producto");
-            raiz.SubOptions[0].agregarHijo("Agregar Set De Productos", "Opciones De Producto");
-            raiz.SubOptions[0].agregarHijo("Modificar Producto", "Opciones De Producto");
-            raiz.SubOptions[0].agregarHijo("Mostrar Lista De Productos", "Opciones De Producto");
-            raiz.SubOptions[0].agregarHijo("Mostrar Detalles de Producto", "Opciones De Producto");
-                //opciones para modificar producto//
-                 raiz.SubOptions[0].SubOptions[3].agregarHijo("Modicar Nombre", "Modificar ProductoHoja");
-                 raiz.SubOptions[0].SubOptions[3].agregarHijo("Modicar Costo", "Modificar ProductoHoja");
-                 raiz.SubOptions[0].SubOptions[3].agregarHijo("Modicar Tamaño", "Modificar ProductoHoja");
-                 raiz.SubOptions[0].SubOptions[3].agregarHijo("Modicar Peso", "Modificar ProductoHoja"); ;
-                 raiz.SubOptions[0].SubOptions[3].agregarHijo("Modicar Color", "Modificar ProductoHoja");
-                 raiz.SubOptions[0].SubOptions[3].agregarHijo("Modicar Categoria", "Modificar ProductoHoja");
-                
-           
-            //opciones para registro//
-            
+            {
+                raiz.SubOptions[0].agregarHijo("Agregar Producto", "Opciones De Producto");
+                raiz.SubOptions[0].agregarHijo("Agregar Set De Productos", "Opciones De Producto");
+                raiz.SubOptions[0].agregarHijo("Ingresar Producto", "Opciones De Producto");
+                raiz.SubOptions[0].agregarHijo("Eliminar Producto", "Opciones De Producto");
+                raiz.SubOptions[0].agregarHijo("Modificar Producto", "Opciones De Producto");
+                raiz.SubOptions[0].agregarHijo("Modificar Set de Producto", "Opciones De Producto");
+                raiz.SubOptions[0].agregarHijo("Agregar Categoria", "Opciones De Producto");
+                raiz.SubOptions[0].agregarHijo("Eliminar Categoria", "Opciones De Producto");
+                //Opciones Para Imprimir productos(Detalles/Todos)//
+                {
+                    raiz.SubOptions[0].agregarHijo("Mostrar Lista De Productos", "Opciones De Producto");
+                    raiz.SubOptions[0].agregarHijo("Mostrar Detalles de Producto", "Opciones De Producto");
+                }
+                //Opciones Para modificar set de productos(Detalles/Todos)//
+                {
+                    raiz.SubOptions[0].SubOptions[5].agregarHijo("Modicar Nombre", "Modificar set de productos");
+                    raiz.SubOptions[0].SubOptions[5].agregarHijo("Agregar Producto al Set", "Modificar set de productos");
+                    raiz.SubOptions[0].SubOptions[5].agregarHijo("Eliminar Producto Del Set", "Modificar set de productos");
+                    raiz.SubOptions[0].SubOptions[5].agregarHijo("Modificar Descuento", "Modificar set de productos");
+                }
 
+                {//opciones para modificar producto//
+
+                    raiz.SubOptions[0].SubOptions[4].agregarHijo("Modicar Nombre", "Modificar ProductoHoja");
+                    raiz.SubOptions[0].SubOptions[4].agregarHijo("Modicar Costo", "Modificar ProductoHoja");
+                    raiz.SubOptions[0].SubOptions[4].agregarHijo("Modicar Tamaño", "Modificar ProductoHoja");
+                    raiz.SubOptions[0].SubOptions[4].agregarHijo("Modicar Peso", "Modificar ProductoHoja"); ;
+                    raiz.SubOptions[0].SubOptions[4].agregarHijo("Modicar Color", "Modificar ProductoHoja");
+                    raiz.SubOptions[0].SubOptions[4].agregarHijo("Modicar Categoria", "Modificar ProductoHoja");
+                }
+            }
+
+            //opciones para registro//
+            {
+                raiz.SubOptions[1].agregarHijo("Ver historial De Ventas", "Opciones De Registro");
+                raiz.SubOptions[1].agregarHijo("Ver Historial De Ingresos", "Opciones De Registro");
+                raiz.SubOptions[1].agregarHijo("Ver Ranking", "Opciones De Registro");
+                {//opciones de ver historial de ventas//
+                    raiz.SubOptions[1].SubOptions[0].agregarHijo("Todo", "Historial De Ventas");
+                    raiz.SubOptions[1].SubOptions[0].agregarHijo("Historial en Una Fecha En Particular", "Historial De Ventas");
+                }
+                {//opciones de ver historial de Ingresos//
+                    raiz.SubOptions[1].SubOptions[1].agregarHijo("En Una Fecha En Particular", "Historial De Ingresos");
+                    raiz.SubOptions[1].SubOptions[1].agregarHijo("Historial en Una Fecha En Particular", "Historial De Ingresos");
+                }
+            }
             //se navega en el programa//
             navegar();
-
             //dejar como comentario si no se esta programando//
-            mostrarTodadLasOpciones();Console.ReadLine();
-            
-            
+            mostrarTodadLasOpciones(); Console.ReadLine();
         }
 
         //Introduccion//
-        public void Introduccion() {
+        public void Introduccion()
+        {
             for (int i = 0; i < 50; i++)
             {
                 if (i == 26)
                 {
                     Console.WriteLine("                                           PROYECTO PROGRAMACION AVANZADA");
                 }
-                if (i == 27){
-                
+                if (i == 27)
+                {
+
                     Console.WriteLine("                                                              UNIVERSIDAD DE LOS ANDES");
-                   
+
                 }
                 if (i == 47)
                 {
@@ -106,6 +134,7 @@ namespace ProyectoPA
             Console.ReadLine();
 
         }
+
         //Metodos para la navegacion en el programa//
         public int seleccionar()
         {
@@ -130,8 +159,8 @@ namespace ProyectoPA
                                 //Caso en que se tiene mas de una opcion//
                                 if (current.SubOptions.Length != 1)
                                 {
-                                    
-                                    if (opcion <= current.SubOptions.Length )
+
+                                    if (opcion <= current.SubOptions.Length)
                                     {
                                         retorno = opcion - 1;
                                         correcto = true;
@@ -182,8 +211,8 @@ namespace ProyectoPA
             int seleccion;
             while (true)
             {
-               
-                current.show();
+
+                showOption();
                 if (current.OptionId != 0)
                 {
                     Console.WriteLine("");
@@ -215,484 +244,652 @@ namespace ProyectoPA
 
                     current = current.SubOptions[seleccion];
                     Console.Clear();
-                    current.show();
+                    showOption();
                     ejecutarMetodo(current.OptionId);
 
 
                 }
-                
+
 
             }
-            
-            
+
+
         }
         public void VolverAlMenuPrincipal()
         {
             this.current = MenuPrincipal;
         }
+        public void showOption()
+        {
+            Console.Clear();
+            Console.WriteLine("");
+            Console.WriteLine("  " + current.Titulo);
+            for (int l = 0; l < current.Titulo.Length + 4; l++)
+            {
+                Console.Write("-");
+            }
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("");
 
-        //Metodos para realizar acciones(En ejecuta metodo , se guardan los metodos que pueden ser alcanzados a travez de la consola)//
-        public string[] pedirDatos(string[] nombreDeLosParametros ){
+            if (current.SubOptions != null)
+            {
+                Console.WriteLine(" Opciones:");
+                string candidato = current.SubOptions[0].Titulo;
+                for (int i = 0; i < current.SubOptions.Length; i++)
+                {
+                    if (candidato.Length <= current.SubOptions[i].Titulo.Length) { candidato = current.SubOptions[i].Titulo; }
+                }
+                if (candidato.Length < 10) { candidato = " Opciones:"; }
+                for (int j = 0; j < candidato.Length + 6; j++)
+                {
+                    Console.Write("-");
+                }
+
+                for (int k = 0; k < current.SubOptions.Length; k++)
+                {
+                    if (current.SubOptions[k].Titulo == "Volver" || current.SubOptions[k].Titulo == "Salir")
+                    {
+                        Console.WriteLine("");
+                        Console.WriteLine("");
+                        Console.WriteLine("  *" + ") " + current.SubOptions[k].Titulo);
+                    }
+
+                    else
+                    {
+                        Console.WriteLine("");
+                        Console.WriteLine("");
+                        int aux = k + 1;
+                        Console.WriteLine("  " + aux + "" + ") " + current.SubOptions[k].Titulo);
+                    }
+                }
+            }
+        }
+
+        //Metodos para realizar acciones(en ejecutar metodo , se guardan los metodos que pueden ser alcanzados a travez de la consola)//
+        public string[] pedirDatos(string[] nombreDeLosParametros)
+        {
             string[] input = new string[nombreDeLosParametros.Length];
             for (int i = 0; i < nombreDeLosParametros.Length; i++)
-			{
-			 Console.WriteLine("");
-             Console.WriteLine("Ingrese " + nombreDeLosParametros[i]);
-             input[i] = Console.ReadLine();
-			}
+            {
+                Console.WriteLine("");
+                Console.WriteLine("Ingrese " + nombreDeLosParametros[i]);
+                input[i] = Console.ReadLine();
+            }
             return input;
         }
         public string pedirDatos(string nombreDelParametro)
-        { 
-                Console.WriteLine("");
-                Console.WriteLine("Ingrese " + nombreDelParametro);
-                string input = Console.ReadLine();
-                return input;
-        }
-
-        public void ejecutarMetodo(int OpcionId)
         {
+            Console.WriteLine("");
+            Console.WriteLine("Ingrese " + nombreDelParametro);
+            string input = Console.ReadLine();
+            return input;
+        }
+        public void ejecutarMetodo(int OpcionId)
+        {/*
             bool realizacionDeUnaAccion = false;
-            //para que no quede tan grande el metodo ejecutar metodo//
-            /*if (8< OpcionId && OpcionId <= 13)
-            {
-                ejecutarModificarProductoHoja(OpcionId);
-            }
-            if (3 <= OpcionId && OpcionId <= 4)
-            {
-                ejecutarAgregarOIngresarProductoHoja(OpcionId);
-            }
-            if (7== OpcionId)
-            {
-                ImprimirProductos(OpcionId);
-            }*/
-            if(8 == OpcionId){
-                imprirmirDatosDeProducto();
-            }
+            //ejecutarAgregarOIngresarProductos []//
+            //modificar producto []//
+            
+            //para Productos//
+            if (8< OpcionId && OpcionId <= 13){ejecutarModificarProductoHoja(OpcionId);}
+            if (3 <= OpcionId && OpcionId <= 5){ejecutarAgregarOIngresarProductos(OpcionId);}
+            if (7 == OpcionId) { Imprimir(OpcionId); }
+            if (8 == OpcionId) { Imprimir(OpcionId); }
+            if (OpcionId == 5) { ejecutarAgregarOIngresarProductos(OpcionId);}
+
+            //para Registro//
+
             //CUANDO SE TERMINE LA ACCION///
             if (realizacionDeUnaAccion)
-            {
-                {
-
-                }
-                Console.Clear();
+            {   Console.Clear();
                 Console.WriteLine();
                 Console.WriteLine("Accion realizada con exito , presiona ENTER para volver al menu principal");
                 Console.ReadLine();
                 VolverAlMenuPrincipal();
-            }
-            
+            } */
         }
-        public bool ejecutarAgregarOIngresarProductoHoja(int OpcionId) {
+        public bool ejecutarAgregarOIngresarProductos(int OpcionId)
+        {
             bool realizacionDeUnaAccion = false;
+            int agregarProducto, AgregarSetDeProducto, ingresarProducto;
+            agregarProducto = 3;
+            AgregarSetDeProducto = 5;
+            ingresarProducto = 4;
             //Productos//
             //Agregar Producto//
-            if (OpcionId == 3)
+            if (OpcionId == agregarProducto)
             {
-                try
                 {
-                    //int costo, double tamaño, double peso, string nombre, string color, string categoria//
-                    string[] nombreParametros3 = new string[] { "costo", "tamaño", "peso", "nombre", "color", "categoria" };
-                    string[] parametros3 = pedirDatos(nombreParametros3);
-                    Manager.AgregarProducto(Convert.ToInt32(parametros3[0]), Convert.ToDouble(parametros3[1]), Convert.ToDouble(parametros3[2]), Convert.ToString(parametros3[3]), Convert.ToString(parametros3[4]), Convert.ToString(parametros3[5]));
-                    realizacionDeUnaAccion = true;
-                }
-                catch (FormatException)
-                {
-                    realizacionDeUnaAccion = false;
-                    Console.Clear();
-                    Console.WriteLine();
-                    Console.WriteLine("Has Ingresado Mal, La accion no se ha realizado, presiona ENTER para volver al menu principal");
-                    Console.ReadLine();
-                    VolverAlMenuPrincipal();
+                    {
+                        try
+                        {
+                            //int costo, double tamaño, double peso, string nombre, string color, string categoria//
+                            string[] nombreParametros3 = new string[] { "costo", "tamaño", "peso", "nombre", "color", "categoria" };
+                            string[] parametros3 = pedirDatos(nombreParametros3);
+                            Manager.AgregarProducto(Convert.ToInt32(parametros3[0]), Convert.ToDouble(parametros3[1]), Convert.ToDouble(parametros3[2]), Convert.ToString(parametros3[3]), Convert.ToString(parametros3[4]), Convert.ToString(parametros3[5]));
+                            realizacionDeUnaAccion = true;
+                        }
+                        catch (FormatException)
+                        {
+                            realizacionDeUnaAccion = false;
+                            Console.Clear();
+                            Console.WriteLine();
+                            Console.WriteLine("Has Ingresado Mal, La accion no se ha realizado, presiona ENTER para volver al menu principal");
+                            Console.ReadLine();
+                            VolverAlMenuPrincipal();
+                        }
+                    }
                 }
             }
             //FIN//
 
-            //Ingresar Producto//
-            if (OpcionId == 4)
+            //Agregar set de Productos//
+            if (OpcionId == AgregarSetDeProducto)
             {
-                try
                 {
-                    //int costo, double tamaño, double peso, string nombre, string color, string categoria//
-                    string[] nombreParametros4 = new string[] { "Id Del Producto", "Cantidad del producto a Agregar" };
-                    string[] parametros4 = pedirDatos(nombreParametros4);
-                    if (Manager.IngresarProducto(Convert.ToInt32(parametros4[0]), Convert.ToInt32(parametros4[1])))
                     {
-                        realizacionDeUnaAccion = true;
-                    }
-                    else
-                    {
-                        realizacionDeUnaAccion = false;
-                        Console.Clear();
-                        Console.WriteLine();
-                        Console.WriteLine("El producto señalado no existe presiona ENTER para volver al menu principal");
-                        Console.ReadLine();
+                        try
+                        {
+                            string[] nombreParametros = new string[] { "Nombre del nuevo set", "Descuento" };
+                            string[] parametrosFirst = pedirDatos(nombreParametros);
+                            Console.Clear();
+                            Console.WriteLine("");
+                            Console.WriteLine("Ahora comenzaremos a agregar productos al nuevo set");
+                            Console.WriteLine("Ingrese los productos que se agregaran al set de la forma" + "\"id del producto , cantidad que se desee agregar\"");
+                            Console.WriteLine("Cuando termine de agregar los producto , escriba" + "\" exit\"");
+                            List<int> ids = new List<int>();
+                            List<int> cantidades = new List<int>();
+                            while (true)
+                            {
+                                string input = Console.ReadLine();
+                                if (input != "exit")
+                                {
+                                    try
+                                    {
+                                        string[] inputProcesed = input.Split(',');
+                                        ids.Add(Convert.ToInt32(inputProcesed[0]));
+                                        cantidades.Add(Convert.ToInt32(inputProcesed[1]));
+                                    }
+                                    catch (Exception)
+                                    {
+                                        Console.Clear();
+                                        Console.WriteLine("Lo has hecho mal, puedes volver a intentarlo, Presiona ENTER para continuar");
+                                        Console.ReadLine();
+                                        Console.Clear();
+                                    }
+
+                                }
+                                else
+                                {
+                                    break;
+                                }
+                            }
+                            if (ids.Count == cantidades.Count)
+                            {
+                                // public static void AgregarSet(int descuento, List<int> cantidades, List<int> ids, string nombre)//
+                                Manager.AgregarSet(Convert.ToInt32(parametrosFirst[1]), cantidades, ids, parametrosFirst[0]);
+                                realizacionDeUnaAccion = true;
+                            }
+                            else
+                            {
+                                Console.Clear();
+                                Console.WriteLine("Hubo un error en la ejecucion de la accion, Presiona ENTER para volver al menu principal");
+                                Console.ReadLine();
+                                VolverAlMenuPrincipal();
+                            }
+                            realizacionDeUnaAccion = true;
+                        }
+                        catch (FormatException)
+                        {
+                            realizacionDeUnaAccion = false;
+                            Console.Clear();
+                            Console.WriteLine();
+                            Console.WriteLine("Has Ingresado Mal, La accion no se ha realizado, presiona ENTER para volver al menu principal");
+                            Console.ReadLine();
+                            VolverAlMenuPrincipal();
+                        }
                         VolverAlMenuPrincipal();
                     }
                 }
-                catch (FormatException)
+            }
+            //FIN//
+
+
+
+            //Ingresar Producto//
+            if (OpcionId == ingresarProducto)
+            {
                 {
-                    realizacionDeUnaAccion = false;
-                    Console.Clear();
-                    Console.WriteLine();
-                    Console.WriteLine("Has Ingresado Mal, La accion no se ha realizado, presiona ENTER para volver al menu principal");
-                    Console.ReadLine();
-                    VolverAlMenuPrincipal();
+                    {
+                        try
+                        {
+                            //int costo, double tamaño, double peso, string nombre, string color, string categoria//
+                            string[] nombreParametros4 = new string[] { "Id Del Producto", "Cantidad del producto a Agregar" };
+                            string[] parametros4 = pedirDatos(nombreParametros4);
+                            if (Manager.IngresarProducto(Convert.ToInt32(parametros4[0]), Convert.ToInt32(parametros4[1])))
+                            {
+                                realizacionDeUnaAccion = true;
+                            }
+                            else
+                            {
+                                realizacionDeUnaAccion = false;
+                                Console.Clear();
+                                Console.WriteLine();
+                                Console.WriteLine("El producto señalado no existe presiona ENTER para volver al menu principal");
+                                Console.ReadLine();
+                                VolverAlMenuPrincipal();
+                            }
+                        }
+                        catch (FormatException)
+                        {
+                            realizacionDeUnaAccion = false;
+                            Console.Clear();
+                            Console.WriteLine();
+                            Console.WriteLine("Has Ingresado Mal, La accion no se ha realizado, presiona ENTER para volver al menu principal");
+                            Console.ReadLine();
+                            VolverAlMenuPrincipal();
+                        }
+                    }
                 }
             }
             //FIN//
 
 
-            
+
             return realizacionDeUnaAccion;
         }
         public bool ejecutarModificarProductoHoja(int OpcionId)
         {
             bool realizacionDeUnaAccion = false;
-
+            int costo, peso, categoria, tamaño, nombre, color;
+            costo = 0;
+            peso = 0;
+            categoria = 0;
+            tamaño = 0;
+            nombre = 0;
+            color = 0;
             //Modificar Nombre//
-            if (OpcionId == 7)
+            if (OpcionId == nombre)
             {
-                try
                 {
-                    //int costo, double tamaño, double peso, string nombre, string color, string categoria//
-                    string[] nombreParametros7 = new string[] { "Id del Producto", "Nuevo Nombre" };
-                    string[] parametros7 = pedirDatos(nombreParametros7);
-                    if (Manager.ModificarNombre(Convert.ToInt32(parametros7[0]), parametros7[1]))
+                    try
                     {
-                        realizacionDeUnaAccion = true;
+                        //int costo, double tamaño, double peso, string nombre, string color, string categoria//
+                        string[] nombreParametros7 = new string[] { "Id del Producto", "Nuevo Nombre" };
+                        string[] parametros7 = pedirDatos(nombreParametros7);
+                        if (Manager.ModificarNombre(Convert.ToInt32(parametros7[0]), parametros7[1]))
+                        {
+                            realizacionDeUnaAccion = true;
+                        }
+                        else
+                        {
+                            realizacionDeUnaAccion = false;
+                            Console.Clear();
+                            Console.WriteLine();
+                            Console.WriteLine("El producto señalado no existe presiona ENTER para volver al menu principal");
+                            Console.ReadLine();
+                            VolverAlMenuPrincipal();
+                        }
                     }
-                    else
+                    catch (FormatException)
                     {
                         realizacionDeUnaAccion = false;
                         Console.Clear();
                         Console.WriteLine();
-                        Console.WriteLine("El producto señalado no existe presiona ENTER para volver al menu principal");
+                        Console.WriteLine("Has Ingresado Mal, La accion no se ha realizado, presiona ENTER para volver al menu principal");
                         Console.ReadLine();
                         VolverAlMenuPrincipal();
                     }
-                }
-                catch (FormatException)
-                {
-                    realizacionDeUnaAccion = false;
-                    Console.Clear();
-                    Console.WriteLine();
-                    Console.WriteLine("Has Ingresado Mal, La accion no se ha realizado, presiona ENTER para volver al menu principal");
-                    Console.ReadLine();
-                    VolverAlMenuPrincipal();
                 }
             }
             //FIN//
 
             //Modificar Costo//
-            if (OpcionId == 8)
+            if (OpcionId == costo)
             {
-                try
                 {
-                    //int costo, double tamaño, double peso, string nombre, string color, string categoria//
-                    string[] nombreParametros8 = new string[] { "Id del Producto", "Nuevo Costo" };
-                    string[] parametros8 = pedirDatos(nombreParametros8);
-                    if (Manager.ModificarCosto(Convert.ToInt32(parametros8[0]), Convert.ToInt32(parametros8[1])))
+                    try
                     {
-                        realizacionDeUnaAccion = true;
+                        //int costo, double tamaño, double peso, string nombre, string color, string categoria//
+                        string[] nombreParametros8 = new string[] { "Id del Producto", "Nuevo Costo" };
+                        string[] parametros8 = pedirDatos(nombreParametros8);
+                        if (Manager.ModificarCosto(Convert.ToInt32(parametros8[0]), Convert.ToInt32(parametros8[1])))
+                        {
+                            realizacionDeUnaAccion = true;
+                        }
+                        else
+                        {
+                            realizacionDeUnaAccion = false;
+                            Console.Clear();
+                            Console.WriteLine();
+                            Console.WriteLine("El producto señalado no existe presiona ENTER para volver al menu principal");
+                            Console.ReadLine();
+                            VolverAlMenuPrincipal();
+                        }
                     }
-                    else
+                    catch (FormatException)
                     {
                         realizacionDeUnaAccion = false;
                         Console.Clear();
                         Console.WriteLine();
-                        Console.WriteLine("El producto señalado no existe presiona ENTER para volver al menu principal");
+                        Console.WriteLine("Has Ingresado Mal, La accion no se ha realizado, presiona ENTER para volver al menu principal");
                         Console.ReadLine();
                         VolverAlMenuPrincipal();
                     }
-                }
-                catch (FormatException)
-                {
-                    realizacionDeUnaAccion = false;
-                    Console.Clear();
-                    Console.WriteLine();
-                    Console.WriteLine("Has Ingresado Mal, La accion no se ha realizado, presiona ENTER para volver al menu principal");
-                    Console.ReadLine();
-                    VolverAlMenuPrincipal();
                 }
             }
             //FIN//
 
             //Modificar Tamaño//
-            if (OpcionId == 9)
+            if (OpcionId == tamaño)
             {
-                try
                 {
-                    //int costo, double tamaño, double peso, string nombre, string color, string categoria//
-                    string[] nombreParametros9 = new string[] { "Id del Producto", "Nuevo Tamaño" };
-                    string[] parametros9 = pedirDatos(nombreParametros9);
-                    if (Manager.ModificarTamaño(Convert.ToInt32(parametros9[0]), Convert.ToDouble(parametros9[1])))
+                    try
                     {
-                        realizacionDeUnaAccion = true;
+                        //int costo, double tamaño, double peso, string nombre, string color, string categoria//
+                        string[] nombreParametros9 = new string[] { "Id del Producto", "Nuevo Tamaño" };
+                        string[] parametros9 = pedirDatos(nombreParametros9);
+                        if (Manager.ModificarTamaño(Convert.ToInt32(parametros9[0]), Convert.ToDouble(parametros9[1])))
+                        {
+                            realizacionDeUnaAccion = true;
+                        }
+                        else
+                        {
+                            realizacionDeUnaAccion = false;
+                            Console.Clear();
+                            Console.WriteLine();
+                            Console.WriteLine("El producto señalado no existe presiona ENTER para volver al menu principal");
+                            Console.ReadLine();
+                            VolverAlMenuPrincipal();
+                        }
                     }
-                    else
+                    catch (FormatException)
                     {
                         realizacionDeUnaAccion = false;
                         Console.Clear();
                         Console.WriteLine();
-                        Console.WriteLine("El producto señalado no existe presiona ENTER para volver al menu principal");
+                        Console.WriteLine("Has Ingresado Mal, La accion no se ha realizado, presiona ENTER para volver al menu principal");
                         Console.ReadLine();
                         VolverAlMenuPrincipal();
                     }
-                }
-                catch (FormatException)
-                {
-                    realizacionDeUnaAccion = false;
-                    Console.Clear();
-                    Console.WriteLine();
-                    Console.WriteLine("Has Ingresado Mal, La accion no se ha realizado, presiona ENTER para volver al menu principal");
-                    Console.ReadLine();
-                    VolverAlMenuPrincipal();
                 }
             }
             //FIN//
 
             //Modificar Peso//
-            if (OpcionId == 10)
+            if (OpcionId == peso)
             {
-                try
                 {
-                    //int costo, double tamaño, double peso, string nombre, string color, string categoria//
-                    string[] nombreParametros10 = new string[] { "Id del Producto", "Nuevo Peso" };
-                    string[] parametros10 = pedirDatos(nombreParametros10);
-                    if (Manager.ModificarPeso(Convert.ToInt32(parametros10[0]), Convert.ToDouble(parametros10[1])))
+                    try
                     {
-                        realizacionDeUnaAccion = true;
+                        //int costo, double tamaño, double peso, string nombre, string color, string categoria//
+                        string[] nombreParametros10 = new string[] { "Id del Producto", "Nuevo Peso" };
+                        string[] parametros10 = pedirDatos(nombreParametros10);
+                        if (Manager.ModificarPeso(Convert.ToInt32(parametros10[0]), Convert.ToDouble(parametros10[1])))
+                        {
+                            realizacionDeUnaAccion = true;
+                        }
+                        else
+                        {
+                            realizacionDeUnaAccion = false;
+                            Console.Clear();
+                            Console.WriteLine();
+                            Console.WriteLine("El producto señalado no existe presiona ENTER para volver al menu principal");
+                            Console.ReadLine();
+                            VolverAlMenuPrincipal();
+                        }
                     }
-                    else
+                    catch (FormatException)
                     {
                         realizacionDeUnaAccion = false;
                         Console.Clear();
                         Console.WriteLine();
-                        Console.WriteLine("El producto señalado no existe presiona ENTER para volver al menu principal");
+                        Console.WriteLine("Has Ingresado Mal, La accion no se ha realizado, presiona ENTER para volver al menu principal");
                         Console.ReadLine();
                         VolverAlMenuPrincipal();
                     }
-                }
-                catch (FormatException)
-                {
-                    realizacionDeUnaAccion = false;
-                    Console.Clear();
-                    Console.WriteLine();
-                    Console.WriteLine("Has Ingresado Mal, La accion no se ha realizado, presiona ENTER para volver al menu principal");
-                    Console.ReadLine();
-                    VolverAlMenuPrincipal();
                 }
             }
             //Modificar Color//
-            if (OpcionId == 11)
+            if (OpcionId == color)
             {
-                try
                 {
-                    //int costo, double tamaño, double peso, string nombre, string color, string categoria//
-                    string[] nombreParametros11 = new string[] { "Id del Producto", "Nuevo Color" };
-                    string[] parametros11 = pedirDatos(nombreParametros11);
-                    if (Manager.ModificarColor(Convert.ToInt32(parametros11[0]), parametros11[1]))
+                    try
                     {
-                        realizacionDeUnaAccion = true;
+                        //int costo, double tamaño, double peso, string nombre, string color, string categoria//
+                        string[] nombreParametros11 = new string[] { "Id del Producto", "Nuevo Color" };
+                        string[] parametros11 = pedirDatos(nombreParametros11);
+                        if (Manager.ModificarColor(Convert.ToInt32(parametros11[0]), parametros11[1]))
+                        {
+                            realizacionDeUnaAccion = true;
+                        }
+                        else
+                        {
+                            realizacionDeUnaAccion = false;
+                            Console.Clear();
+                            Console.WriteLine();
+                            Console.WriteLine("El producto señalado no existe presiona ENTER para volver al menu principal");
+                            Console.ReadLine();
+                            VolverAlMenuPrincipal();
+                        }
                     }
-                    else
+                    catch (FormatException)
                     {
                         realizacionDeUnaAccion = false;
                         Console.Clear();
                         Console.WriteLine();
-                        Console.WriteLine("El producto señalado no existe presiona ENTER para volver al menu principal");
+                        Console.WriteLine("Has Ingresado Mal, La accion no se ha realizado, presiona ENTER para volver al menu principal");
                         Console.ReadLine();
                         VolverAlMenuPrincipal();
                     }
-                }
-                catch (FormatException)
-                {
-                    realizacionDeUnaAccion = false;
-                    Console.Clear();
-                    Console.WriteLine();
-                    Console.WriteLine("Has Ingresado Mal, La accion no se ha realizado, presiona ENTER para volver al menu principal");
-                    Console.ReadLine();
-                    VolverAlMenuPrincipal();
                 }
             }
             //FIN//
 
             //Modificar Categoria//
-            if (OpcionId == 12)
+            if (OpcionId == categoria)
             {
-                try
                 {
-                    //int costo, double tamaño, double peso, string nombre, string color, string categoria//
-                    string[] nombreParametros12 = new string[] { "Id del Producto", "Nuevo Categoria" };
-                    string[] parametros12 = pedirDatos(nombreParametros12);
-                    if (Manager.ModificarCategoria(Convert.ToInt32(parametros12[0]), parametros12[1]))
+                    try
                     {
-                        realizacionDeUnaAccion = true;
+                        //int costo, double tamaño, double peso, string nombre, string color, string categoria//
+                        string[] nombreParametros12 = new string[] { "Id del Producto", "Nuevo Categoria" };
+                        string[] parametros12 = pedirDatos(nombreParametros12);
+                        if (Manager.ModificarCategoria(Convert.ToInt32(parametros12[0]), parametros12[1]))
+                        {
+                            realizacionDeUnaAccion = true;
+                        }
+                        else
+                        {
+                            realizacionDeUnaAccion = false;
+                            Console.Clear();
+                            Console.WriteLine();
+                            Console.WriteLine("El producto señalado no existe presiona ENTER para volver al menu principal");
+                            Console.ReadLine();
+                            VolverAlMenuPrincipal();
+                        }
                     }
-                    else
+                    catch (FormatException)
                     {
                         realizacionDeUnaAccion = false;
                         Console.Clear();
                         Console.WriteLine();
-                        Console.WriteLine("El producto señalado no existe presiona ENTER para volver al menu principal");
+                        Console.WriteLine("Has Ingresado Mal, La accion no se ha realizado, presiona ENTER para volver al menu principal");
                         Console.ReadLine();
                         VolverAlMenuPrincipal();
                     }
                 }
-                catch (FormatException)
-                {
-                    realizacionDeUnaAccion = false;
-                    Console.Clear();
-                    Console.WriteLine();
-                    Console.WriteLine("Has Ingresado Mal, La accion no se ha realizado, presiona ENTER para volver al menu principal");
-                    Console.ReadLine();
-                    VolverAlMenuPrincipal();
-                }
             }
 
             return realizacionDeUnaAccion;
         }
-        public bool OpcionesDeSet(int OpcionId) {
-            bool realizacionDeUnaAccion = false;
-            //Productos//
-            //Agregar Producto//
-            if (OpcionId == 3)
-            {
-                try
-                {
-                    //int costo, double tamaño, double peso, string nombre, string color, string categoria//
-                    string[] nombreParametros3 = new string[] { "costo", "tamaño", "peso", "nombre", "color", "categoria" };
-                    string[] parametros3 = pedirDatos(nombreParametros3);
-                   
-                    realizacionDeUnaAccion = true;
-                }
-                catch (FormatException)
-                {
-                    realizacionDeUnaAccion = false;
-                    Console.Clear();
-                    Console.WriteLine();
-                    Console.WriteLine("Has Ingresado Mal, La accion no se ha realizado, presiona ENTER para volver al menu principal");
-                    Console.ReadLine();
-                    VolverAlMenuPrincipal();
-                }
-            }
-            //FIN//
-            return realizacionDeUnaAccion;
-        }
-        public bool imprirmirDatosDeProducto()
+        public bool Imprimir(int OptionId)
         {
             bool realizacionDeUnaAccion = false;
-            try
-            {
-                Console.Clear();
-                int i = Convert.ToInt32(pedirDatos("Id Del Producto"));
+            int imprimirTablaDeProductos, imprimirDetallesDeProducto;
+            imprimirTablaDeProductos = 0;
+            imprimirDetallesDeProducto = 0;
 
-                Console.Clear();
-                Console.WriteLine("");
-                Console.WriteLine("  " + Manager.Productos.ElementAt(i).Nombre + "");
-                for (int j = 0; j < Manager.Productos.ElementAt(i).Nombre.Length + 2; j++)
+            //Imprimir tabla de productos//
+            if (OptionId == imprimirTablaDeProductos)
+            {
                 {
-                    Console.Write("-");
-                }
-                Console.WriteLine(" ");
-                Console.WriteLine(" - Id: " + Manager.Productos.ElementAt(i).Id + "");
-                Console.WriteLine("");
-                Console.WriteLine(" - Costo " + Manager.Productos.ElementAt(i).Costo + "");
-                Console.WriteLine("");
-                Console.WriteLine(" - Tamaño: " + Manager.Productos.ElementAt(i).Tamaño + "");
-                Console.WriteLine("");
-                Console.WriteLine(" - Peso: " + Manager.Productos.ElementAt(i).Peso + "");
-                Console.WriteLine("");
-                Console.WriteLine("");
-                Console.WriteLine(" Presione ENTER para volver al menu principal");
-                Console.ReadLine();
-                realizacionDeUnaAccion = true;
-                
-                VolverAlMenuPrincipal();
-            }
-            catch (FormatException)
-                {
-                    realizacionDeUnaAccion = false;
                     Console.Clear();
-                    Console.WriteLine();
-                    Console.WriteLine("Has Ingresado Mal, La accion no se ha realizado, presiona ENTER para volver al menu principal");
-                    Console.ReadLine();
-                    VolverAlMenuPrincipal();
-                }
-            catch (NullReferenceException)
-            {
-                realizacionDeUnaAccion = false;
-                Console.Clear();
-                Console.WriteLine();
-                Console.WriteLine("El producto señalado no existe , presiona ENTER para volver al menu principal");
-                Console.ReadLine();
-                VolverAlMenuPrincipal();
-            }
-            return realizacionDeUnaAccion;
-        }
-        
-
-        public bool ImprimirProductos(int OptionId) {
-            bool realizacionDeUnaAccion = false;
-            
-                Console.Clear();
-                string[] parametros = new string[] { "ID", "Nombre", "Costo", "Tamaño","Peso" };
-                int[] formato = new int[] { 12, 30, 12, 12 ,12};
-
-                int porteDeLaLinea = TableMaker.ImprimirParametros(parametros, formato);
-                string[] ID = new string[Manager.Productos.Count];
-                string[] Nombre = new string[Manager.Productos.Count];
-                string[] Costo = new string[Manager.Productos.Count];
-                string[] Tamaño = new string[Manager.Productos.Count];
-                string[] Peso = new string[Manager.Productos.Count];
-                for (int i = 0; i < Manager.Productos.Count; i++)
-                {
-                    ID[i] = Manager.Productos.ElementAt(i).Id + "";
-                    Nombre[i] = Manager.Productos.ElementAt(i).Nombre;
-                    Costo[i] = Manager.Productos.ElementAt(i).Costo + "";
-                    Tamaño[i] = Manager.Productos.ElementAt(i).Tamaño + "";
-                    Peso[i] = Manager.Productos.ElementAt(i).Peso + "";
-
-                    ID[i] = TableMaker.darFormatoDeColumna(12, ID[i]);
-                    Nombre[i] = TableMaker.darFormatoDeColumna(30, Nombre[i]);
-                    Costo[i] = TableMaker.darFormatoDeColumna(12, Costo[i]);
-                    Tamaño[i] = TableMaker.darFormatoDeColumna(12, Tamaño[i]);
-                    Peso[i] = TableMaker.darFormatoDeColumna(12, Peso[i]);
-                    string[] output = new string[] { ID[i], Nombre[i], Costo[i], Tamaño[i], Peso[i] };
-                    TableMaker.ImprimirFila(output);
-                    Console.WriteLine("");
-                }
-                    for (int i = 0; i < porteDeLaLinea; i++)
+                    string[] parametros = new string[] { "ID", "Nombre", "Costo", "Tamaño", "Peso" };
+                    int[] formato = new int[] { 12, 30, 12, 12, 12 };
+                    string linea = TableMaker.ImprimirParametros(parametros, formato);
+                    string[] ID = new string[Manager.Productos.Count];
+                    string[] Nombre = new string[Manager.Productos.Count];
+                    string[] Costo = new string[Manager.Productos.Count];
+                    string[] Tamaño = new string[Manager.Productos.Count];
+                    string[] Peso = new string[Manager.Productos.Count];
+                    for (int i = 0; i < Manager.Productos.Count; i++)
                     {
-                        Console.Write("-");
+                        ID[i] = Manager.Productos.ElementAt(i).Id + "";
+                        Nombre[i] = Manager.Productos.ElementAt(i).Nombre;
+                        Costo[i] = Manager.Productos.ElementAt(i).Costo + "";
+                        Tamaño[i] = Manager.Productos.ElementAt(i).Tamaño + "";
+                        Peso[i] = Manager.Productos.ElementAt(i).Peso + "";
+
+                        ID[i] = TableMaker.darFormatoDeColumna(12, ID[i]);
+                        Nombre[i] = TableMaker.darFormatoDeColumna(30, Nombre[i]);
+                        Costo[i] = TableMaker.darFormatoDeColumna(12, Costo[i]);
+                        Tamaño[i] = TableMaker.darFormatoDeColumna(12, Tamaño[i]);
+                        Peso[i] = TableMaker.darFormatoDeColumna(12, Peso[i]);
+                        string[] output = new string[] { ID[i], Nombre[i], Costo[i], Tamaño[i], Peso[i] };
+                        TableMaker.ImprimirFila(output);
+                        Console.WriteLine("");
                     }
+                    Console.WriteLine(linea);
                     Console.WriteLine("");
                     Console.WriteLine("");
                     Console.WriteLine("Presione ENTER para volver al menu principal");
                     Console.ReadLine();
                     VolverAlMenuPrincipal();
+                    realizacionDeUnaAccion = true;
+                }
+            }
+            //Imprimir Detalles de un Producto//
+            if (OptionId == imprimirDetallesDeProducto)
+            {
+                {
+                    try
+                    {
+                        Console.Clear();
+                        int i = Convert.ToInt32(pedirDatos("Id Del Producto"));
 
+                        Console.Clear();
+                        Console.WriteLine("");
+                        Console.WriteLine("  " + Manager.Productos.ElementAt(i).Nombre + "");
+                        for (int j = 0; j < Manager.Productos.ElementAt(i).Nombre.Length + 2; j++)
+                        {
+                            Console.Write("-");
+                        }
+                        Console.WriteLine(" ");
+                        Console.WriteLine(" - Id: " + Manager.Productos.ElementAt(i).Id + "");
+                        Console.WriteLine("");
+                        Console.WriteLine(" - Costo " + Manager.Productos.ElementAt(i).Costo + "");
+                        Console.WriteLine("");
+                        Console.WriteLine(" - Tamaño: " + Manager.Productos.ElementAt(i).Tamaño + "");
+                        Console.WriteLine("");
+                        Console.WriteLine(" - Peso: " + Manager.Productos.ElementAt(i).Peso + "");
+                        Console.WriteLine("");
+                        try
+                        {//para producto hoja//
+                            ProductoHoja x = (ProductoHoja)Manager.Productos.ElementAt(i);
+                            Console.WriteLine(" - Categoria: " + x.Categoria);
+                            Console.WriteLine("");
+                            Console.WriteLine(" - Color: " + x.Color);
+                            Console.WriteLine("");
+                            Console.WriteLine(" - Cantidad: " + x.Cantidad);
+                            Console.WriteLine("");
+                            realizacionDeUnaAccion = true;
+                        }
+                        catch (InvalidCastException)
+                        {
+                            //si no es un producto hoja , es un set de producto y no , hay un error//
+                            SetDeProducto x = (SetDeProducto)Manager.Productos.ElementAt(i);
+                            Console.WriteLine(" - Descuento por el Set: " + x.Descuento);
+                            Console.WriteLine("");
+                            string[] titulo = new string[] { "Producto", "Candidad" };
+                            int[] formato = new int[] { 30, 12 };
+                            TableMaker.ImprimirParametros(titulo, formato);
+                            for (int k = 0; k < x.Productos.Count; k++)
+                            {
+                                string[] columnas = new string[] { TableMaker.darFormatoDeColumna(30, x.Productos.ElementAt(k).Nombre), TableMaker.darFormatoDeColumna(12, x.Cantidades.ElementAt(k)) };
+                                TableMaker.ImprimirFila(columnas);
+                            }
+                        }
+                        Console.WriteLine("");
+                        Console.WriteLine(" Presione ENTER para volver al menu principal");
+                        Console.ReadLine();
+                        realizacionDeUnaAccion = true;
+                        VolverAlMenuPrincipal();
+                    }
+                    catch (FormatException)
+                    {
+                        realizacionDeUnaAccion = false;
+                        Console.Clear();
+                        Console.WriteLine();
+                        Console.WriteLine("Has Ingresado Mal, La accion no se ha realizado, presiona ENTER para volver al menu principal");
+                        Console.ReadLine();
+                        VolverAlMenuPrincipal();
 
-
-                
+                    }
+                    catch (NullReferenceException)
+                    {
+                        realizacionDeUnaAccion = false;
+                        Console.Clear();
+                        Console.WriteLine();
+                        Console.WriteLine("El producto señalado no existe , presiona ENTER para volver al menu principal");
+                        Console.ReadLine();
+                        VolverAlMenuPrincipal();
+                    }
+                }
+            }
             return realizacionDeUnaAccion;
         }
-        
+
         //metodos que sirven solo para quien modifique el programa//
         private void mostrarTodadLasOpciones()
         {
             Console.Clear();
             string[] parametros = new string[] { "OptionID", "Nombre", "Categoria", "Subopciones" };
-            int[] formato = new int[] {12,30,30,12 };
-            TableMaker.ImprimirParametros(parametros, formato);
+            int[] formato = new int[] { 12, 30, 30, 12 };
+            string linea = TableMaker.ImprimirParametros(parametros, formato);
             foreach (optionTree ot in TodadLasOpciones)
             {
-                ot.showInfo();
+                int numeroDeSubOpciones;
+                if (ot.SubOptions != null)
+                {
+                    numeroDeSubOpciones = ot.SubOptions.Length;
+                }
+                else
+                {
+                    numeroDeSubOpciones = 0;
+                }
+
+                string ID, Nombre, categoria, subopciones;
+
+                if (ot.BackOption == null)
+                {
+
+                    ot.Categoria = "raiz";
+
+                }
+                ID = TableMaker.darFormatoDeColumna(12, ot.OptionId);
+                subopciones = TableMaker.darFormatoDeColumna(12, numeroDeSubOpciones);
+                Nombre = TableMaker.darFormatoDeColumna(30, ot.Titulo);
+                categoria = TableMaker.darFormatoDeColumna(30, ot.Categoria);
+                string[] output = new string[] { ID, Nombre, categoria, subopciones };
+                TableMaker.ImprimirFila(output);
                 Console.WriteLine("");
 
             }
+            Console.WriteLine(linea);
         }
     }
 }
