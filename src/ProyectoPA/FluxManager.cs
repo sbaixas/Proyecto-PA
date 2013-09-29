@@ -9,20 +9,58 @@ namespace ProyectoPA
     [Serializable]
     class FluxManager
     {
+        private static Date date;
+
+        public static Date Date
+        {
+            set { FluxManager.date = value; }
+        }
+
         private static List<Registro> registro_venta = new List<Registro>();
+
+        internal static List<Registro> Registro_venta1
+        {
+            get { return FluxManager.registro_venta; }
+            set { FluxManager.registro_venta = value; }
+        }
 
         private static List<Registro> registro_ingreso = new List<Registro>();
 
-        private int balance = 0;
-
-        public static void Ingreso_producto(Producto producto_ingresado, Date fecha, int cantidad)
+        internal static List<Registro> Registro_ingreso1
         {
-           registro_ingreso.Add(new Registro(producto_ingresado, fecha, cantidad));
+            get { return FluxManager.registro_ingreso; }
+            set { FluxManager.registro_ingreso = value; }
         }
 
-        public static void Venta_producto(Producto producto_vendido, Date fecha, int cantidad)
+        private  static int balance = 0;
+
+        //  se ingresa al historial un producto que se ingresa 
+        public static void Ingreso_producto(int id, Date fecha, int cantidad, int costo)
         {
-            registro_ingreso.Add(new Registro(producto_vendido, fecha, cantidad));
+            foreach(ProductoHoja p in Manager.Productos)
+            {
+                if(p.Id == id)
+                {
+                    registro_ingreso.Add(new Registro(p, fecha, cantidad));
+                    break;
+                }
+            }
+            balance = balance - costo;
+        }
+        // se ingresa al historial un producto que se vende
+        public static void Venta_producto(int id, Date fecha, int cantidad)
+        {
+            foreach (ProductoHoja p in Manager.Productos)
+            {
+                if (p.Id == id)
+                {
+                    registro_ingreso.Add(new Registro(p, fecha, cantidad));
+                    int precio = p.Costo;
+                    balance = balance + precio;
+                    break;
+                }
+            }
+            
         }
 
         public List<Registro> Registro_venta
@@ -133,5 +171,16 @@ namespace ProyectoPA
             }
         }
 
+        public static List<Producto> Ranking_producto()
+        {
+            List<Producto> ranking = new List<Producto>();
+            string a;
+            foreach (Registro r in registro_venta)
+            {
+            }
+            
+
+
+        }
     }
 }
