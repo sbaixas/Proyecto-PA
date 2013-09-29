@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProyectoPA
 {
+    [Serializable]
     class Registro
     {
         private Producto producto;

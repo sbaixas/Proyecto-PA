@@ -8,6 +8,7 @@ namespace ProyectoPA
 {
  /*Bozzo: image path me complico un poco , asi que lo saque del construsctor , y si se quiere poner, que se use el setter*/  
  /*Bozzo: hay un constructor que no usa parametros, para que sirve ?? */
+    [Serializable]
     abstract class Producto
     {
 /*******Atributos , Getter y Setters*******/
