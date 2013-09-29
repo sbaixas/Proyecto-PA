@@ -28,22 +28,26 @@ namespace ProyectoPA
             productos.Add(new ProductoHoja(costo, tamaño, peso, nombre, color, categoria));
         }
 
-        public static void AgregarSet(int descuento, List<int> cantidades, List<int> ids, string nombre)
+        public static bool AgregarSet(int descuento, List<int> cantidades, List<int> ids, string nombre)
         {
-
+            bool funcionCompleta = false;
             List<Producto> prods = new List<Producto>();
             foreach(Producto p in productos)
             {
                 foreach(int i in ids)
                 {
+                    funcionCompleta = false;
                     if(p.Id == i)
                     {
                         prods.Add(p);
+                        funcionCompleta = true;
                         break;
                     }
+
                 }
             }
             productos.Add(new SetDeProducto(descuento, cantidades, prods, nombre, null));
+            return funcionCompleta;
         }
 
         public static bool IngresarProducto(int IdDelProducto, int cantidad)
@@ -165,13 +169,17 @@ namespace ProyectoPA
             }
             return false;
         }
-        public static void Vender(int id, int cantidad)
+        public static bool Vender(int id, int cantidad)
         {
-
-        }
-        public static void Guardad()
-        {
-
+            foreach (Producto p in productos)
+            {
+                if (p.Id == id)
+                {
+                    p.DescontarStock(cantidad);
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

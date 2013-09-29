@@ -14,7 +14,6 @@ namespace ProyectoPA
         {
             FileStream fs = new FileStream(path, FileMode.OpenOrCreate);
             StreamWriter sw = new StreamWriter(fs);
-            //
         }
 
         public static void Guardar_estado_FluxManager(FluxManager fmanager)
