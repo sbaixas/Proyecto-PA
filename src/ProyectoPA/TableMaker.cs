@@ -9,7 +9,53 @@ namespace ProyectoPA
     //bozzo//
     class TableMaker
     {
-        static public string darFormatoDeColumna(int anchoDeColumna , string palabra) {
+        public TableMaker(string[] parametros, int[] formato, List<Producto> lista)
+        {
+
+
+            string[,] x = new string[parametros.Length, lista.Count];
+            for (int i = 0; i < lista.Count; i++)
+            {
+                for (int j = 0; j < parametros.Length; j++)
+                {
+                    if (j == 0)
+                    {
+                        x[j, i] = lista.ElementAt(i).Id + "";
+                    }
+                    if (j == 1)
+                    {
+                        x[j, i] = lista.ElementAt(i).Nombre + "";
+                    }
+                    if (j == 2)
+                    {
+                        x[j, i] = lista.ElementAt(i).Costo + "";
+                    }
+                    if (j == 3)
+                    {
+                        x[j, i] = lista.ElementAt(i).Tamaño + "";
+
+                    }
+                    if (j == 4)
+                    {
+                        x[j, i] = lista.ElementAt(i).Peso + "";
+
+                    }
+                    }
+
+                    for (int k = 0; k < parametros.Length; k++)
+                    {
+                        x[k, i] = darFormatoDeColumna(formato[i], parametros[i]);
+
+                        string[] output = new string[] { x[k, i] };
+                        TableMaker.ImprimirFila(output);
+                        Console.WriteLine("");
+                    }
+                }
+               
+            }
+        
+        static public string darFormatoDeColumna(int anchoDeColumna, string palabra)
+        {
             string ret = palabra;
             while (ret.Length < anchoDeColumna)
             {
@@ -18,7 +64,7 @@ namespace ProyectoPA
                 {
                     ret = " " + ret;
                 }
-            } 
+            }
             return ret;
         }
         static public string darFormatoDeColumna(int anchoDeColumna, int palabra)
@@ -39,15 +85,16 @@ namespace ProyectoPA
             }
             return ret;
         }
-        static public string ImprimirFila(string[] columnas) {
+        static public string ImprimirFila(string[] columnas)
+        {
             Console.Write(" |");
-            for (int i = 0; i < columnas.Length ; i++)
-            { 
-                Console.Write(columnas[i]+"|");
-            }  
+            for (int i = 0; i < columnas.Length; i++)
+            {
+                Console.Write(columnas[i] + "|");
+            }
             return null;
         }
-        static public int ImprimirParametros(string[] columnas , int[] formato)
+        static public int ImprimirParametros(string[] columnas, int[] formato)
         {
             //devuelve el porte de la linea para no tener que calcularlo al final//
 
@@ -70,13 +117,13 @@ namespace ProyectoPA
             }
             Console.WriteLine("");
 
-            
+
             Console.Write(" |");
             for (int j = 0; j < columnas.Length; j++)
             {
                 Console.Write(columnas[j] + "|");
             }
-            
+
             Console.WriteLine("");
             Console.Write(" ");
             for (int l = 0; l < porteDeLalinea; l++)
@@ -84,7 +131,7 @@ namespace ProyectoPA
                 Console.Write("-");
             }
             Console.WriteLine("");
-            
+
             return porteDeLalinea;
         }
     }

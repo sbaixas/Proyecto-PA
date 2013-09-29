@@ -28,9 +28,22 @@ namespace ProyectoPA
             productos.Add(new ProductoHoja(costo, tamaño, peso, nombre, color, categoria));
         }
 
-        public static void AgregarSet(Producto setAAgregar)
+        public static void AgregarSet(int descuento, List<int> cantidades, List<int> ids, string nombre)
         {
-            productos.Add(setAAgregar);
+
+            List<Producto> prods = new List<Producto>();
+            foreach(Producto p in productos)
+            {
+                foreach(int i in ids)
+                {
+                    if(p.Id == i)
+                    {
+                        prods.Add(p);
+                        break;
+                    }
+                }
+            }
+            productos.Add(new SetDeProducto(descuento, cantidades, prods, nombre, null));
         }
 
         public static bool IngresarProducto(int IdDelProducto, int cantidad)

@@ -11,6 +11,8 @@ namespace ProyectoPA
     {
         static void Main(string[] args)
         {
+            
+            consoleMng x = new consoleMng();
         }
     }
 }
