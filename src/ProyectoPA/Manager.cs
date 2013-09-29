@@ -10,9 +10,10 @@ namespace ProyectoPA
     {
         private static List<Producto> productos = new List<Producto>();
 
-        internal static List<Producto> Productos
+        public static List<Producto> Productos
         {
             get { return Manager.productos; }
+            set { Manager.productos = value; }
         }
 
         private static int idCount = 0;
@@ -20,32 +21,70 @@ namespace ProyectoPA
         public static int IdCount
         {
             get { return Manager.idCount; }
+            set { Manager.idCount = value; }
+        }
+
+        private static List<string> categorias = new List<string>();
+
+        public static List<string> Categorias
+        {
+            get { return Manager.categorias; }
+            set { Manager.categorias = value; }
         }
 
         /************************agregar un nuevo tipo de producto*********************************************/
-        public static void AgregarProducto(int costo, double tamaño, double peso, string nombre, string color, string categoria)
+        public static void AgregarCategoria(string nombre)
         {
-            productos.Add(new ProductoHoja(costo, tamaño, peso, nombre, color, categoria));
+            categorias.Add(nombre);
         }
-
-        public static void AgregarSet(int descuento, List<int> cantidades, List<int> ids, string nombre)
+        public static void EliminarCategorias(string str)
         {
-
+                foreach (string cat in categorias)
+                {
+                    if (cat == str)
+                    {
+                        categorias.Remove(cat);
+                    }
+                }
+        }
+        public static void AgregarProducto(int costo, double tamaño, double peso, string nombre, string color, int idcat)
+        {
+            productos.Add(new ProductoHoja(costo, tamaño, peso, nombre, color, categorias[idcat]));
+        }
+         
+        public static bool AgregarSet(int descuento, List<int> cantidades, List<int> ids, string nombre)
+        {
+            bool funcionCompleta = false;
             List<Producto> prods = new List<Producto>();
             foreach(Producto p in productos)
             {
                 foreach(int i in ids)
                 {
+                    funcionCompleta = false;
                     if(p.Id == i)
                     {
                         prods.Add(p);
+                        funcionCompleta = true;
                         break;
                     }
+
                 }
             }
             productos.Add(new SetDeProducto(descuento, cantidades, prods, nombre, null));
+            return funcionCompleta;
         }
-
+        public static bool EliminarProducto(int id)
+        {
+            foreach (Producto p in productos)
+            {
+                if (p.Id == id)
+                {
+                    productos.Remove(p);
+                    return true;
+                }
+            }
+            return false;
+        }
         public static bool IngresarProducto(int IdDelProducto, int cantidad)
         {
             foreach (Producto p in productos)
@@ -53,6 +92,18 @@ namespace ProyectoPA
                 if (p.Id == IdDelProducto)
                 {
                     productos[IdDelProducto].AgregarStock(cantidad);
+                    return true;
+                }
+            }
+            return false;
+        }
+        public static bool Vender(int id, int cantidad)
+        {
+            foreach (Producto p in productos)
+            {
+                if (p.Id == id)
+                {
+                    p.DescontarStock(cantidad);
                     return true;
                 }
             }
@@ -165,13 +216,17 @@ namespace ProyectoPA
             }
             return false;
         }
-        public static void Vender(int id, int cantidad)
+        public static bool ModificarDescuento(int idset, int nuevoDescuento)
         {
-
-        }
-        public static void Guardad()
-        {
-
+            foreach (SetDeProducto s in productos)
+            {
+                if (s.Id == idset)
+                {
+                    s.Descuento = nuevoDescuento;
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

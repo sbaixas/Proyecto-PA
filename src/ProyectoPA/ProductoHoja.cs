@@ -71,6 +71,10 @@ namespace ProyectoPA
             Console.WriteLine("");
             Console.WriteLine("- Color: "+this.Color);
             Console.WriteLine("");
+            if (this.cantidad <= 10)
+            {
+                Console.WriteLine("- Cantidad: " + this.Cantidad + "CUIDADO! QUEDAN POCAS UNIDADES");
+            }
             Console.WriteLine("- Cantidad: " + this.Cantidad);
             Console.WriteLine("--------------------------------------");
         }
