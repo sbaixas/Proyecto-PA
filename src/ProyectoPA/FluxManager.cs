@@ -171,16 +171,60 @@ namespace ProyectoPA
             }
         }
 
-        public static List<Producto> Ranking_producto()
+        public static List<Registro> Ranking_producto()
         {
-            List<Producto> ranking = new List<Producto>();
-            string a;
-            foreach (Registro r in registro_venta)
+            List<Registro> ranking = new List<Registro>();
+            foreach (Registro a in registro_venta)
             {
+                string nombre1 = a.Nombre;
+                int precio = a.Precio;
+                int cantidad = a.Cantidad;
+                int k = 0;
+                foreach (Registro b in ranking)
+                {
+                    string nombre2 = b.Nombre;
+                    if (nombre1 == nombre2)
+                    {
+                        k = 1;
+                    }
+                }
+                if (k == 0)
+                {
+                    foreach (Registro c in registro_venta)
+                    {
+                        string nombre2 = c.Nombre;
+                        if (nombre1 == nombre2)
+                        {
+                            cantidad = cantidad + c.Cantidad;
+                        }
+                    }
+                }
+            }
+            int count = ranking.Count;
+            Registro[] array = new Registro[count];
+            ranking.CopyTo(array);
+
+            for (int i = 0; i < count; i++)
+            {
+                Registro reg1 = array[i];
+                Registro reg2 = array[i + 1];
+                if (reg1.Cantidad < reg2.Cantidad)
+                {
+                    Registro aux = reg2;
+                    array[i + 1] = reg1;
+                    array[i] = aux;
+                }
             }
             
+            List<Registro> lista_final = new List<Registro>();
+            foreach (Registro n in array)
+            {
+                lista_final.Add(n);
+            }
 
-
+            return lista_final;
         }
+            
+        
     }
 }
