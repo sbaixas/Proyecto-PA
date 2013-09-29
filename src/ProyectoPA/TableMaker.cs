@@ -70,10 +70,6 @@ namespace ProyectoPA
         static public string darFormatoDeColumna(int anchoDeColumna, int palabra)
         {
             string ret;
-            if (palabra == null)
-            {
-                ret = "0";
-            }
             ret = palabra + "";
             while (ret.Length < anchoDeColumna)
             {
@@ -94,8 +90,9 @@ namespace ProyectoPA
             }
             return null;
         }
-        static public int ImprimirParametros(string[] columnas, int[] formato)
+        static public string ImprimirParametros(string[] columnas, int[] formato)
         {
+            string linea = " ";
             //devuelve el porte de la linea para no tener que calcularlo al final//
 
             for (int i = 0; i < columnas.Length; i++)
@@ -117,7 +114,7 @@ namespace ProyectoPA
             }
             Console.WriteLine("");
 
-
+            
             Console.Write(" |");
             for (int j = 0; j < columnas.Length; j++)
             {
@@ -126,13 +123,16 @@ namespace ProyectoPA
 
             Console.WriteLine("");
             Console.Write(" ");
+           
             for (int l = 0; l < porteDeLalinea; l++)
             {
-                Console.Write("-");
+               linea += "-";
+               Console.Write("-");
             }
             Console.WriteLine("");
-
-            return porteDeLalinea;
+            
+            
+            return linea;
         }
     }
 }

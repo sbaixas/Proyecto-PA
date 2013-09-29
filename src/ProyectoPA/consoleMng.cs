@@ -106,6 +106,7 @@ namespace ProyectoPA
             Console.ReadLine();
 
         }
+
         //Metodos para la navegacion en el programa//
         public int seleccionar()
         {
@@ -183,7 +184,7 @@ namespace ProyectoPA
             while (true)
             {
                
-                current.show();
+                showOption();
                 if (current.OptionId != 0)
                 {
                     Console.WriteLine("");
@@ -215,7 +216,7 @@ namespace ProyectoPA
 
                     current = current.SubOptions[seleccion];
                     Console.Clear();
-                    current.show();
+                    showOption();
                     ejecutarMetodo(current.OptionId);
 
 
@@ -230,8 +231,56 @@ namespace ProyectoPA
         {
             this.current = MenuPrincipal;
         }
+        public void showOption() 
+        {
+            Console.Clear();
+            Console.WriteLine("");
+            Console.WriteLine("  " + current.Titulo);
+            for (int l = 0; l < current.Titulo.Length + 4; l++)
+            {
+                Console.Write("-");
+            }
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("");
 
-        //Metodos para realizar acciones(En ejecuta metodo , se guardan los metodos que pueden ser alcanzados a travez de la consola)//
+            if (current.SubOptions != null)
+            {
+                Console.WriteLine(" Opciones:");
+                string candidato = current.SubOptions[0].Titulo;
+                for (int i = 0; i < current.SubOptions.Length; i++)
+                {
+                    if (candidato.Length <= current.SubOptions[i].Titulo.Length) { candidato = current.SubOptions[i].Titulo; }
+                }
+                if (candidato.Length < 10) { candidato = " Opciones:"; }
+                for (int j = 0; j < candidato.Length + 6; j++)
+                {
+                    Console.Write("-");
+                }
+
+                for (int k = 0; k < current.SubOptions.Length; k++)
+                {
+                    if (current.SubOptions[k].Titulo == "Volver" || current.SubOptions[k].Titulo == "Salir")
+                    {
+                        Console.WriteLine("");
+                        Console.WriteLine("");
+                        Console.WriteLine("  *" + ") " + current.SubOptions[k].Titulo);
+                    }
+
+                    else
+                    {
+                        Console.WriteLine("");
+                        Console.WriteLine("");
+                        int aux = k + 1;
+                        Console.WriteLine("  " + aux + "" + ") " + current.SubOptions[k].Titulo);
+                    }
+                }
+            }
+        }
+
+        //Metodos para realizar acciones(en ejecutar metodo , se guardan los metodos que pueden ser alcanzados a travez de la consola)//
         public string[] pedirDatos(string[] nombreDeLosParametros ){
             string[] input = new string[nombreDeLosParametros.Length];
             for (int i = 0; i < nombreDeLosParametros.Length; i++)
@@ -249,7 +298,6 @@ namespace ProyectoPA
                 string input = Console.ReadLine();
                 return input;
         }
-
         public void ejecutarMetodo(int OpcionId)
         {
             bool realizacionDeUnaAccion = false;
@@ -258,16 +306,21 @@ namespace ProyectoPA
             {
                 ejecutarModificarProductoHoja(OpcionId);
             }
-            if (3 <= OpcionId && OpcionId <= 4)
+            if (3 <= OpcionId && OpcionId <= 5)
             {
-                ejecutarAgregarOIngresarProductoHoja(OpcionId);
-            }
+                ejecutarAgregarOIngresarProductos(OpcionId);
+            }*/
             if (7== OpcionId)
             {
                 ImprimirProductos(OpcionId);
-            }*/
+            }
+            if (OpcionId == 5)
+            {
+                ejecutarAgregarOIngresarProductos(OpcionId);
+                
+            }
             if(8 == OpcionId){
-                imprirmirDatosDeProducto();
+                imprirmirDetallesDeUnProducto();
             }
             //CUANDO SE TERMINE LA ACCION///
             if (realizacionDeUnaAccion)
@@ -283,8 +336,11 @@ namespace ProyectoPA
             }
             
         }
-        public bool ejecutarAgregarOIngresarProductoHoja(int OpcionId) {
+
+        public bool ejecutarAgregarOIngresarProductos(int OpcionId) {
             bool realizacionDeUnaAccion = false;
+            int agregarProducto, AgregarSetDeProducto, ingresarProducto;
+
             //Productos//
             //Agregar Producto//
             if (OpcionId == 3)
@@ -308,6 +364,74 @@ namespace ProyectoPA
                 }
             }
             //FIN//
+
+            //Agregar set de Productos//
+            if (OpcionId == 5)
+            {
+                try
+                {
+                    string[] nombreParametros = new string[] { "Nombre del nuevo set", "Descuento" };
+                    string[] parametrosFirst = pedirDatos(nombreParametros);
+                    Console.Clear();
+                    Console.WriteLine("");
+                    Console.WriteLine("Ahora comenzaremos a agregar productos al nuevo set");
+                    Console.WriteLine("Ingrese los productos que se agregaran al set de la forma" + "\"id del producto , cantidad que se desee agregar\"");
+                    Console.WriteLine("Cuando termine de agregar los producto , escriba" + "\" exit\"");
+                    List<int> ids = new List<int>();
+                    List<int> cantidades = new List<int>();
+                    while (true)
+                    {
+                        string input = Console.ReadLine();
+                        if (input != "exit")
+                        {
+                            try
+                            {
+                                string[] inputProcesed = input.Split(',');
+                                ids.Add(Convert.ToInt32(inputProcesed[0]));
+                                cantidades.Add(Convert.ToInt32(inputProcesed[1]));
+                            }
+                            catch (Exception)
+                            {
+                                Console.Clear();
+                                Console.WriteLine("Lo has hecho mal, puedes volver a intentarlo, Presiona ENTER para continuar");
+                                Console.ReadLine();
+                                Console.Clear();
+                            }
+
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                    if (ids.Count == cantidades.Count)
+                    {
+                        // public static void AgregarSet(int descuento, List<int> cantidades, List<int> ids, string nombre)//
+                        Manager.AgregarSet(Convert.ToInt32(parametrosFirst[1]), cantidades, ids , parametrosFirst[0]);
+                        realizacionDeUnaAccion = true;
+                    }
+                    else {
+                        Console.Clear();
+                        Console.WriteLine("Hubo un error en la ejecucion de la accion, Presiona ENTER para volver al menu principal");
+                        Console.ReadLine();
+                        VolverAlMenuPrincipal();
+                    }
+                    realizacionDeUnaAccion = true;
+                }
+                catch (FormatException)
+                {
+                    realizacionDeUnaAccion = false;
+                    Console.Clear();
+                    Console.WriteLine();
+                    Console.WriteLine("Has Ingresado Mal, La accion no se ha realizado, presiona ENTER para volver al menu principal");
+                    Console.ReadLine();
+                    VolverAlMenuPrincipal();
+                }
+                VolverAlMenuPrincipal();
+            }
+            //FIN//
+
+
 
             //Ingresar Producto//
             if (OpcionId == 4)
@@ -347,6 +471,7 @@ namespace ProyectoPA
             
             return realizacionDeUnaAccion;
         }
+
         public bool ejecutarModificarProductoHoja(int OpcionId)
         {
             bool realizacionDeUnaAccion = false;
@@ -581,7 +706,7 @@ namespace ProyectoPA
             //FIN//
             return realizacionDeUnaAccion;
         }
-        public bool imprirmirDatosDeProducto()
+        public bool imprirmirDetallesDeUnProducto()
         {
             bool realizacionDeUnaAccion = false;
             try
@@ -605,22 +730,48 @@ namespace ProyectoPA
                 Console.WriteLine("");
                 Console.WriteLine(" - Peso: " + Manager.Productos.ElementAt(i).Peso + "");
                 Console.WriteLine("");
+                try
+                {//para producto hoja//
+                    ProductoHoja x = (ProductoHoja)Manager.Productos.ElementAt(i);
+                    Console.WriteLine(" - Categoria: " + x.Categoria);
+                    Console.WriteLine("");
+                    Console.WriteLine(" - Color: " + x.Color);
+                    Console.WriteLine("");
+                    Console.WriteLine(" - Cantidad: " + x.Cantidad);
+                    Console.WriteLine("");
+                }
+                catch(InvalidCastException){
+                    //si no es un producto hoja , es un set de producto y no , hay un error//
+                    SetDeProducto x = (SetDeProducto)Manager.Productos.ElementAt(i);
+                    Console.WriteLine(" - Descuento por el Set: " + x.Descuento);
+                    Console.WriteLine("");
+                    string[] titulo = new string[] { "Producto", "Candidad" };
+                    int[] formato = new int[]{30 , 12};
+                    TableMaker.ImprimirParametros(titulo , formato);
+                    for (int k = 0; k < x.Productos.Count; k++)
+                    {
+                        string[] columnas = new string[] { TableMaker.darFormatoDeColumna(30, x.Productos.ElementAt(k).Nombre), TableMaker.darFormatoDeColumna(12, x.Cantidades.ElementAt(k)) };
+                        TableMaker.ImprimirFila(columnas);
+                    }
+                    
+                }
+                
                 Console.WriteLine("");
                 Console.WriteLine(" Presione ENTER para volver al menu principal");
                 Console.ReadLine();
                 realizacionDeUnaAccion = true;
-                
+
                 VolverAlMenuPrincipal();
             }
             catch (FormatException)
-                {
-                    realizacionDeUnaAccion = false;
-                    Console.Clear();
-                    Console.WriteLine();
-                    Console.WriteLine("Has Ingresado Mal, La accion no se ha realizado, presiona ENTER para volver al menu principal");
-                    Console.ReadLine();
-                    VolverAlMenuPrincipal();
-                }
+            {
+                realizacionDeUnaAccion = false;
+                Console.Clear();
+                Console.WriteLine();
+                Console.WriteLine("Has Ingresado Mal, La accion no se ha realizado, presiona ENTER para volver al menu principal");
+                Console.ReadLine();
+                VolverAlMenuPrincipal();
+            }
             catch (NullReferenceException)
             {
                 realizacionDeUnaAccion = false;
@@ -632,8 +783,6 @@ namespace ProyectoPA
             }
             return realizacionDeUnaAccion;
         }
-        
-
         public bool ImprimirProductos(int OptionId) {
             bool realizacionDeUnaAccion = false;
             
@@ -641,7 +790,7 @@ namespace ProyectoPA
                 string[] parametros = new string[] { "ID", "Nombre", "Costo", "Tamaño","Peso" };
                 int[] formato = new int[] { 12, 30, 12, 12 ,12};
 
-                int porteDeLaLinea = TableMaker.ImprimirParametros(parametros, formato);
+                string linea = TableMaker.ImprimirParametros(parametros, formato);
                 string[] ID = new string[Manager.Productos.Count];
                 string[] Nombre = new string[Manager.Productos.Count];
                 string[] Costo = new string[Manager.Productos.Count];
@@ -664,10 +813,7 @@ namespace ProyectoPA
                     TableMaker.ImprimirFila(output);
                     Console.WriteLine("");
                 }
-                    for (int i = 0; i < porteDeLaLinea; i++)
-                    {
-                        Console.Write("-");
-                    }
+                Console.WriteLine(linea);
                     Console.WriteLine("");
                     Console.WriteLine("");
                     Console.WriteLine("Presione ENTER para volver al menu principal");
@@ -679,20 +825,44 @@ namespace ProyectoPA
                 
             return realizacionDeUnaAccion;
         }
-        
+
         //metodos que sirven solo para quien modifique el programa//
         private void mostrarTodadLasOpciones()
         {
             Console.Clear();
             string[] parametros = new string[] { "OptionID", "Nombre", "Categoria", "Subopciones" };
             int[] formato = new int[] {12,30,30,12 };
-            TableMaker.ImprimirParametros(parametros, formato);
+            string linea = TableMaker.ImprimirParametros(parametros, formato);
             foreach (optionTree ot in TodadLasOpciones)
             {
-                ot.showInfo();
+                int numeroDeSubOpciones;
+                if (ot.SubOptions != null)
+                {
+                    numeroDeSubOpciones = ot.SubOptions.Length;
+                }
+                else
+                {
+                    numeroDeSubOpciones = 0;
+                }
+
+                string ID, Nombre, categoria, subopciones;
+
+                if (ot.BackOption == null)
+                {
+
+                    ot.Categoria = "raiz";
+
+                }
+                ID = TableMaker.darFormatoDeColumna(12, ot.OptionId);
+                subopciones = TableMaker.darFormatoDeColumna(12, numeroDeSubOpciones);
+                Nombre = TableMaker.darFormatoDeColumna(30, ot.Titulo);
+                categoria = TableMaker.darFormatoDeColumna(30, ot.Categoria);
+                string[] output = new string[] { ID, Nombre, categoria, subopciones };
+                TableMaker.ImprimirFila(output);
                 Console.WriteLine("");
 
             }
+            Console.WriteLine(linea);
         }
     }
 }

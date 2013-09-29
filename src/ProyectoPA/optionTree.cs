@@ -57,33 +57,7 @@ namespace ProyectoPA
         }
 
         //Metodos//
-        public void showInfo()
-        {
-            int numeroDeSubOpciones;
-            if (subOptions != null)
-            {
-                numeroDeSubOpciones = subOptions.Length;
-            }
-            else {
-                numeroDeSubOpciones = 0;
-            }
-
-            string ID, Nombre , categoria , subopciones ;
-
-            if (backOption == null)
-            {
-
-                Categoria = "raiz";
-
-            }
-            ID = TableMaker.darFormatoDeColumna(12 , OptionId);
-            subopciones = TableMaker.darFormatoDeColumna(12, numeroDeSubOpciones);
-            Nombre = TableMaker.darFormatoDeColumna(30, Titulo);
-            categoria = TableMaker.darFormatoDeColumna(30, Categoria);
-            string[] output = new string[]{ID , Nombre , categoria , subopciones };
-            TableMaker.ImprimirFila(output);
-
-        }
+       
 
         public void agregarHijo(string nombreDeLaNuevaSubOpsion , string categoriaDeLaNuevaOpcion)
         {
@@ -109,54 +83,7 @@ namespace ProyectoPA
 
         }
 
-        public void show()
-        {
-            Console.Clear();
-            Console.WriteLine("");
-            Console.WriteLine("  " + titulo);
-            for (int l = 0; l < titulo.Length + 4; l++)
-            {
-                Console.Write("-");
-            }
-            Console.WriteLine("");
-            Console.WriteLine("");
-            Console.WriteLine("");
-            Console.WriteLine("");
-            Console.WriteLine("");
-
-            if (subOptions != null)
-            {
-                Console.WriteLine(" Opciones:");
-                string candidato = subOptions[0].titulo;
-                for (int i = 0; i < subOptions.Length; i++)
-                {
-                    if (candidato.Length <= subOptions[i].titulo.Length) { candidato = subOptions[i].titulo; }
-                }
-                if (candidato.Length < 10) { candidato = " Opciones:"; }
-                for (int j = 0; j < candidato.Length + 6; j++)
-                {
-                    Console.Write("-");
-                }
-
-                for (int k = 0; k < subOptions.Length; k++)
-                {
-                    if (subOptions[k].titulo == "Volver" || subOptions[k].titulo == "Salir")
-                    {
-                        Console.WriteLine("");
-                        Console.WriteLine("");
-                        Console.WriteLine("  *" + ") " + subOptions[k].titulo);
-                    }
-
-                    else
-                    {
-                        Console.WriteLine("");
-                        Console.WriteLine("");
-                        int aux = k + 1;
-                        Console.WriteLine("  " + aux + "" + ") " + subOptions[k].titulo);
-                    }
-                }
-            }
-        }
+       
 
     }
 }
