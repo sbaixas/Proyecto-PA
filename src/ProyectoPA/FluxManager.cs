@@ -13,16 +13,35 @@ namespace ProyectoPA
 
         private static List<Registro> registro_ingreso = new List<Registro>();
 
-        private int balance = 0;
+        private  static int balance = 0;
 
-        public static void Ingreso_producto(Producto producto_ingresado, Date fecha, int cantidad)
+        //  se ingresa al historial un producto que se ingresa 
+        public static void Ingreso_producto(int id, Date fecha, int cantidad, int costo)
         {
-           registro_ingreso.Add(new Registro(producto_ingresado, fecha, cantidad));
+            foreach(ProductoHoja p in Manager.Productos)
+            {
+                if(p.Id == id)
+                {
+                    registro_ingreso.Add(new Registro(p, fecha, cantidad));
+                    break;
+                }
+            }
+            balance = balance - costo;
         }
-
-        public static void Venta_producto(Producto producto_vendido, Date fecha, int cantidad)
+        // se ingresa al historial un producto que se vende
+        public static void Venta_producto(int id, Date fecha, int cantidad)
         {
-            registro_ingreso.Add(new Registro(producto_vendido, fecha, cantidad));
+            foreach (ProductoHoja p in Manager.Productos)
+            {
+                if (p.Id == id)
+                {
+                    registro_ingreso.Add(new Registro(p, fecha, cantidad));
+                    int precio = p.Costo;
+                    balance = balance + precio;
+                    break;
+                }
+            }
+            
         }
 
         public List<Registro> Registro_venta
