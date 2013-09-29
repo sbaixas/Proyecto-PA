@@ -10,7 +10,7 @@ namespace ProyectoPA
     {
         private static List<Producto> productos = new List<Producto>();
 
-        internal static List<Producto> Productos
+        public static List<Producto> Productos
         {
             get { return Manager.productos; }
             set { Manager.productos = value; }
@@ -24,13 +24,34 @@ namespace ProyectoPA
             set { Manager.idCount = value; }
         }
 
+        private static List<string> categorias = new List<string>();
 
-        /************************agregar un nuevo tipo de producto*********************************************/
-        public static void AgregarProducto(int costo, double tamaño, double peso, string nombre, string color, string categoria)
+        public static List<string> Categorias
         {
-            productos.Add(new ProductoHoja(costo, tamaño, peso, nombre, color, categoria));
+            get { return Manager.categorias; }
+            set { Manager.categorias = value; }
         }
 
+        /************************agregar un nuevo tipo de producto*********************************************/
+        public static void AgregarCategoria(string nombre)
+        {
+            categorias.Add(nombre);
+        }
+        public static void EliminarCategorias(string str)
+        {
+                foreach (string cat in categorias)
+                {
+                    if (cat == str)
+                    {
+                        categorias.Remove(cat);
+                    }
+                }
+        }
+        public static void AgregarProducto(int costo, double tamaño, double peso, string nombre, string color, int idcat)
+        {
+            productos.Add(new ProductoHoja(costo, tamaño, peso, nombre, color, categorias[idcat]));
+        }
+         
         public static bool AgregarSet(int descuento, List<int> cantidades, List<int> ids, string nombre)
         {
             bool funcionCompleta = false;
@@ -52,7 +73,18 @@ namespace ProyectoPA
             productos.Add(new SetDeProducto(descuento, cantidades, prods, nombre, null));
             return funcionCompleta;
         }
-
+        public static bool EliminarProducto(int id)
+        {
+            foreach (Producto p in productos)
+            {
+                if (p.Id == id)
+                {
+                    productos.Remove(p);
+                    return true;
+                }
+            }
+            return false;
+        }
         public static bool IngresarProducto(int IdDelProducto, int cantidad)
         {
             foreach (Producto p in productos)
@@ -60,6 +92,18 @@ namespace ProyectoPA
                 if (p.Id == IdDelProducto)
                 {
                     productos[IdDelProducto].AgregarStock(cantidad);
+                    return true;
+                }
+            }
+            return false;
+        }
+        public static bool Vender(int id, int cantidad)
+        {
+            foreach (Producto p in productos)
+            {
+                if (p.Id == id)
+                {
+                    p.DescontarStock(cantidad);
                     return true;
                 }
             }
@@ -172,13 +216,13 @@ namespace ProyectoPA
             }
             return false;
         }
-        public static bool Vender(int id, int cantidad)
+        public static bool ModificarDescuento(int idset, int nuevoDescuento)
         {
-            foreach (Producto p in productos)
+            foreach (SetDeProducto s in productos)
             {
-                if (p.Id == id)
+                if (s.Id == idset)
                 {
-                    p.DescontarStock(cantidad);
+                    s.Descuento = nuevoDescuento;
                     return true;
                 }
             }
