@@ -9,9 +9,28 @@ namespace ProyectoPA
     [Serializable]
     class FluxManager
     {
+        private static Date date;
+
+        public static Date Date
+        {
+            set { FluxManager.date = value; }
+        }
+
         private static List<Registro> registro_venta = new List<Registro>();
 
+        internal static List<Registro> Registro_venta1
+        {
+            get { return FluxManager.registro_venta; }
+            set { FluxManager.registro_venta = value; }
+        }
+
         private static List<Registro> registro_ingreso = new List<Registro>();
+
+        internal static List<Registro> Registro_ingreso1
+        {
+            get { return FluxManager.registro_ingreso; }
+            set { FluxManager.registro_ingreso = value; }
+        }
 
         private  static int balance = 0;
 
@@ -152,5 +171,16 @@ namespace ProyectoPA
             }
         }
 
+        public static List<Producto> Ranking_producto()
+        {
+            List<Producto> ranking = new List<Producto>();
+            string a;
+            foreach (Registro r in registro_venta)
+            {
+            }
+            
+
+
+        }
     }
 }
