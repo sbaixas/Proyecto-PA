@@ -75,6 +75,7 @@ namespace ProyectoPA
         //?????//
         public Producto() 
         {
+            this.id = idCount;
             idCount++;
         }
 
