@@ -20,6 +20,9 @@ namespace ProyectoPA
             formatter.Serialize(stream, Manager.Productos.ToArray());
             Stream stream1 = new FileStream("Manager1.sav", FileMode.Create);
             formatter.Serialize(stream1, Producto.IdCount);
+            Stream stream4 = new FileStream("Manager2.sav", FileMode.Create);
+            formatter.Serialize(stream4, Manager.Categorias.ToArray());
+            stream4.Close();
             stream.Close();
             stream1.Close();
             Stream stream2 = new FileStream("Flux.sav", FileMode.Create);
@@ -34,10 +37,14 @@ namespace ProyectoPA
         {
                 Stream stream = new FileStream("Manager.sav", FileMode.Open);
                 Stream stream1 = new FileStream("Manager1.sav", FileMode.Open);
+                Stream stream4 = new FileStream("Manager2.sav", FileMode.Open);
+                string[] cats = (string[])formatter.Deserialize(stream4);
                 Producto[] prods = (Producto[])formatter.Deserialize(stream);
                 int countz = (int)formatter.Deserialize(stream1);
+                stream4.Close();
                 stream.Close();
                 stream1.Close();
+                Manager.Categorias = cats.ToList();
                 Manager.Productos = prods.ToList();
                 Producto.IdCount = countz;
                 Stream stream2 = new FileStream("Flux.sav", FileMode.Open);

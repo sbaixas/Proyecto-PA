@@ -37,15 +37,17 @@ namespace ProyectoPA
         {
             categorias.Add(nombre);
         }
-        public static void EliminarCategorias(int i)
+        public static bool EliminarCategorias(int i)
         {
                 foreach (string cat in categorias)
                 {
                     if (cat == categorias[i])
                     {
                         categorias.Remove(cat);
+                        return true;
                     }
                 }
+                return false;
         }
         public static bool AgregarProducto(int costo, double tamaño, double peso, string nombre, string color, int idcat)
         {
