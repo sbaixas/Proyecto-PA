@@ -111,7 +111,7 @@ namespace ProyectoPA
             //se navega en el programa//
             navegar();
             //dejar como comentario si no se esta programando//
-           mostrarTodadLasOpciones(); Console.ReadLine();
+          // mostrarTodadLasOpciones(); Console.ReadLine();//
         }
 
         //Introduccion//
@@ -604,8 +604,8 @@ namespace ProyectoPA
             {
                 {
                     {
-                       /* try
-                        {*/
+                        try
+                        {
                             string[] nombreParametros = new string[] { "Nombre del nuevo set", "Descuento" };
                             string[] parametrosFirst = pedirDatos(nombreParametros);
                             Console.Clear();
@@ -649,7 +649,7 @@ namespace ProyectoPA
                                     }
                                     
                                     Console.WriteLine(linea);
-                                    Console.WriteLine("Presione ENTER para Continuar");
+                                    Console.WriteLine("Presione ENTER para Continuar, si quiere salir, escriba exit despues de presionar ENTER");
                                     Console.ReadLine();
 
                                     for (int i = 0; i < Manager.Productos.Count; i++)
@@ -693,7 +693,7 @@ namespace ProyectoPA
                             }
                             realizacionDeUnaAccion = true;
 
-                        /*}
+                        }
                         catch (Exception)
                         {
                             realizacionDeUnaAccion = false;
@@ -704,7 +704,7 @@ namespace ProyectoPA
                             
                             VolverAlMenuPrincipal();
                             
-                        }*/
+                        }
                         
                     }
                     
