@@ -12,63 +12,42 @@ namespace ProyectoPA
 {
     class CustomStreamManager
     {
-        public static void Guardar_estado_Manager()
+        private static IFormatter formatter = new BinaryFormatter();
+        public static void Guardar_Estado()
         {
-            IFormatter formatter = new BinaryFormatter();
+            
             Stream stream = new FileStream("Manager.sav", FileMode.Create);
             formatter.Serialize(stream, Manager.Productos.ToArray());
             Stream stream1 = new FileStream("Manager1.sav", FileMode.Create);
             formatter.Serialize(stream1, Producto.IdCount);
             stream.Close();
+            stream1.Close();
+            Stream stream2 = new FileStream("Flux.sav", FileMode.Create);
+            formatter.Serialize(stream2, FluxManager.Registro_ingreso1.ToArray());
+            Stream stream3 = new FileStream("Flux1.sav", FileMode.Create);
+            formatter.Serialize(stream3, FluxManager.Registro_venta1.ToArray());
+            stream2.Close();
+            stream3.Close();
         }
 
-        public static void Cargar_estado_Manager()
+        public static void Cargar_Estado()
         {
-            try
-            {
-                IFormatter formatter = new BinaryFormatter();
                 Stream stream = new FileStream("Manager.sav", FileMode.Open);
-                Stream stream1 = new FileStream("Manager.sav", FileMode.Open);
+                Stream stream1 = new FileStream("Manager1.sav", FileMode.Open);
                 Producto[] prods = (Producto[])formatter.Deserialize(stream);
                 int countz = (int)formatter.Deserialize(stream1);
                 stream.Close();
+                stream1.Close();
                 Manager.Productos = prods.ToList();
                 Producto.IdCount = countz;
-            }
-            catch(Exception e)
-            {
-                Console.WriteLine("No se han guardado estados previamente");
-            }
-        }
-
-        public static void Guardar_estado_FluxManager()
-        {
-            IFormatter formatter = new BinaryFormatter();
-            Stream stream = new FileStream("Flux.sav", FileMode.Create);
-            formatter.Serialize(stream, FluxManager.Registro_ingreso1.ToArray());
-            Stream stream1 = new FileStream("Flux1.sav", FileMode.Create);
-            formatter.Serialize(stream1, FluxManager.Registro_venta1.ToArray());
-            stream.Close();
-        }
-
-        public static void Cargar_estado_FluxManager()
-        {
-            try
-            {
-                IFormatter formatter = new BinaryFormatter();
-                Stream stream = new FileStream("Flux.sav", FileMode.Open);
-                Stream stream1 = new FileStream("Flux1.sav", FileMode.Open);
-                Registro[] regIng = (Registro[])formatter.Deserialize(stream);
-                Registro[] regVen = (Registro[])formatter.Deserialize(stream1);
-                stream.Close();
+                Stream stream2 = new FileStream("Flux.sav", FileMode.Open);
+                Stream stream3 = new FileStream("Flux1.sav", FileMode.Open);
+                Registro[] regIng = (Registro[])formatter.Deserialize(stream2);
+                Registro[] regVen = (Registro[])formatter.Deserialize(stream3);
+                stream2.Close();
+                stream3.Close();
                 FluxManager.Registro_ingreso1 = regIng.ToList();
                 FluxManager.Registro_venta1 = regVen.ToList();
-               
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("No se han guardado estados previamente");
-            }
         }
     }
 }
