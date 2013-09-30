@@ -43,7 +43,7 @@ namespace ProyectoPA
                 tamaño += (productos[i].Tamaño * cantidades[i]);
                 peso += (productos[i].Peso * cantidades[i]);
             }
-            costo = (costo * ((100 - descuento)/100));
+            costo = (int)((double)costo * ((100 - (double)descuento)/100));
             base.Init(costo, tamaño, peso, nombre, imagePath);
         }
         public override void DescontarStock(int cantidad)

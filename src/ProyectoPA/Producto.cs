@@ -73,7 +73,10 @@ namespace ProyectoPA
 /****************************Constructores**************************************/
       
         //?????//
-        public Producto() { }
+        public Producto() 
+        {
+            idCount++;
+        }
 
        //Constructor pasandole todos los atributos//
         public Producto(int costo, double tamaño, double peso, string nombre)
