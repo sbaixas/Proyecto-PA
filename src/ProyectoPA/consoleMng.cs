@@ -1115,8 +1115,7 @@ namespace ProyectoPA
             guardar = 6;
             if (guardar == optionId)
             {
-                CustomStreamManager.Guardar_estado_FluxManager();
-                CustomStreamManager.Guardar_estado_Manager();
+                CustomStreamManager.Guardar_Estado();
                 for (int j = 0; j < (int)(Console.BufferHeight/2); j++)
                 {
                     Console.WriteLine("");
@@ -1134,8 +1133,7 @@ namespace ProyectoPA
             }
             if (cargar == optionId)
             {
-                CustomStreamManager.Cargar_estado_Manager();
-                CustomStreamManager.Cargar_estado_FluxManager();
+                CustomStreamManager.Cargar_Estado();
                 for (int j = 0; j < (int)(Console.BufferHeight / 2); j++)
                 {
                     Console.WriteLine("");
