@@ -9,14 +9,14 @@ namespace ProyectoPA
     class ProductoHoja : Producto
     {
 /****************Getters y Setters******************/
-        private string color;
+        public string color;
 
         public string Color
         {
             get { return color; }
             set { color = value; }
         }
-        private string categoria;
+        public string categoria;
 
         public string Categoria
         {
@@ -24,7 +24,7 @@ namespace ProyectoPA
             set { categoria = value; }
         }
 
-        private int cantidad;
+        public int cantidad;
 
         public int Cantidad
         {

@@ -12,13 +12,13 @@ namespace ProyectoPA
     abstract class Producto
     {
 /*******Atributos , Getter y Setters*******/
-        private static int idcount = 0;
-        private int id;
-        private int costo;
-        private double tamaño;
-        private double peso;
-        private string nombre;
-        private string imagePath;
+        public static int idcount = 0;
+        public int id;
+        public int costo;
+        public double tamaño;
+        public double peso;
+        public string nombre;
+        public string imagePath;
 
         public int Costo
         {
