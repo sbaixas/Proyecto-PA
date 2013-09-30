@@ -7,18 +7,19 @@ using System.Threading.Tasks;
 namespace ProyectoPA
 {
     [Serializable]
-    class Registro
+    public class Registro
     {
-        public Producto producto;
-        
-        public Date fecha;
+        private Producto producto;
 
-        public int precio;
-        public double tamaño;
-        public double peso;
-        public string nombre;
-        public int cantidad;
+        private Date fecha;
 
+        private int precio;
+        private double tamaño;
+        private double peso;
+        private string nombre;
+        private int cantidad;
+
+        public Registro() { }
         public Registro(Producto producto, Date fecha, int cantidad)
         {
             this.producto = producto;
