@@ -48,7 +48,7 @@ namespace ProyectoPA
             //se agregan las 5 subopciones principales//
             raiz.agregarHijo("Productos", " Manager");
             raiz.agregarHijo("Registro", "Flux Manager");
-            raiz.agregarHijo("Cargar/Guardad", " Main");
+            raiz.agregarHijo("Cargar/Guardar", " Main");
             raiz.agregarHijo("Comprar/Vender Productos", "Comprar/Vender");
             {//cargar/guardar//
                 raiz.SubOptions[2].agregarHijo("Cargar", "Cargar/Guardar");
@@ -1452,7 +1452,7 @@ namespace ProyectoPA
             {
                 VerReportesDeVenta();
                 RealizacionCorrecta = true;
-                Console.WriteLine("");
+                Console.WriteLine(" ");
                 Console.WriteLine(" Presione ENTER para volver");
                 Console.ReadLine();
                 Console.Clear();
@@ -1499,15 +1499,22 @@ namespace ProyectoPA
         public  void VerReportesDeIngreso()
         {
             int largo = FluxManager.Registro_ingreso.Count;
-            
-            for (int i = 0; i < largo; i++)
+            try
             {
-                Registro a = FluxManager.Registro_ingreso[i];
-                Date b = a.Fecha;
-                int cantidad = a.Cantidad;
-                string fecha = b.Retornar_fecha();
-                string nombre = a.Nombre;
-                Console.WriteLine("el " + fecha + " se ingresaron " + cantidad + " de " + nombre);
+                for (int i = 0; i < largo; i++)
+                {
+                    Registro a = FluxManager.Registro_venta[i];
+                    Date b = a.Fecha;
+                    int cantidad = a.Cantidad;
+                    string fecha = b.Retornar_fecha();
+                    string nombre = a.Nombre;
+                    Console.WriteLine("el " + fecha + " se ingresaron " + cantidad + " de " + nombre);
+                }
+            }
+            catch(ArgumentOutOfRangeException) {
+                Console.WriteLine("Aun no hay ventas, Presione ENTER para continuar");
+                Console.ReadLine();
+                VolverAlMenuPrincipal();
             }
         }
         // se imprime el historial de ingresos con fecha especificada por el usuario desde me1/año1 hasta mes2/año2

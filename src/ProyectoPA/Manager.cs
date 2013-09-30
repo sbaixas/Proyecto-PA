@@ -94,13 +94,19 @@ namespace ProyectoPA
         }
         public static bool IngresarProducto(int IdDelProducto, int cantidad)
         {
-            foreach (Producto p in productos)
+            try
             {
-                if (p.Id == IdDelProducto)
+                foreach (Producto p in productos)
                 {
-                    productos[IdDelProducto].AgregarStock(cantidad);
-                    return true;
+                    if (p.Id == IdDelProducto)
+                    {
+                        productos[IdDelProducto].AgregarStock(cantidad);
+                        return true;
+                    }
                 }
+            }
+            catch(IndexOutOfRangeException){
+                return false;
             }
             return false;
         }
