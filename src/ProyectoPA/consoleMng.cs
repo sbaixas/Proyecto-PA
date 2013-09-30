@@ -1502,7 +1502,7 @@ namespace ProyectoPA
             
             for (int i = 0; i < largo; i++)
             {
-                Registro a = FluxManager.Registro_venta[i];
+                Registro a = FluxManager.Registro_ingreso[i];
                 Date b = a.Fecha;
                 int cantidad = a.Cantidad;
                 string fecha = b.Retornar_fecha();
