@@ -47,9 +47,17 @@ namespace ProyectoPA
                     }
                 }
         }
-        public static void AgregarProducto(int costo, double tamaño, double peso, string nombre, string color, int idcat)
+        public static bool AgregarProducto(int costo, double tamaño, double peso, string nombre, string color, int idcat)
         {
-            productos.Add(new ProductoHoja(costo, tamaño, peso, nombre, color, categorias[idcat]));
+            try
+            {
+                productos.Add(new ProductoHoja(costo, tamaño, peso, nombre, color, categorias[idcat]));
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
          
         public static bool AgregarSet(int descuento, List<int> cantidades, List<int> ids, string nombre)

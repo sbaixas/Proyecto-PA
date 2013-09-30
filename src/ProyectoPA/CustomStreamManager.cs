@@ -74,10 +74,8 @@ namespace ProyectoPA
                 FileStream myFileStream = new FileStream("Flux.regF", FileMode.Open);
                 FileStream myFileStream1 = new FileStream("Flux1.regF", FileMode.Open);
 
-                regIng = (List<Registro>)
-                mySerializer.Deserialize(myFileStream);
-                regVen = (List<Registro>)
-                mySerializer.Deserialize(myFileStream1);
+                regIng = (List<Registro>)mySerializer.Deserialize(myFileStream);
+                regVen = (List<Registro>)mySerializer.Deserialize(myFileStream1);
 
                 FluxManager.Registro_ingreso1 = regIng;
                 FluxManager.Registro_venta1 = regVen;
