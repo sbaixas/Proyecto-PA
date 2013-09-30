@@ -129,5 +129,9 @@ namespace ProyectoPA
             Console.WriteLine("- Peso: " + this.Peso + "");
             Console.WriteLine("");
         }
+        public virtual bool quedan(int cuantos)
+        {
+            return false;
+        }
     }
 }

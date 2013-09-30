@@ -79,5 +79,13 @@ namespace ProyectoPA
             Console.WriteLine("- Cantidad: " + this.Cantidad);
             Console.WriteLine("--------------------------------------");
         }
+        public override bool quedan(int cuantos)
+        {
+            if (cantidad < cuantos)
+            {
+                return false;
+            }
+            return true;
+        }
     }
 }
