@@ -55,7 +55,7 @@ namespace ProyectoPA
             {
                 if (p.Id == id)
                 {
-                    registro_ingreso.Add(new Registro(p, date, cantidad));
+                    registro_venta.Add(new Registro(p, date, cantidad));
                     int precio = p.Costo;
                     balance = balance + precio;
                     break;

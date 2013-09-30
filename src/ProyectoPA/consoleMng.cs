@@ -1419,7 +1419,6 @@ namespace ProyectoPA
                     string[] fechas = pedirDatos(nombreParametros);
                     Ver_historial_con_fecha_ingresos(Convert.ToInt32(fechas[0]), Convert.ToInt32(fechas[1]), Convert.ToInt32(fechas[2]), Convert.ToInt32(fechas[3]));
                     RealizacionCorrecta = true;
-                    Console.Clear();
                     Console.WriteLine("");
                     Console.WriteLine(" Presione ENTER para volver");
                     Console.ReadLine();
@@ -1433,7 +1432,6 @@ namespace ProyectoPA
                     string[] fechas = pedirDatos(nombreParametros);
                     Ver_historial_con_fecha_ventas(Convert.ToInt32(fechas[0]), Convert.ToInt32(fechas[1]), Convert.ToInt32(fechas[2]), Convert.ToInt32(fechas[3]));
                     RealizacionCorrecta = true;
-                    Console.Clear();
                     Console.WriteLine("");
                     Console.WriteLine(" Presione ENTER para volver");
                     Console.ReadLine();
@@ -1445,14 +1443,12 @@ namespace ProyectoPA
                 Console.WriteLine("");
                 Console.WriteLine(" Ingresaste mal las fechas , presiona ENTER para volver al menu principal");
                 Console.ReadLine();
-                Console.Clear();
                 RealizacionCorrecta = false;
             }
             if (verReporesDeVentaTodo == OptionId)
             {
                 VerReportesDeVenta();
                 RealizacionCorrecta = true;
-                Console.Clear();
                 Console.WriteLine("");
                 Console.WriteLine(" Presione ENTER para volver");
                 Console.ReadLine();
@@ -1462,7 +1458,6 @@ namespace ProyectoPA
             {
                 VerReportesDeIngreso();
                 RealizacionCorrecta = true;
-                Console.Clear();
                 Console.WriteLine("");
                 Console.WriteLine(" Presione ENTER para volver");
                 Console.ReadLine();
@@ -1472,7 +1467,6 @@ namespace ProyectoPA
             {
                 Ranking_producto();
                 RealizacionCorrecta = true;
-                Console.Clear();
                 Console.WriteLine("");
                 Console.WriteLine(" Presione ENTER para volver");
                 Console.ReadLine();
@@ -1488,8 +1482,8 @@ namespace ProyectoPA
         public void VerReportesDeVenta()
         {
             int largo = FluxManager.Registro_venta1.Count;
-            int i;
-            for (i = 0; i < largo; i++)
+            
+            for (int i = 0; i < largo; i++)
             {
                 Registro a = FluxManager.Registro_venta1[i];
                 Date b = a.Fecha;
@@ -1502,8 +1496,8 @@ namespace ProyectoPA
         public  void VerReportesDeIngreso()
         {
             int largo = FluxManager.Registro_ingreso1.Count;
-            int i;
-            for (i = 0; i < largo; i++)
+            
+            for (int i = 0; i < largo; i++)
             {
                 Registro a = FluxManager.Registro_venta1[i];
                 Date b = a.Fecha;
