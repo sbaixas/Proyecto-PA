@@ -39,10 +39,10 @@ namespace ProyectoPA
             MenuPrincipal = raiz;
             current = raiz;
             //testing//
-            /*
-            Manager.AgregarProducto(3000, 2033, 4544, "ferrari rojo", "rojo", "vehiculo");
-            Manager.AgregarProducto(30000, 20534, 452, "platano", "verde", "fruta");
-            Manager.AgregarProducto(30000, 204, 4533, "playStation", "azul", "juegos");*/
+            Manager.AgregarCategoria("cosa");
+            Manager.AgregarProducto(3000, 2033, 4544, "ferrari rojo", "rojo", 0);
+            Manager.AgregarProducto(30000, 20534, 452, "platano", "verde", 0);
+            Manager.AgregarProducto(30000, 204, 4533, "playStation", "azul",0);
 
             //se agregan las 5 subopciones principales//
             raiz.agregarHijo("Productos", " Manager");
@@ -102,14 +102,14 @@ namespace ProyectoPA
                     raiz.SubOptions[1].SubOptions[0].agregarHijo("Historial en Una Fecha En Particular", "Historial De Ventas");
                 }
                 {//opciones de ver historial de Ingresos//
-                    raiz.SubOptions[1].SubOptions[1].agregarHijo("En Una Fecha En Particular", "Historial De Ingresos");
+                    raiz.SubOptions[1].SubOptions[1].agregarHijo("Todo", "Historial De Ingresos");
                     raiz.SubOptions[1].SubOptions[1].agregarHijo("Historial en Una Fecha En Particular", "Historial De Ingresos");
                 }
             }
             //se navega en el programa//
             navegar();
             //dejar como comentario si no se esta programando//
-            mostrarTodadLasOpciones(); Console.ReadLine();
+            //mostrarTodadLasOpciones(); Console.ReadLine();//
         }
 
         //Introduccion//
@@ -255,9 +255,6 @@ namespace ProyectoPA
                     current = current.SubOptions[seleccion];
                     Console.Clear();
                     showOption();
-                    Console.Clear();
-                    Console.WriteLine(current.OptionId+"");
-                    Console.ReadLine();
                     ejecutarMetodo(current.OptionId);
 
 
@@ -340,43 +337,32 @@ namespace ProyectoPA
             string input = Console.ReadLine();
             return input;
         }
-
         public void ejecutarMetodo(int OpcionId)
         {
-            bool realizacionDeUnaAccion = false;
+            bool realizacionDeUnaAccion = false;//se usara para propositos futuros//
             //ejecutarAgregarOIngresarProductos []//
             //modificar producto []//
             
             //para Productos//
             if (5 == OpcionId || 6 == OpcionId) { realizacionDeUnaAccion = cargarOguardar(OpcionId); }
             if (9 <= OpcionId && OpcionId <= 11) { realizacionDeUnaAccion = ejecutarAgregarOEliminarProductos(OpcionId); }
-            if (22 <= OpcionId && OpcionId <= 27) { realizacionDeUnaAccion = ejecutarModificarProductoHoja(OpcionId); }
+            if (23 <= OpcionId && OpcionId <= 28) { realizacionDeUnaAccion = ejecutarModificarProductoHoja(OpcionId); }
             if (7 == OpcionId || OpcionId == 8) { realizacionDeUnaAccion = comprarOVender(OpcionId); }
             if (16<= OpcionId && OpcionId <= 17) { realizacionDeUnaAccion = Imprimir(OpcionId); }
-            if (18 <= OpcionId && OpcionId <= 21) { realizacionDeUnaAccion = modificarSetDeProductos(OpcionId); }
+            if (19 <= OpcionId && OpcionId <= 22) { realizacionDeUnaAccion = modificarSetDeProductos(OpcionId); }
             if (14 == OpcionId || OpcionId == 15) { realizacionDeUnaAccion = ejecutarAgregarOEliminarCategoria(OpcionId); }
+            if (31 <= OpcionId && OpcionId <= 35) { realizacionDeUnaAccion = Reportes(OpcionId); }
 
             //para Registro//
-
-            //CUANDO SE TERMINE LA ACCION///
-            if (realizacionDeUnaAccion)
-            {
-                Console.Clear();
-                Console.WriteLine();
-                Console.WriteLine("Accion realizada con exito , presiona ENTER para volver al menu principal");
-                Console.ReadLine();
-                VolverAlMenuPrincipal();
-            }
-           
+            //CUANDO SE TERMINE LA ACCION///  
         }
-
         public bool modificarSetDeProductos(int OpcionId) {
             bool realizacionDeUnaAccion = false;
             int nombre, agregarProducto, modificarDscto, eliminarSetDeProducto;
-            agregarProducto = 19;
-            modificarDscto = 21;
-            eliminarSetDeProducto = 20;
-            nombre = 18;
+            agregarProducto = 10;
+            modificarDscto = 22;
+            eliminarSetDeProducto = 21;
+            nombre = 19;
 
             //Modificar nombre//
             if (OpcionId == nombre)
@@ -700,12 +686,12 @@ namespace ProyectoPA
         {
             bool realizacionDeUnaAccion = false;
             int costo, peso, categoria, tamaño, nombre, color;
-            costo = 23;
-            peso = 25;
-            categoria = 27;
-            tamaño = 24;
-            nombre = 22;
-            color = 26;
+            costo = 24;
+            peso = 26;
+            categoria = 28;
+            tamaño = 25;
+            nombre = 23;
+            color = 27;
             //Modificar Nombre//
             if (OpcionId == nombre)
             {
@@ -1001,6 +987,10 @@ namespace ProyectoPA
                             Console.WriteLine(" - Color: " + x.Color);
                             Console.WriteLine("");
                             Console.WriteLine(" - Cantidad: " + x.Cantidad);
+                            if (x.Cantidad < 20)
+                            {
+                                Console.WriteLine("ADVERTENCIA: QUEDAN POCOS " + x.Nombre + "!");
+                            }
                             Console.WriteLine("");
                             realizacionDeUnaAccion = true;
                         }
@@ -1280,7 +1270,221 @@ namespace ProyectoPA
            
             return realizacionDeUnaAccion;
         }
-      
+        public bool Reportes(int OptionId)
+        {
+            bool RealizacionCorrecta = false;
+            int verReporesDeVentaTodo, verReporesDeVentaParticular, verReporesDeIngresoTodo, verReporesDeIngresoParticular, verRanking;
+            verRanking = 31;
+            verReporesDeIngresoParticular = 35;
+            verReporesDeIngresoTodo = 34;
+            verReporesDeVentaParticular = 33;
+            verReporesDeVentaTodo = 32;
+            try
+            {
+                if (verReporesDeIngresoParticular == OptionId)
+                {//(int mes1, int año1, int mes2, int año2)//
+                    Console.WriteLine("");
+                    Console.WriteLine("Ingrese la fecha inicial y final para ver el reporte");
+                    string[] nombreParametros = new string[] { "Año de Inicio", "Mes De Inicio(del 1 al 12)", "Año final", "Mes final" };
+                    string[] fechas = pedirDatos(nombreParametros);
+                    Ver_historial_con_fecha_ingresos(Convert.ToInt32(fechas[0]), Convert.ToInt32(fechas[1]), Convert.ToInt32(fechas[2]), Convert.ToInt32(fechas[3]));
+                    RealizacionCorrecta = true;
+                    Console.Clear();
+                    Console.WriteLine("");
+                    Console.WriteLine(" Presione ENTER para volver");
+                    Console.ReadLine();
+                    Console.Clear();
+                }
+                if (verReporesDeVentaParticular == OptionId)
+                {
+                    Console.WriteLine("");
+                    Console.WriteLine("Ingrese la fecha inicial y final para ver el reporte");
+                    string[] nombreParametros = new string[] { "Año de Inicio", "Mes De Inicio(del 1 al 12)", "Año final", "Mes final" };
+                    string[] fechas = pedirDatos(nombreParametros);
+                    Ver_historial_con_fecha_ventas(Convert.ToInt32(fechas[0]), Convert.ToInt32(fechas[1]), Convert.ToInt32(fechas[2]), Convert.ToInt32(fechas[3]));
+                    RealizacionCorrecta = true;
+                    Console.Clear();
+                    Console.WriteLine("");
+                    Console.WriteLine(" Presione ENTER para volver");
+                    Console.ReadLine();
+                    Console.Clear();
+                }
+            }
+            catch(FormatException){
+                Console.Clear();
+                Console.WriteLine("");
+                Console.WriteLine(" Ingresaste mal las fechas , presiona ENTER para volver al menu principal");
+                Console.ReadLine();
+                Console.Clear();
+                RealizacionCorrecta = false;
+            }
+            if (verReporesDeVentaTodo == OptionId)
+            {
+                VerReportesDeVenta();
+                RealizacionCorrecta = true;
+                Console.Clear();
+                Console.WriteLine("");
+                Console.WriteLine(" Presione ENTER para volver");
+                Console.ReadLine();
+                Console.Clear();
+            }
+            if (verReporesDeIngresoTodo == OptionId)
+            {
+                VerReportesDeIngreso();
+                RealizacionCorrecta = true;
+                Console.Clear();
+                Console.WriteLine("");
+                Console.WriteLine(" Presione ENTER para volver");
+                Console.ReadLine();
+                Console.Clear();
+            }
+            if (verRanking == OptionId)
+            {
+                Ranking_producto();
+                RealizacionCorrecta = true;
+                Console.Clear();
+                Console.WriteLine("");
+                Console.WriteLine(" Presione ENTER para volver");
+                Console.ReadLine();
+                Console.Clear();
+            }
+
+
+            VolverAlMenuPrincipal();
+
+            return RealizacionCorrecta;
+        }
+        /*Esto lo hizo matias*/
+        public void VerReportesDeVenta()
+        {
+            int largo = FluxManager.Registro_venta1.Count;
+            int i;
+            for (i = 0; i < largo; i++)
+            {
+                Registro a = FluxManager.Registro_venta1[i];
+                Date b = a.Fecha;
+                int cantidad = a.Cantidad;
+                string fecha = b.Retornar_fecha();
+                string nombre = a.Nombre;
+                Console.WriteLine("el " + fecha + " se vendieron " + cantidad + " de " + nombre);
+            }
+        }
+        public  void VerReportesDeIngreso()
+        {
+            int largo = FluxManager.Registro_ingreso1.Count;
+            int i;
+            for (i = 0; i < largo; i++)
+            {
+                Registro a = FluxManager.Registro_venta1[i];
+                Date b = a.Fecha;
+                int cantidad = a.Cantidad;
+                string fecha = b.Retornar_fecha();
+                string nombre = a.Nombre;
+                Console.WriteLine("el " + fecha + " se ingresaron " + cantidad + " de " + nombre);
+            }
+        }
+        // se imprime el historial de ingresos con fecha especificada por el usuario desde me1/año1 hasta mes2/año2
+        public  void Ver_historial_con_fecha_ingresos(int mes1, int año1, int mes2, int año2)
+        {
+            int largo = FluxManager.Registro_ingreso1.Count;
+            int i;
+            for (i = 0; i < largo; i++)
+            {
+                Registro a = FluxManager.Registro_ingreso1[i];
+                Date b = a.Fecha;
+                int cantidad = a.Cantidad;
+                string fecha = b.Retornar_fecha();
+                string nombre = a.Nombre;
+                int mes_producto = b.Mes;
+                int año_producto = b.Año;
+
+                if (año_producto >= año1 && año_producto <= año2)
+                {
+                    if (mes_producto >= mes1 && mes_producto <= mes2)
+                    {
+                        Console.WriteLine("el " + fecha + " se ingresaron " + cantidad + " de " + nombre);
+                    }
+                }
+            }
+        }
+        // se imprime el historial de ventas con fecha especificada por el usuario desde me1/año1 hasta mes2/año2
+        public void Ver_historial_con_fecha_ventas(int mes1, int año1, int mes2, int año2)
+        {
+            int largo = FluxManager.Registro_venta1.Count;
+            int i;
+            for (i = 0; i < largo; i++)
+            {
+                Registro a = FluxManager.Registro_ingreso1[i];
+                Date b = a.Fecha;
+                int cantidad = a.Cantidad;
+                string fecha = b.Retornar_fecha();
+                string nombre = a.Nombre;
+                int mes_producto = b.Mes;
+                int año_producto = b.Año;
+
+                if (año_producto >= año1 && año_producto <= año2)
+                {
+                    if (mes_producto >= mes1 && mes_producto <= mes2)
+                    {
+                        Console.WriteLine("el " + fecha + " se vendieron " + cantidad + " de " + nombre);
+                    }
+                }
+            }
+        }
+        public static List<Registro> Ranking_producto()
+        {
+            List<Registro> ranking = new List<Registro>();
+            foreach (Registro a in FluxManager.Registro_venta1)
+            {
+                string nombre1 = a.Nombre;
+                int precio = a.Precio;
+                int cantidad = a.Cantidad;
+                int k = 0;
+                foreach (Registro b in ranking)
+                {
+                    string nombre2 = b.Nombre;
+                    if (nombre1 == nombre2)
+                    {
+                        k = 1;
+                    }
+                }
+                if (k == 0)
+                {
+                    foreach (Registro c in FluxManager.Registro_venta1)
+                    {
+                        string nombre2 = c.Nombre;
+                        if (nombre1 == nombre2)
+                        {
+                            cantidad = cantidad + c.Cantidad;
+                        }
+                    }
+                }
+            }
+            int count = ranking.Count;
+            Registro[] array = new Registro[count];
+            ranking.CopyTo(array);
+
+            for (int i = 0; i < count; i++)
+            {
+                Registro reg1 = array[i];
+                Registro reg2 = array[i + 1];
+                if (reg1.Cantidad < reg2.Cantidad)
+                {
+                    Registro aux = reg2;
+                    array[i + 1] = reg1;
+                    array[i] = aux;
+                }
+            }
+
+            List<Registro> lista_final = new List<Registro>();
+            foreach (Registro n in array)
+            {
+                lista_final.Add(n);
+            }
+
+            return lista_final;
+        }
+        //FIN DE LO QUE HISO MATIAS//
         //metodos que sirven solo para quien modifique el programa//
         private void mostrarTodadLasOpciones()
         {
@@ -1318,5 +1522,6 @@ namespace ProyectoPA
             }
             Console.WriteLine(linea);
         }
+        
     }
 }
