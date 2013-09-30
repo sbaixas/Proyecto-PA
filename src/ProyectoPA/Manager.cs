@@ -37,11 +37,11 @@ namespace ProyectoPA
         {
             categorias.Add(nombre);
         }
-        public static void EliminarCategorias(string str)
+        public static void EliminarCategorias(int i)
         {
                 foreach (string cat in categorias)
                 {
-                    if (cat == str)
+                    if (cat == categorias[i])
                     {
                         categorias.Remove(cat);
                     }
