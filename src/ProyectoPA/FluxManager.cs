@@ -36,7 +36,7 @@ namespace ProyectoPA
         //  se ingresa al historial un producto que se ingresa 
         public static void Ingreso_producto(int id, int cantidad, int costo)
         {
-            foreach(ProductoHoja p in Manager.Productos)
+            foreach(Producto p in Manager.Productos)
             {
                 if(p.Id == id)
                 {
@@ -49,7 +49,7 @@ namespace ProyectoPA
         // se ingresa al historial un producto que se vende
         public static void Venta_producto(int id, int cantidad)
         {
-            foreach (ProductoHoja p in Manager.Productos)
+            foreach (Producto p in Manager.Productos)
             {
                 if (p.Id == id)
                 {
