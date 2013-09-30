@@ -9,7 +9,6 @@ namespace ProyectoPA
     //bozzo//
     class consoleMng
     {
-
         //Atributos//
         private optionTree current;
         private optionTree MenuPrincipal;
@@ -36,18 +35,28 @@ namespace ProyectoPA
             TodadLasOpciones = new List<optionTree>();
 
             //se crea el primer menu//
-            optionTree raiz = new optionTree("main", "raiz", null, Id);
+            optionTree raiz = new optionTree("Enterprise Managment", "raiz", null, Id);
             MenuPrincipal = raiz;
             current = raiz;
             //testing//
+            /*
             Manager.AgregarProducto(3000, 2033, 4544, "ferrari rojo", "rojo", "vehiculo");
             Manager.AgregarProducto(30000, 20534, 452, "platano", "verde", "fruta");
-            Manager.AgregarProducto(30000, 204, 4533, "playStation", "azul", "juegos");
+            Manager.AgregarProducto(30000, 204, 4533, "playStation", "azul", "juegos");*/
 
-            //se agregan las 2 subopciones principales//
+            //se agregan las 5 subopciones principales//
             raiz.agregarHijo("Productos", " Manager");
             raiz.agregarHijo("Registro", "Flux Manager");
-
+            raiz.agregarHijo("Cargar/Guardad", " Main");
+            raiz.agregarHijo("Comprar/Vender Productos", "Comprar/Vender");
+            {//cargar/guardar//
+                raiz.SubOptions[2].agregarHijo("Cargar", "Cargar/Guardar");
+                raiz.SubOptions[2].agregarHijo("Guardar", "Cargar/Guardar");
+            }
+            {//Comprar o Vender//
+                raiz.SubOptions[3].agregarHijo("Comprar", "Comprar/Vender");
+                raiz.SubOptions[3].agregarHijo("Vender", "Comprar/Vender");
+            }            
             //opciones para productos//
             {
                 raiz.SubOptions[0].agregarHijo("Agregar Producto", "Opciones De Producto");
@@ -328,17 +337,17 @@ namespace ProyectoPA
             return input;
         }
         public void ejecutarMetodo(int OpcionId)
-        {/*
+        {
             bool realizacionDeUnaAccion = false;
             //ejecutarAgregarOIngresarProductos []//
             //modificar producto []//
             
             //para Productos//
-            if (8< OpcionId && OpcionId <= 13){ejecutarModificarProductoHoja(OpcionId);}
-            if (3 <= OpcionId && OpcionId <= 5){ejecutarAgregarOIngresarProductos(OpcionId);}
-            if (7 == OpcionId) { Imprimir(OpcionId); }
-            if (8 == OpcionId) { Imprimir(OpcionId); }
-            if (OpcionId == 5) { ejecutarAgregarOIngresarProductos(OpcionId);}
+            if(5 == OpcionId || 6 == OpcionId){
+                cargarOguardar(OpcionId);
+            }
+            if (9<= OpcionId && OpcionId <= 12){ejecutarAgregarOIngresarOEliminarProductos(OpcionId);}
+            
 
             //para Registro//
 
@@ -349,9 +358,9 @@ namespace ProyectoPA
                 Console.WriteLine("Accion realizada con exito , presiona ENTER para volver al menu principal");
                 Console.ReadLine();
                 VolverAlMenuPrincipal();
-            } */
+            } 
         }
-        public bool ejecutarAgregarOIngresarProductos(int OpcionId)
+        public bool ejecutarAgregarOIngresarOEliminarProductos(int OpcionId)
         {
             bool realizacionDeUnaAccion = false;
             int agregarProducto, AgregarSetDeProducto, ingresarProducto;
@@ -367,9 +376,9 @@ namespace ProyectoPA
                         try
                         {
                             //int costo, double tamaño, double peso, string nombre, string color, string categoria//
-                            string[] nombreParametros3 = new string[] { "costo", "tamaño", "peso", "nombre", "color", "categoria" };
+                            string[] nombreParametros3 = new string[] { "costo", "tamaño", "peso", "nombre", "color", "Id de la categoria" };
                             string[] parametros3 = pedirDatos(nombreParametros3);
-                            Manager.AgregarProducto(Convert.ToInt32(parametros3[0]), Convert.ToDouble(parametros3[1]), Convert.ToDouble(parametros3[2]), Convert.ToString(parametros3[3]), Convert.ToString(parametros3[4]), Convert.ToString(parametros3[5]));
+                            Manager.AgregarProducto(Convert.ToInt32(parametros3[0]), Convert.ToDouble(parametros3[1]), Convert.ToDouble(parametros3[2]), Convert.ToString(parametros3[3]), Convert.ToString(parametros3[4]), Convert.ToInt32(parametros3[5]));
                             realizacionDeUnaAccion = true;
                         }
                         catch (FormatException)
@@ -852,13 +861,60 @@ namespace ProyectoPA
             }
             return realizacionDeUnaAccion;
         }
+        public bool cargarOguardar(int optionId)
+        {
+            bool realizacionDeUnaAccion = false;
+            int cargar, guardar;
+            cargar = 5;
+            guardar = 6;
+            if (guardar == optionId)
+            {
+                CustomStreamManager.Guardar_estado_FluxManager();
+                CustomStreamManager.Guardar_estado_Manager();
+                for (int j = 0; j < (int)(Console.BufferHeight/2); j++)
+                {
+                    Console.WriteLine("");
+                }
+                for (int i = 0; i < (int)( Console.BufferWidth/2 - 14); i++)
+                {
+                    Console.Write(" ");
+                    Console.Write("Estado Guardado");
+                }
+                Console.WriteLine(" Presione ENTER para continuar");
+                Console.ReadLine();
+                Console.Clear();
+                realizacionDeUnaAccion = true;
+                VolverAlMenuPrincipal();
+            }
+            if (cargar == optionId)
+            {
+                CustomStreamManager.Cargar_estado_Manager();
+                CustomStreamManager.Cargar_estado_FluxManager();
+                for (int j = 0; j < (int)(Console.BufferHeight / 2); j++)
+                {
+                    Console.WriteLine("");
+                }
+                for (int i = 0; i < (int)(Console.BufferWidth / 2 - 14); i++)
+                {
+                    Console.Write(" ");
+                    Console.Write("Estado Cargado");
+                }
+                Console.WriteLine(" Presione ENTER para continuar");
+                Console.ReadLine();
+                Console.Clear();
+                realizacionDeUnaAccion = true;
+                VolverAlMenuPrincipal();
+            }
+            return realizacionDeUnaAccion;
+
+        }
 
         //metodos que sirven solo para quien modifique el programa//
         private void mostrarTodadLasOpciones()
         {
             Console.Clear();
             string[] parametros = new string[] { "OptionID", "Nombre", "Categoria", "Subopciones" };
-            int[] formato = new int[] { 12, 30, 30, 12 };
+            int[] formato = new int[] { 12, 50, 30, 12 };
             string linea = TableMaker.ImprimirParametros(parametros, formato);
             foreach (optionTree ot in TodadLasOpciones)
             {
@@ -882,12 +938,11 @@ namespace ProyectoPA
                 }
                 ID = TableMaker.darFormatoDeColumna(12, ot.OptionId);
                 subopciones = TableMaker.darFormatoDeColumna(12, numeroDeSubOpciones);
-                Nombre = TableMaker.darFormatoDeColumna(30, ot.Titulo);
+                Nombre = TableMaker.darFormatoDeColumna(50, ot.Titulo);
                 categoria = TableMaker.darFormatoDeColumna(30, ot.Categoria);
                 string[] output = new string[] { ID, Nombre, categoria, subopciones };
                 TableMaker.ImprimirFila(output);
                 Console.WriteLine("");
-
             }
             Console.WriteLine(linea);
         }
