@@ -11,7 +11,8 @@ namespace ProyectoPA
     {
         static void Main(string[] args)
         {
-            
+            Date date = new Date(DateTime.Now);
+            FluxManager.Date = date;
             consoleMng x = new consoleMng();
         }
     }
