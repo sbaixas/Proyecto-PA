@@ -650,7 +650,7 @@ namespace ProyectoPA
                             realizacionDeUnaAccion = true;
                            
                         }
-                        catch (FormatException)
+                        catch (Exception)
                         {
                             realizacionDeUnaAccion = false;
                             Console.Clear();
