@@ -6,23 +6,24 @@ using System.Threading.Tasks;
 
 namespace ProyectoPA
 {
-    class SetDeProducto : Producto
+    [Serializable]
+    public class SetDeProducto : Producto
     {
-        public double descuento;
+        private double descuento;
 
         public double Descuento
         {
             get { return descuento; }
             set { descuento = value; }
         }
-        public List<int> cantidades;
+        private List<int> cantidades;
 
         public List<int> Cantidades
         {
             get { return cantidades; }
             set { cantidades = value; }
         }
-        public List<Producto> productos;
+        private List<Producto> productos;
 
         public List<Producto> Productos
         {

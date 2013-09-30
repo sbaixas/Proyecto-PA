@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace ProyectoPA
 {
     [Serializable]
-    class FluxManager
+    static class FluxManager
     {
         private static Date date;
 
@@ -62,25 +62,7 @@ namespace ProyectoPA
                 }
             }
             
-        }
-
-        public List<Registro> Registro_venta
-        {
-            get { return registro_venta; }
-            set { registro_venta = value; }
-        }
-
-        public List<Registro> Registro_ingreso
-        {
-            get { return registro_ingreso; }
-            set { registro_ingreso = value; }
-        }
-
-        public int Balance
-        {
-            get { return balance; }
-            set { balance = value; }
-        }
+        }   
 
         public static void VerHistorialDeMovimientos()
         {
@@ -92,143 +74,15 @@ namespace ProyectoPA
         {
         }
 
-        public static void VerReportesDeVenta()
-        {
-            int largo = registro_venta.Count;
-            int i;
-            for (i = 0; i < largo; i++)
-            {
-                Registro a = registro_venta[i];
-                Date b = a.Fecha;
-                int cantidad = a.Cantidad;
-                string fecha = b.Retornar_fecha();
-                string nombre = a.Nombre;
-                Console.WriteLine("el " + fecha + " se vendieron " + cantidad + " de " + nombre);           
-            }
-        }
+       
 
-        public static void VerReportesDeIngreso()
-        {
-            int largo = registro_ingreso.Count;
-            int i;
-            for (i = 0; i < largo; i++)
-            {
-                Registro a = registro_venta[i];
-                Date b = a.Fecha;
-                int cantidad = a.Cantidad;
-                string fecha = b.Retornar_fecha();
-                string nombre = a.Nombre;
-                Console.WriteLine("el " + fecha + " se ingresaron " + cantidad + " de " + nombre);
-            }
-        }
-
-        // se imprime el historial de ingresos con fecha especificada por el usuario desde me1/año1 hasta mes2/año2
-        public static void Ver_historial_con_fecha_ingresos(int mes1, int año1, int mes2, int año2)
-        {
-            int largo = registro_ingreso.Count;
-            int i;
-            for (i = 0; i < largo; i++)
-            {
-                Registro a = registro_ingreso[i];
-                Date b = a.Fecha;
-                int cantidad = a.Cantidad;
-                string fecha = b.Retornar_fecha();
-                string nombre = a.Nombre;
-                int mes_producto = b.Mes;
-                int año_producto = b.Año;
-
-                if (año_producto >= año1 && año_producto <= año2)
-                {
-                    if (mes_producto >= mes1 && mes_producto <= mes2)
-                    {
-                        Console.WriteLine("el " + fecha + " se ingresaron " + cantidad + " de " + nombre);
-                    }
-                }
-            }
-        }
-
-        // se imprime el historial de ventas con fecha especificada por el usuario desde me1/año1 hasta mes2/año2
-        public static void Ver_historial_con_fecha_ventas(int mes1, int año1, int mes2, int año2)
-        {
-            int largo = registro_venta.Count;
-            int i;
-            for (i = 0; i < largo; i++)
-            {
-                Registro a = registro_ingreso[i];
-                Date b = a.Fecha;
-                int cantidad = a.Cantidad;
-                string fecha = b.Retornar_fecha();
-                string nombre = a.Nombre;
-                int mes_producto = b.Mes;
-                int año_producto = b.Año;
-
-                if (año_producto >= año1 && año_producto <= año2)
-                {
-                    if (mes_producto >= mes1 && mes_producto <= mes2)
-                    {
-                        Console.WriteLine("el " + fecha + " se vendieron " + cantidad + " de " + nombre);
-                    }
-                }
-            }
-        }
+      
 
         public static void Cerrar_mes()
         {
             date.cerrar_mes();
         }
-        public static List<Registro> Ranking_producto()
-        {
-            List<Registro> ranking = new List<Registro>();
-            foreach (Registro a in registro_venta)
-            {
-                string nombre1 = a.Nombre;
-                int precio = a.Precio;
-                int cantidad = a.Cantidad;
-                int k = 0;
-                foreach (Registro b in ranking)
-                {
-                    string nombre2 = b.Nombre;
-                    if (nombre1 == nombre2)
-                    {
-                        k = 1;
-                    }
-                }
-                if (k == 0)
-                {
-                    foreach (Registro c in registro_venta)
-                    {
-                        string nombre2 = c.Nombre;
-                        if (nombre1 == nombre2)
-                        {
-                            cantidad = cantidad + c.Cantidad;
-                        }
-                    }
-                }
-            }
-            int count = ranking.Count;
-            Registro[] array = new Registro[count];
-            ranking.CopyTo(array);
-
-            for (int i = 0; i < count; i++)
-            {
-                Registro reg1 = array[i];
-                Registro reg2 = array[i + 1];
-                if (reg1.Cantidad < reg2.Cantidad)
-                {
-                    Registro aux = reg2;
-                    array[i + 1] = reg1;
-                    array[i] = aux;
-                }
-            }
-            
-            List<Registro> lista_final = new List<Registro>();
-            foreach (Registro n in array)
-            {
-                lista_final.Add(n);
-            }
-
-            return lista_final;
-        }
+        
             
         
     }

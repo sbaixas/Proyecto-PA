@@ -5,89 +5,49 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Xml.Serialization;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace ProyectoPA
 {
     class CustomStreamManager
     {
-        public static void Guardar_estado_Manager()
+        private static IFormatter formatter = new BinaryFormatter();
+        public static void Guardar_Estado()
         {
-            XmlSerializer mySerializer = new XmlSerializer(typeof(List<Registro>));
-            XmlSerializer mySerializer1 = new XmlSerializer(typeof(int));
-            StreamWriter myWriter = new StreamWriter("Manager.regM");
-            mySerializer.Serialize(myWriter, FluxManager.Registro_ingreso1);
-            StreamWriter myWriter1 = new StreamWriter("Manager1.regM");
-            mySerializer1.Serialize(myWriter1, FluxManager.Registro_venta1);
-            myWriter.Close();
-            myWriter1.Close();
+            
+            Stream stream = new FileStream("Manager.sav", FileMode.Create);
+            formatter.Serialize(stream, Manager.Productos.ToArray());
+            Stream stream1 = new FileStream("Manager1.sav", FileMode.Create);
+            formatter.Serialize(stream1, Producto.IdCount);
+            stream.Close();
+            stream1.Close();
+            Stream stream2 = new FileStream("Flux.sav", FileMode.Create);
+            formatter.Serialize(stream2, FluxManager.Registro_ingreso1.ToArray());
+            Stream stream3 = new FileStream("Flux1.sav", FileMode.Create);
+            formatter.Serialize(stream3, FluxManager.Registro_venta1.ToArray());
+            stream2.Close();
+            stream3.Close();
         }
 
-        public static void Cargar_estado_Manager()
+        public static void Cargar_Estado()
         {
-            try
-            {
-                List<Producto> prods;
-                int countz;
-                XmlSerializer mySerializer = new XmlSerializer(typeof(List<Producto>));
-                XmlSerializer mySerializer1 = new XmlSerializer(typeof(int));
-
-                FileStream myFileStream = new FileStream("Manager.regM", FileMode.Open);
-                FileStream myFileStream1 = new FileStream("Manager1.regM", FileMode.Open);
-
-                prods = (List<Producto>)
-                mySerializer.Deserialize(myFileStream);
-                countz = (int)
-                mySerializer1.Deserialize(myFileStream1);
-
-                Manager.Productos = prods;
-                Manager.IdCount = countz;
-
-                myFileStream.Close();
-                myFileStream1.Close();
-            }
-            catch(Exception e)
-            {
-                Console.WriteLine("No se han guardado estados previamente");
-            }
-        }
-
-        public static void Guardar_estado_FluxManager()
-        {
-            XmlSerializer mySerializer = new XmlSerializer(typeof(List<Registro>));
-
-            StreamWriter myWriter = new StreamWriter("Flux.regF");
-            mySerializer.Serialize(myWriter, FluxManager.Registro_ingreso1);
-            StreamWriter myWriter1 = new StreamWriter("Flux1.regF");
-            mySerializer.Serialize(myWriter1, FluxManager.Registro_venta1);
-            myWriter.Close();
-            myWriter1.Close();
-        }
-
-        public static void Cargar_estado_FluxManager()
-        {
-            try
-            {
-                List<Registro> regIng;
-                List<Registro> regVen;
-                XmlSerializer mySerializer = new XmlSerializer(typeof(List<Registro>));
-
-                FileStream myFileStream = new FileStream("Flux.regF", FileMode.Open);
-                FileStream myFileStream1 = new FileStream("Flux1.regF", FileMode.Open);
-
-                regIng = (List<Registro>)mySerializer.Deserialize(myFileStream);
-                regVen = (List<Registro>)mySerializer.Deserialize(myFileStream1);
-
-                FluxManager.Registro_ingreso1 = regIng;
-                FluxManager.Registro_venta1 = regVen;
-                FluxManager.Date = new Date(DateTime.Now);
-
-                myFileStream.Close();
-                myFileStream1.Close();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("No se han guardado estados previamente");
-            }
+                Stream stream = new FileStream("Manager.sav", FileMode.Open);
+                Stream stream1 = new FileStream("Manager1.sav", FileMode.Open);
+                Producto[] prods = (Producto[])formatter.Deserialize(stream);
+                int countz = (int)formatter.Deserialize(stream1);
+                stream.Close();
+                stream1.Close();
+                Manager.Productos = prods.ToList();
+                Producto.IdCount = countz;
+                Stream stream2 = new FileStream("Flux.sav", FileMode.Open);
+                Stream stream3 = new FileStream("Flux1.sav", FileMode.Open);
+                Registro[] regIng = (Registro[])formatter.Deserialize(stream2);
+                Registro[] regVen = (Registro[])formatter.Deserialize(stream3);
+                stream2.Close();
+                stream3.Close();
+                FluxManager.Registro_ingreso1 = regIng.ToList();
+                FluxManager.Registro_venta1 = regVen.ToList();
         }
     }
 }

@@ -9,16 +9,22 @@ namespace ProyectoPA
  /*Bozzo: image path me complico un poco , asi que lo saque del construsctor , y si se quiere poner, que se use el setter*/  
  /*Bozzo: hay un constructor que no usa parametros, para que sirve ?? */
     [Serializable]
-    abstract class Producto
+    public abstract class Producto
     {
 /*******Atributos , Getter y Setters*******/
-        public static int idcount = 0;
-        public int id;
-        public int costo;
-        public double tamaño;
-        public double peso;
-        public string nombre;
-        public string imagePath;
+        private static int idCount = 0;
+
+        public static int IdCount
+        {
+            get { return Producto.idCount; }
+            set { Producto.idCount = value; }
+        }
+        private int id;
+        private int costo;
+        private double tamaño;
+        private double peso;
+        private string nombre;
+        private string imagePath;
 
         public int Costo
         {
@@ -76,8 +82,8 @@ namespace ProyectoPA
             this.tamaño = tamaño;
             this.peso = peso;
             this.nombre = nombre;
-            this.id = idcount;
-            idcount++;
+            this.id = idCount;
+            idCount++;
         }
         //constructor pasandole el nombre y otro producto//
         public Producto(string nombre, Producto pBase)
@@ -87,8 +93,8 @@ namespace ProyectoPA
             this.tamaño = pBase.tamaño;
             this.peso = pBase.peso;
             this.imagePath = pBase.imagePath;
-            this.id = idcount;
-            idcount++;
+            this.id = idCount;
+            idCount++;
         }
         //????//
         public void Init(int costo, double tamaño, double peso, string nombre, string imagePath)

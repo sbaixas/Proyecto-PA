@@ -6,17 +6,18 @@ using System.Threading.Tasks;
 
 namespace ProyectoPA
 {
-    class ProductoHoja : Producto
+    [Serializable]
+    public class ProductoHoja : Producto
     {
 /****************Getters y Setters******************/
-        public string color;
+        private string color;
 
         public string Color
         {
             get { return color; }
             set { color = value; }
         }
-        public string categoria;
+        private string categoria;
 
         public string Categoria
         {
@@ -24,7 +25,7 @@ namespace ProyectoPA
             set { categoria = value; }
         }
 
-        public int cantidad;
+        private int cantidad;
 
         public int Cantidad
         {

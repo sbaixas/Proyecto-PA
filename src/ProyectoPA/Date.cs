@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProyectoPA
 {
-    class Date
+    public class Date
     {
         private DateTime fecha;
         private int mes;
