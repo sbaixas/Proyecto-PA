@@ -926,45 +926,50 @@ namespace ProyectoPA
 
             return realizacionDeUnaAccion;
         }
+        public void imprimirTablaDeProductos()
+        {
+            string[] parametros = new string[] { "ID", "Nombre", "Costo", "Tamaño", "Peso" };
+            int[] formato = new int[] { 12, 30, 12, 12, 12 };
+            string linea = TableMaker.ImprimirParametros(parametros, formato);
+            string[] ID = new string[Manager.Productos.Count];
+            string[] Nombre = new string[Manager.Productos.Count];
+            string[] Costo = new string[Manager.Productos.Count];
+            string[] Tamaño = new string[Manager.Productos.Count];
+            string[] Peso = new string[Manager.Productos.Count];
+            for (int i = 0; i < Manager.Productos.Count; i++)
+            {
+                ID[i] = Manager.Productos.ElementAt(i).Id + "";
+                Nombre[i] = Manager.Productos.ElementAt(i).Nombre;
+                Costo[i] = Manager.Productos.ElementAt(i).Costo + "";
+                Tamaño[i] = Manager.Productos.ElementAt(i).Tamaño + "";
+                Peso[i] = Manager.Productos.ElementAt(i).Peso + "";
+
+                ID[i] = TableMaker.darFormatoDeColumna(12, ID[i]);
+                Nombre[i] = TableMaker.darFormatoDeColumna(30, Nombre[i]);
+                Costo[i] = TableMaker.darFormatoDeColumna(12, Costo[i]);
+                Tamaño[i] = TableMaker.darFormatoDeColumna(12, Tamaño[i]);
+                Peso[i] = TableMaker.darFormatoDeColumna(12, Peso[i]);
+                string[] output = new string[] { ID[i], Nombre[i], Costo[i], Tamaño[i], Peso[i] };
+                TableMaker.ImprimirFila(output);
+                Console.WriteLine("");
+            }
+            Console.WriteLine(linea);
+        }
         public bool Imprimir(int OptionId)
         {
+     
             bool realizacionDeUnaAccion = false;
-            int imprimirTablaDeProductos, imprimirDetallesDeProducto, imprimirListaDeCategorias;
-            imprimirTablaDeProductos = 16;
+            int imprimirTablaProductos, imprimirDetallesDeProducto, imprimirListaDeCategorias;
+            imprimirTablaProductos = 16;
             imprimirDetallesDeProducto = 18;
             imprimirListaDeCategorias = 17;
 
             //Imprimir tabla de productos//
-            if (OptionId == imprimirTablaDeProductos)
+            if (OptionId == imprimirTablaProductos)
             {
                 {
                     Console.Clear();
-                    string[] parametros = new string[] { "ID", "Nombre", "Costo", "Tamaño", "Peso" };
-                    int[] formato = new int[] { 12, 30, 12, 12, 12 };
-                    string linea = TableMaker.ImprimirParametros(parametros, formato);
-                    string[] ID = new string[Manager.Productos.Count];
-                    string[] Nombre = new string[Manager.Productos.Count];
-                    string[] Costo = new string[Manager.Productos.Count];
-                    string[] Tamaño = new string[Manager.Productos.Count];
-                    string[] Peso = new string[Manager.Productos.Count];
-                    for (int i = 0; i < Manager.Productos.Count; i++)
-                    {
-                        ID[i] = Manager.Productos.ElementAt(i).Id + "";
-                        Nombre[i] = Manager.Productos.ElementAt(i).Nombre;
-                        Costo[i] = Manager.Productos.ElementAt(i).Costo + "";
-                        Tamaño[i] = Manager.Productos.ElementAt(i).Tamaño + "";
-                        Peso[i] = Manager.Productos.ElementAt(i).Peso + "";
-
-                        ID[i] = TableMaker.darFormatoDeColumna(12, ID[i]);
-                        Nombre[i] = TableMaker.darFormatoDeColumna(30, Nombre[i]);
-                        Costo[i] = TableMaker.darFormatoDeColumna(12, Costo[i]);
-                        Tamaño[i] = TableMaker.darFormatoDeColumna(12, Tamaño[i]);
-                        Peso[i] = TableMaker.darFormatoDeColumna(12, Peso[i]);
-                        string[] output = new string[] { ID[i], Nombre[i], Costo[i], Tamaño[i], Peso[i] };
-                        TableMaker.ImprimirFila(output);
-                        Console.WriteLine("");
-                    }
-                    Console.WriteLine(linea);
+                    imprimirTablaDeProductos();
                     Console.WriteLine("");
                     Console.WriteLine("");
                     Console.WriteLine("Presione ENTER para volver al menu principal");
