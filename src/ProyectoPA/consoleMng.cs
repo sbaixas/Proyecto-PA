@@ -105,12 +105,13 @@ namespace ProyectoPA
                 {//opciones de ver historial de Ingresos//
                     raiz.SubOptions[1].SubOptions[1].agregarHijo("Todo", "Historial De Ingresos");
                     raiz.SubOptions[1].SubOptions[1].agregarHijo("Historial en Una Fecha En Particular", "Historial De Ingresos");
+                    raiz.SubOptions[1].SubOptions[1].agregarHijo("Cerrar Mes Contable", "Historial De Ingresos");
                 }
             }
             //se navega en el programa//
             navegar();
             //dejar como comentario si no se esta programando//
-           // mostrarTodadLasOpciones(); Console.ReadLine();//
+           mostrarTodadLasOpciones(); Console.ReadLine();
         }
 
         //Introduccion//
@@ -353,6 +354,7 @@ namespace ProyectoPA
             if (19 <= OpcionId && OpcionId <= 22) { realizacionDeUnaAccion = modificarSetDeProductos(OpcionId); }
             if (14 == OpcionId || OpcionId == 15) { realizacionDeUnaAccion = ejecutarAgregarOEliminarCategoria(OpcionId); }
             if (31 <= OpcionId && OpcionId <= 35) { realizacionDeUnaAccion = Reportes(OpcionId); }
+            if (36 == OpcionId) { realizacionDeUnaAccion = FluxManager.Cerrar_mes(); }
 
             //para Registro//
             //CUANDO SE TERMINE LA ACCION///  
@@ -1647,6 +1649,7 @@ namespace ProyectoPA
             }
             Console.WriteLine(linea);
         }
+        
         
     }
 }

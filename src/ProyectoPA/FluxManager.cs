@@ -70,9 +70,12 @@ namespace ProyectoPA
         public static void GraficarBalances()
         {
         }
-        public static void Cerrar_mes()
+        public static bool Cerrar_mes()
         {
+            bool ret = false;
             date.cerrar_mes();
+            ret = true;
+            return ret;
         }
         
             
