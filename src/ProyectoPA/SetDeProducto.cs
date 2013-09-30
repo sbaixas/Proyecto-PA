@@ -8,21 +8,21 @@ namespace ProyectoPA
 {
     class SetDeProducto : Producto
     {
-        private double descuento;
+        public double descuento;
 
         public double Descuento
         {
             get { return descuento; }
             set { descuento = value; }
         }
-        private List<int> cantidades;
+        public List<int> cantidades;
 
         public List<int> Cantidades
         {
             get { return cantidades; }
             set { cantidades = value; }
         }
-        private List<Producto> productos;
+        public List<Producto> productos;
 
         public List<Producto> Productos
         {
