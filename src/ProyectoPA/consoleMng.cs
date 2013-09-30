@@ -563,10 +563,26 @@ namespace ProyectoPA
                         try
                         {
                             //int costo, double tamaño, double peso, string nombre, string color, string categoria//
-                            string[] nombreParametros3 = new string[] { "costo", "tamaño", "peso", "nombre", "color", "Id de la categoria" };
-                            string[] parametros3 = pedirDatos(nombreParametros3);
-                           realizacionDeUnaAccion = Manager.AgregarProducto(Convert.ToInt32(parametros3[0]), Convert.ToDouble(parametros3[1]), Convert.ToDouble(parametros3[2]), Convert.ToString(parametros3[3]), Convert.ToString(parametros3[4]), Convert.ToInt32(parametros3[5]));
+                            Console.WriteLine("");
+                            Console.WriteLine("Recuerde un numero de categoria para el producto");
+                            Console.WriteLine("");
+                            mostrarTablaDeCategorias();
+                            Console.WriteLine("");
+                            Console.WriteLine("Presione ENTER para continuar");
+                            Console.ReadLine();
+                            Console.Clear();
+                            string[] nombreParametros = new string[] { "Id de la categoria", "tamaño", "peso", "nombre", "color", "Costo" };
+                            string[] parametros = pedirDatos(nombreParametros);
                             
+                           realizacionDeUnaAccion = Manager.AgregarProducto(Convert.ToInt32(parametros[5]), Convert.ToDouble(parametros[1]), Convert.ToDouble(parametros[2]), Convert.ToString(parametros[3]), Convert.ToString(parametros[4]), Convert.ToInt32(parametros[0]));
+                           if (!realizacionDeUnaAccion)
+                           {
+                            Console.Clear();
+                            Console.WriteLine();
+                            Console.WriteLine("Error , Has ingresado mal o es posible que la categoria seleccionada no exista, presiona ENTER para volver al menu principal");
+                            Console.ReadLine();
+                            VolverAlMenuPrincipal();
+                           }
                         }
                         catch (FormatException)
                         {
@@ -642,12 +658,14 @@ namespace ProyectoPA
                             VolverAlMenuPrincipal();
                             
                         }
-                        VolverAlMenuPrincipal();
+                        
                     }
+                    
                 }
             }
             //FIN//
-
+            
+            //eliminar Producto//
             if (eliminarProducto == OpcionId)
             {
                 try
@@ -658,7 +676,7 @@ namespace ProyectoPA
                     Console.WriteLine("");
                     Console.WriteLine(" Producto Eliminado, presiona ENTER para volver al menu principal");
                     Console.ReadLine();
-
+                    VolverAlMenuPrincipal();
                     
                 }
                 catch( FormatException){
@@ -679,6 +697,7 @@ namespace ProyectoPA
                     VolverAlMenuPrincipal();
                 }
             }
+            //FIN//
 
             return realizacionDeUnaAccion;
         }
@@ -1052,6 +1071,18 @@ namespace ProyectoPA
 
                 {
                     Console.Clear();
+                    mostrarTablaDeCategorias();
+                    Console.WriteLine("");
+                    Console.WriteLine("");
+                    Console.WriteLine("Presione ENTER para volver al menu principal");
+                    Console.ReadLine();
+                    VolverAlMenuPrincipal();
+                    realizacionDeUnaAccion = true;
+                }
+            }
+            return realizacionDeUnaAccion;
+        }
+        public void mostrarTablaDeCategorias() {
                     string[] parametros = new string[] { "Numero De Categoria", " Nombre de La Categoria" };
                     int[] formato = new int[] { 15, 50 };
                     string linea = TableMaker.ImprimirParametros(parametros, formato);
@@ -1070,15 +1101,6 @@ namespace ProyectoPA
                         Console.WriteLine("");
                     }
                     Console.WriteLine(linea);
-                    Console.WriteLine("");
-                    Console.WriteLine("");
-                    Console.WriteLine("Presione ENTER para volver al menu principal");
-                    Console.ReadLine();
-                    VolverAlMenuPrincipal();
-                    realizacionDeUnaAccion = true;
-                }
-            }
-            return realizacionDeUnaAccion;
         }
         public bool cargarOguardar(int optionId)
         {
@@ -1219,6 +1241,7 @@ namespace ProyectoPA
                             Console.WriteLine(" Categoria agregada , presione ENTER para continuar");
                             Console.ReadLine();
                             Console.Clear();
+                            VolverAlMenuPrincipal();
                             
                         }
                         catch (FormatException)
