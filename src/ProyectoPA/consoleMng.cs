@@ -637,6 +637,7 @@ namespace ProyectoPA
                                 // public static void AgregarSet(int descuento, List<int> cantidades, List<int> ids, string nombre)//
                                 Manager.AgregarSet(Convert.ToInt32(parametrosFirst[1]), cantidades, ids, parametrosFirst[0]);
                                 realizacionDeUnaAccion = true;
+                                VolverAlMenuPrincipal();
                             }
                             else
                             {
@@ -646,6 +647,7 @@ namespace ProyectoPA
                                 VolverAlMenuPrincipal();
                             }
                             realizacionDeUnaAccion = true;
+                           
                         }
                         catch (FormatException)
                         {
@@ -703,6 +705,12 @@ namespace ProyectoPA
         }
         public bool ejecutarModificarProductoHoja(int OpcionId)
         {
+            Console.Clear();
+            Console.WriteLine("");
+            Console.WriteLine("Tabla De Productos");
+            Console.WriteLine("");
+            imprimirTablaDeProductos();
+            Console.WriteLine("");
             bool realizacionDeUnaAccion = false;
             int costo, peso, categoria, tamaño, nombre, color;
             costo = 24;
@@ -723,6 +731,7 @@ namespace ProyectoPA
                         if (Manager.ModificarNombre(Convert.ToInt32(parametros7[0]), parametros7[1]))
                         {
                             realizacionDeUnaAccion = true;
+                            VolverAlMenuPrincipal();
                         }
                         else
                         {
@@ -759,6 +768,7 @@ namespace ProyectoPA
                         if (Manager.ModificarCosto(Convert.ToInt32(parametros8[0]), Convert.ToInt32(parametros8[1])))
                         {
                             realizacionDeUnaAccion = true;
+                            VolverAlMenuPrincipal();
                         }
                         else
                         {
@@ -795,6 +805,7 @@ namespace ProyectoPA
                         if (Manager.ModificarTamaño(Convert.ToInt32(parametros9[0]), Convert.ToDouble(parametros9[1])))
                         {
                             realizacionDeUnaAccion = true;
+                            VolverAlMenuPrincipal();
                         }
                         else
                         {
@@ -831,6 +842,7 @@ namespace ProyectoPA
                         if (Manager.ModificarPeso(Convert.ToInt32(parametros10[0]), Convert.ToDouble(parametros10[1])))
                         {
                             realizacionDeUnaAccion = true;
+                            VolverAlMenuPrincipal();
                         }
                         else
                         {
@@ -865,6 +877,7 @@ namespace ProyectoPA
                         if (Manager.ModificarColor(Convert.ToInt32(parametros11[0]), parametros11[1]))
                         {
                             realizacionDeUnaAccion = true;
+                            VolverAlMenuPrincipal();
                         }
                         else
                         {
@@ -889,7 +902,7 @@ namespace ProyectoPA
             }
             //FIN//
 
-            //Modificar Categoria//
+            //Modificar  Categoria//
             if (OpcionId == categoria)
             {
                 {
@@ -901,6 +914,7 @@ namespace ProyectoPA
                         if (Manager.ModificarCategoria(Convert.ToInt32(parametros12[0]), parametros12[1]))
                         {
                             realizacionDeUnaAccion = true;
+                            VolverAlMenuPrincipal();
                         }
                         else
                         {
@@ -985,8 +999,12 @@ namespace ProyectoPA
                     try
                     {
                         Console.Clear();
+                        Console.WriteLine("");
+                        Console.WriteLine("Tabla De Productos");
+                        Console.WriteLine("");
+                        imprimirTablaDeProductos();
+                        Console.WriteLine("");
                         int i = Convert.ToInt32(pedirDatos("Id Del Producto"));
-
                         Console.Clear();
                         Console.WriteLine("");
                         Console.WriteLine("  " + Manager.Productos.ElementAt(i).Nombre + "");
@@ -1251,42 +1269,56 @@ namespace ProyectoPA
 
                 string[] nombreParametros = new string[] { "Id Del Producto", "Cantidad del producto a Vender" };
                 string[] parametros = pedirDatos(nombreParametros);
-                if (Manager.Vender(Convert.ToInt32(parametros[0]), Convert.ToInt32(parametros[1])))
+                try
                 {
-                    FluxManager.Venta_producto(Convert.ToInt32(parametros[0]), Convert.ToInt32(parametros[1]));
-                    realizacionDeUnaAccion = true;
+                    if (Manager.Vender(Convert.ToInt32(parametros[0]), Convert.ToInt32(parametros[1])))
+                    {
+                        FluxManager.Venta_producto(Convert.ToInt32(parametros[0]), Convert.ToInt32(parametros[1]));
+                        realizacionDeUnaAccion = true;
 
 
-                    Console.Clear();
-                    for (int j = 0; j < (int)(Console.BufferHeight / 20 + 3); j++)
-                    {
-                        Console.WriteLine(" ");
+                        Console.Clear();
+                        for (int j = 0; j < (int)(Console.BufferHeight / 20 + 3); j++)
+                        {
+                            Console.WriteLine(" ");
+                        }
+                        Console.WriteLine("                                                      Producto Vendido");
+                        for (int j = 0; j < (int)(Console.BufferHeight / 20 + 11); j++)
+                        {
+                            Console.WriteLine(" ");
+                        }
+                        Console.WriteLine(" Presione ENTER para continuar");
+                        Console.ReadLine();
+                        Console.Clear();
+                        realizacionDeUnaAccion = true;
+                        VolverAlMenuPrincipal();
                     }
-                    Console.WriteLine("                                                      Producto Vendido");
-                    for (int j = 0; j < (int)(Console.BufferHeight / 20 + 11); j++)
+                    else
                     {
-                        Console.WriteLine(" ");
+                        realizacionDeUnaAccion = false;
+                        Console.Clear();
+                        for (int j = 0; j < (int)(Console.BufferHeight / 20 + 3); j++)
+                        {
+                            Console.WriteLine(" ");
+                        }
+                        Console.WriteLine("                                              Error, Producto No Vendido");
+                        for (int j = 0; j < (int)(Console.BufferHeight / 20 + 11); j++)
+                        {
+                            Console.WriteLine(" ");
+                        }
+                        Console.WriteLine(" Presione ENTER para volver al menu principal");
+                        Console.ReadLine();
                     }
-                    Console.WriteLine(" Presione ENTER para continuar");
-                    Console.ReadLine();
-                    Console.Clear();
-                    realizacionDeUnaAccion = true;
-                    VolverAlMenuPrincipal();
                 }
-                else {
+
+                catch(FormatException)
+                {
                     realizacionDeUnaAccion = false;
                     Console.Clear();
-                    for (int j = 0; j < (int)(Console.BufferHeight / 20 + 3); j++)
-                    {
-                        Console.WriteLine(" ");
-                    }
-                    Console.WriteLine("                                              Error, Producto No Vendido");
-                    for (int j = 0; j < (int)(Console.BufferHeight / 20 + 11); j++)
-                    {
-                        Console.WriteLine(" ");
-                    }
-                    Console.WriteLine(" Presione ENTER para volver al menu principal");
+                    Console.WriteLine();
+                    Console.WriteLine("Has Ingresado Mal, La accion no se ha realizado, presiona ENTER para volver al menu principal");
                     Console.ReadLine();
+                    VolverAlMenuPrincipal();
                 }
             }
             return realizacionDeUnaAccion;
