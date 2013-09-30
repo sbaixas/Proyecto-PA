@@ -571,21 +571,19 @@ namespace ProyectoPA
                             Console.WriteLine("");
                             mostrarTablaDeCategorias();
                             Console.WriteLine("");
-                            Console.WriteLine("Presione ENTER para continuar");
-                            Console.ReadLine();
-                            Console.Clear();
+                            
                             string[] nombreParametros = new string[] { "Id de la categoria", "tamaño", "peso", "nombre", "color", "Costo" };
                             string[] parametros = pedirDatos(nombreParametros);
-                            
-                           realizacionDeUnaAccion = Manager.AgregarProducto(Convert.ToInt32(parametros[5]), Convert.ToDouble(parametros[1]), Convert.ToDouble(parametros[2]), Convert.ToString(parametros[3]), Convert.ToString(parametros[4]), Convert.ToInt32(parametros[0]));
-                           if (!realizacionDeUnaAccion)
-                           {
-                            Console.Clear();
-                            Console.WriteLine();
-                            Console.WriteLine("Error , Has ingresado mal o es posible que la categoria seleccionada no exista, presiona ENTER para volver al menu principal");
-                            Console.ReadLine();
+                            realizacionDeUnaAccion = Manager.AgregarProducto(Convert.ToInt32(parametros[5]), Convert.ToDouble(parametros[1]), Convert.ToDouble(parametros[2]), Convert.ToString(parametros[3]), Convert.ToString(parametros[4]), Convert.ToInt32(parametros[0]));
                             VolverAlMenuPrincipal();
-                           }
+                            if (!realizacionDeUnaAccion)
+                            {
+                                Console.Clear();
+                                Console.WriteLine();
+                                Console.WriteLine("Error , Has ingresado mal o es posible que la categoria seleccionada no exista, presiona ENTER para volver al menu principal");
+                                Console.ReadLine();
+                                VolverAlMenuPrincipal();
+                            }
                         }
                         catch (FormatException)
                         {
@@ -606,26 +604,70 @@ namespace ProyectoPA
             {
                 {
                     {
-                        try
-                        {
+                       /* try
+                        {*/
                             string[] nombreParametros = new string[] { "Nombre del nuevo set", "Descuento" };
                             string[] parametrosFirst = pedirDatos(nombreParametros);
                             Console.Clear();
                             Console.WriteLine("");
                             Console.WriteLine("Ahora comenzaremos a agregar productos al nuevo set");
+                            Console.WriteLine("");
                             Console.WriteLine("Ingrese los productos que se agregaran al set de la forma" + "\"id del producto , cantidad que se desee agregar\"");
-                            Console.WriteLine("Cuando termine de agregar los producto , escriba" + "\" exit\"");
                             List<int> ids = new List<int>();
                             List<int> cantidades = new List<int>();
                             while (true)
                             {
+                                Console.Clear();
+                                Console.WriteLine("");
+                                Console.WriteLine("Tabla De Productos");
+                                Console.WriteLine("");
+                                imprimirTablaDeProductos();
+                                Console.WriteLine("");
+                                Console.WriteLine("Ingrese los productos que se agregaran al set de la forma" + "\"id del producto , cantidad que se desee agregar\"");
+                                Console.WriteLine("");
+                                Console.WriteLine("HINT: para salir escriba exit");
+                                
+
                                 string input = Console.ReadLine();
                                 if (input != "exit")
                                 {
-
+                                    bool aux = false;
                                     string[] inputProcesed = input.Split(',');
                                     ids.Add(Convert.ToInt32(inputProcesed[0]));
                                     cantidades.Add(Convert.ToInt32(inputProcesed[1]));
+                                    
+
+                                    string[] aux3 = new string[]{"Nombre Del Producto" , "Cantidad Del Producto"};
+                                    int[] formato = new int[] { 50, 20 };
+
+                                    string linea = TableMaker.ImprimirParametros(aux3 , formato);
+                                    for (int i = 0; i < ids.Count; i++)
+                                    {
+                                        string[] aux2 = new string[]{ TableMaker.darFormatoDeColumna(50, Manager.Productos.ElementAt(ids.ElementAt(i)).Nombre) , TableMaker.darFormatoDeColumna(20, Convert.ToString(cantidades.ElementAt(i)))};
+                                        TableMaker.ImprimirFila(aux2);
+                                        Console.WriteLine("");
+                                    }
+                                    
+                                    Console.WriteLine(linea);
+                                    Console.WriteLine("Presione ENTER para Continuar");
+                                    Console.ReadLine();
+
+                                    for (int i = 0; i < Manager.Productos.Count; i++)
+                                    {
+                                        if (Manager.Productos.ElementAt(i).Id == ids.ElementAt(ids.Count-1))
+                                        {
+                                            aux = true;
+                                        }
+                                    }
+                                    if (!aux)
+                                    {
+                                        break; Console.Clear();
+                                        Console.WriteLine("hubo error en la ejecucion de la accion, Presiona ENTER para volver al menu principal");
+                                        Console.ReadLine();
+                                        VolverAlMenuPrincipal();
+                                    }
+                                    
+                                    
 
                                 }
 
@@ -650,8 +692,8 @@ namespace ProyectoPA
                                 VolverAlMenuPrincipal();
                             }
                             realizacionDeUnaAccion = true;
-                           
-                        }
+
+                        /*}
                         catch (Exception)
                         {
                             realizacionDeUnaAccion = false;
@@ -662,7 +704,7 @@ namespace ProyectoPA
                             
                             VolverAlMenuPrincipal();
                             
-                        }
+                        }*/
                         
                     }
                     
@@ -675,6 +717,14 @@ namespace ProyectoPA
             {
                 try
                 {
+                    Console.WriteLine("");
+                    Console.WriteLine("Recuerde un numero de categoria para el producto");
+                    Console.WriteLine("");
+                    mostrarTablaDeCategorias();
+                    Console.WriteLine("");
+                    Console.WriteLine("Presione ENTER para continuar");
+                    Console.ReadLine();
+                    Console.Clear();
                     int id = Convert.ToInt32(pedirDatos("Id del Producto"));
                     Manager.EliminarProducto(id);
                     Console.Clear();
@@ -1485,20 +1535,6 @@ namespace ProyectoPA
         public void VerReportesDeVenta()
         {
             int largo = FluxManager.Registro_venta.Count;
-            
-            for (int i = 0; i < largo; i++)
-            {
-                Registro a = FluxManager.Registro_venta[i];
-                Date b = a.Fecha;
-                int cantidad = a.Cantidad;
-                string fecha = b.Retornar_fecha();
-                string nombre = a.Nombre;
-                Console.WriteLine("el " + fecha + " se vendieron " + cantidad + " de " + nombre);
-            }
-        }
-        public  void VerReportesDeIngreso()
-        {
-            int largo = FluxManager.Registro_ingreso.Count;
             try
             {
                 for (int i = 0; i < largo; i++)
@@ -1508,11 +1544,33 @@ namespace ProyectoPA
                     int cantidad = a.Cantidad;
                     string fecha = b.Retornar_fecha();
                     string nombre = a.Nombre;
+                    Console.WriteLine("el " + fecha + " se vendieron " + cantidad + " de " + nombre);
+                }
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                Console.WriteLine("Aun no hay ventas, Presione ENTER para continuar");
+                Console.ReadLine();
+                VolverAlMenuPrincipal();
+            }
+        }
+        public  void VerReportesDeIngreso()
+        {
+            int largo = FluxManager.Registro_ingreso.Count;
+            try
+            {
+                for (int i = 0; i < largo; i++)
+                {
+                    Registro a = FluxManager.Registro_ingreso[i];
+                    Date b = a.Fecha;
+                    int cantidad = a.Cantidad;
+                    string fecha = b.Retornar_fecha();
+                    string nombre = a.Nombre;
                     Console.WriteLine("el " + fecha + " se ingresaron " + cantidad + " de " + nombre);
                 }
             }
             catch(ArgumentOutOfRangeException) {
-                Console.WriteLine("Aun no hay ventas, Presione ENTER para continuar");
+                Console.WriteLine("Aun no hay Ingresos, Presione ENTER para continuar");
                 Console.ReadLine();
                 VolverAlMenuPrincipal();
             }
