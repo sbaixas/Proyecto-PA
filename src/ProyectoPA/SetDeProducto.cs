@@ -91,6 +91,17 @@ namespace ProyectoPA
                 }
             }
         }
+        public override bool quedan(int cuantos)
+        {
+            for (int i = 0; i < productos.Count; i++)
+            {
+                if (productos[i].quedan(cantidades[i] * cuantos) == false)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
     }
 }
 

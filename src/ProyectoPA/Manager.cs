@@ -114,7 +114,7 @@ namespace ProyectoPA
         {
             foreach (Producto p in productos)
             {
-                if (p.Id == id)
+                if (p.Id == id && p.quedan(cantidad))
                 {
                     p.DescontarStock(cantidad);
                     return true;
