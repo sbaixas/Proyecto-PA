@@ -11,10 +11,11 @@ namespace ProyectoPA
     {
         private static Date date;
 
-        public static Date Date
+        internal static Date Date
         {
+            get { return FluxManager.date; }
             set { FluxManager.date = value; }
-        }
+        }     
 
         private static List<Registro> registro_venta = new List<Registro>();
 
@@ -35,26 +36,26 @@ namespace ProyectoPA
         private  static int balance = 0;
 
         //  se ingresa al historial un producto que se ingresa 
-        public static void Ingreso_producto(int id, Date fecha, int cantidad, int costo)
+        public static void Ingreso_producto(int id, int cantidad, int costo)
         {
             foreach(ProductoHoja p in Manager.Productos)
             {
                 if(p.Id == id)
                 {
-                    registro_ingreso.Add(new Registro(p, fecha, cantidad));
+                    registro_ingreso.Add(new Registro(p, date, cantidad));
                     break;
                 }
             }
             balance = balance - costo;
         }
         // se ingresa al historial un producto que se vende
-        public static void Venta_producto(int id, Date fecha, int cantidad)
+        public static void Venta_producto(int id, int cantidad)
         {
             foreach (ProductoHoja p in Manager.Productos)
             {
                 if (p.Id == id)
                 {
-                    registro_ingreso.Add(new Registro(p, fecha, cantidad));
+                    registro_ingreso.Add(new Registro(p, date, cantidad));
                     int precio = p.Costo;
                     balance = balance + precio;
                     break;
