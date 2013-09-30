@@ -26,9 +26,9 @@ namespace ProyectoPA
             stream.Close();
             stream1.Close();
             Stream stream2 = new FileStream("Flux.sav", FileMode.Create);
-            formatter.Serialize(stream2, FluxManager.Registro_ingreso1.ToArray());
+            formatter.Serialize(stream2, FluxManager.Registro_ingreso.ToArray());
             Stream stream3 = new FileStream("Flux1.sav", FileMode.Create);
-            formatter.Serialize(stream3, FluxManager.Registro_venta1.ToArray());
+            formatter.Serialize(stream3, FluxManager.Registro_venta.ToArray());
             stream2.Close();
             stream3.Close();
         }
@@ -53,8 +53,8 @@ namespace ProyectoPA
                 Registro[] regVen = (Registro[])formatter.Deserialize(stream3);
                 stream2.Close();
                 stream3.Close();
-                FluxManager.Registro_ingreso1 = regIng.ToList();
-                FluxManager.Registro_venta1 = regVen.ToList();
+                FluxManager.Registro_ingreso = regIng.ToList();
+                FluxManager.Registro_venta = regVen.ToList();
         }
     }
 }
