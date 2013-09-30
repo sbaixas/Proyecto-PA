@@ -109,7 +109,7 @@ namespace ProyectoPA
             //se navega en el programa//
             navegar();
             //dejar como comentario si no se esta programando//
-            //mostrarTodadLasOpciones(); Console.ReadLine();//
+            mostrarTodadLasOpciones(); Console.ReadLine();
         }
 
         //Introduccion//
@@ -264,7 +264,7 @@ namespace ProyectoPA
             }
 
 
-        }//testing//
+        }
         public void VolverAlMenuPrincipal()
         {
             this.current = MenuPrincipal;
@@ -348,7 +348,7 @@ namespace ProyectoPA
             if (9 <= OpcionId && OpcionId <= 11) { realizacionDeUnaAccion = ejecutarAgregarOEliminarProductos(OpcionId); }
             if (23 <= OpcionId && OpcionId <= 28) { realizacionDeUnaAccion = ejecutarModificarProductoHoja(OpcionId); }
             if (7 == OpcionId || OpcionId == 8) { realizacionDeUnaAccion = comprarOVender(OpcionId); }
-            if (16<= OpcionId && OpcionId <= 17) { realizacionDeUnaAccion = Imprimir(OpcionId); }
+            if (16<= OpcionId && OpcionId <= 18) { realizacionDeUnaAccion = Imprimir(OpcionId); }
             if (19 <= OpcionId && OpcionId <= 22) { realizacionDeUnaAccion = modificarSetDeProductos(OpcionId); }
             if (14 == OpcionId || OpcionId == 15) { realizacionDeUnaAccion = ejecutarAgregarOEliminarCategoria(OpcionId); }
             if (31 <= OpcionId && OpcionId <= 35) { realizacionDeUnaAccion = Reportes(OpcionId); }
@@ -1013,7 +1013,8 @@ namespace ProyectoPA
                             Console.WriteLine(" - Cantidad: " + x.Cantidad);
                             if (x.Cantidad < 20)
                             {
-                                Console.WriteLine("ADVERTENCIA: QUEDAN POCOS " + x.Nombre + "!");
+                                Console.WriteLine("");
+                                Console.WriteLine("              ADVERTENCIA: QUEDAN POCOS " + x.Nombre + "!");
                             }
                             Console.WriteLine("");
                             realizacionDeUnaAccion = true;
@@ -1116,16 +1117,16 @@ namespace ProyectoPA
             if (guardar == optionId)
             {
                 CustomStreamManager.Guardar_Estado();
-                for (int j = 0; j < (int)(Console.BufferHeight/2); j++)
+                for (int j = 0; j < (int)(Console.BufferHeight / 20 + 3); j++)
                 {
-                    Console.WriteLine("");
+                    Console.WriteLine(" ");
                 }
-                for (int i = 0; i < (int)( Console.BufferWidth/2 - 14); i++)
+                Console.WriteLine("                                                        Estado Guardado ");
+                for (int j = 0; j < (int)(Console.BufferHeight / 20 + 5); j++)
                 {
-                    Console.Write(" ");
-                    Console.Write("Estado Guardado");
+                    Console.WriteLine(" ");
                 }
-                Console.WriteLine(" Presione ENTER para continuar");
+                Console.WriteLine(" Presione ENTER para volver al menu principal");
                 Console.ReadLine();
                 Console.Clear();
                 realizacionDeUnaAccion = true;
@@ -1134,17 +1135,16 @@ namespace ProyectoPA
             if (cargar == optionId)
             {
                 CustomStreamManager.Cargar_Estado();
-                for (int j = 0; j < (int)(Console.BufferHeight / 2); j++)
+                for (int j = 0; j < (int)(Console.BufferHeight / 20 + 3); j++)
                 {
-                    Console.WriteLine("");
+                    Console.WriteLine(" ");
                 }
-                for (int i = 0; i < (int)(Console.BufferWidth / 2 - 14); i++)
+                Console.WriteLine("                                                         Estado Cargado ");
+                for (int j = 0; j < (int)(Console.BufferHeight / 20 + 5); j++)
                 {
-                    Console.Write(" ");
-                    
+                    Console.WriteLine(" ");
                 }
-                Console.Write("Estado Cargado");
-                Console.WriteLine(" Presione ENTER para continuar");
+                Console.WriteLine(" Presione ENTER para volver al menu principal");
                 Console.ReadLine();
                 Console.Clear();
                 realizacionDeUnaAccion = true;
@@ -1156,7 +1156,7 @@ namespace ProyectoPA
         public bool comprarOVender(int optionId)
         {
             bool realizacionDeUnaAccion = false;
-            int comprar , vender;
+            int comprar, vender;
             comprar = 7;
             vender = 8;
             if (comprar == optionId)
@@ -1166,16 +1166,52 @@ namespace ProyectoPA
                     {
                         try
                         {
-                            //int costo, double tamaño, double peso, string nombre, string color, string categoria//
-                            string[] nombreParametros4 = new string[] { "Id Del Producto", "Cantidad del producto a Agregar" , "Costo del Producto (por unidad)"};
-                            string[] parametros4 = pedirDatos(nombreParametros4);
-                            if (Manager.IngresarProducto(Convert.ToInt32(parametros4[0]), Convert.ToInt32(parametros4[1])))
+                            Console.Clear();
+                            Console.WriteLine("");
+                            Console.WriteLine("Recuerde el Id del Producto que va a comprar");
+                            Console.WriteLine("");
+                            imprimirTablaDeProductos();
+                            Console.WriteLine("");
+                            Console.WriteLine("");
+                            Console.WriteLine("Presione ENTER cuando este Listo");
+                            Console.ReadLine();
+                            Console.Clear();
+                            string[] nombreParametros = new string[] { "Id Del Producto", "Cantidad del producto a Agregar", "Costo del Producto (por unidad)" };
+                            string[] parametros = pedirDatos(nombreParametros);
+                            if (Manager.IngresarProducto(Convert.ToInt32(parametros[0]), Convert.ToInt32(parametros[1])))
                             {
-                               // FluxManager.Ingreso_producto(Convert.ToInt32(parametros4[0]), Convert.ToInt32(parametros4[1]), Convert.ToInt32(parametros4[2]));
+                                FluxManager.Ingreso_producto(Convert.ToInt32(parametros[0]), Convert.ToInt32(parametros[1]), Convert.ToInt32(parametros[2]));
                                 realizacionDeUnaAccion = true;
+                                Console.Clear();
+                                for (int j = 0; j < (int)(Console.BufferHeight / 20 + 5); j++)
+                                {
+                                    Console.WriteLine(" ");
+                                }
+                                Console.WriteLine("                                                  Producto Comprado con exito");
+                                for (int j = 0; j < (int)(Console.BufferHeight / 20 + 11); j++)
+                                {
+                                    Console.WriteLine(" ");
+                                }
+                                Console.WriteLine(" Presione ENTER para continuar");
+                                Console.ReadLine();
+                                Console.Clear();
+                                realizacionDeUnaAccion = true;
+                                VolverAlMenuPrincipal();
                             }
                             else
                             {
+
+                                Console.Clear();
+                                for (int j = 0; j < (int)(Console.BufferHeight / 20 + 3); j++)
+                                {
+                                    Console.WriteLine(" ");
+                                }
+                                Console.WriteLine("                                            Error,  Producto No Comprado");
+                                for (int j = 0; j < (int)(Console.BufferHeight / 20 + 11); j++)
+                                {
+                                    Console.WriteLine(" ");
+                                }
+                                
                                 realizacionDeUnaAccion = false;
                                 Console.Clear();
                                 Console.WriteLine();
@@ -1197,25 +1233,61 @@ namespace ProyectoPA
                 }
                 //FIN//
                 return realizacionDeUnaAccion;
-                
+
             }
             if (vender == optionId)
             {
-                
-                for (int j = 0; j < (int)(Console.BufferHeight / 2); j++)
-                {
-                    Console.WriteLine("");
-                }
-                for (int i = 0; i < (int)(Console.BufferWidth / 2 - 14); i++)
-                {
-                    Console.Write(" ");
-                    Console.Write("Estado Cargado");
-                }
-                Console.WriteLine(" Presione ENTER para continuar");
+                Console.Clear();
+                Console.WriteLine("");
+                Console.WriteLine("Recuerde el Id del Producto que va a vender");
+                Console.WriteLine("");
+                imprimirTablaDeProductos();
+                Console.WriteLine("");
+                Console.WriteLine("");
+                Console.WriteLine("Presione ENTER cuando este Listo");
                 Console.ReadLine();
                 Console.Clear();
-                realizacionDeUnaAccion = true;
-                VolverAlMenuPrincipal();
+
+
+                string[] nombreParametros = new string[] { "Id Del Producto", "Cantidad del producto a Vender" };
+                string[] parametros = pedirDatos(nombreParametros);
+                if (Manager.Vender(Convert.ToInt32(parametros[0]), Convert.ToInt32(parametros[1])))
+                {
+                    FluxManager.Venta_producto(Convert.ToInt32(parametros[0]), Convert.ToInt32(parametros[1]));
+                    realizacionDeUnaAccion = true;
+
+
+                    Console.Clear();
+                    for (int j = 0; j < (int)(Console.BufferHeight / 20 + 3); j++)
+                    {
+                        Console.WriteLine(" ");
+                    }
+                    Console.WriteLine("                                                      Producto Vendido");
+                    for (int j = 0; j < (int)(Console.BufferHeight / 20 + 11); j++)
+                    {
+                        Console.WriteLine(" ");
+                    }
+                    Console.WriteLine(" Presione ENTER para continuar");
+                    Console.ReadLine();
+                    Console.Clear();
+                    realizacionDeUnaAccion = true;
+                    VolverAlMenuPrincipal();
+                }
+                else {
+                    realizacionDeUnaAccion = false;
+                    Console.Clear();
+                    for (int j = 0; j < (int)(Console.BufferHeight / 20 + 3); j++)
+                    {
+                        Console.WriteLine(" ");
+                    }
+                    Console.WriteLine("                                              Error, Producto No Vendido");
+                    for (int j = 0; j < (int)(Console.BufferHeight / 20 + 11); j++)
+                    {
+                        Console.WriteLine(" ");
+                    }
+                    Console.WriteLine(" Presione ENTER para volver al menu principal");
+                    Console.ReadLine();
+                }
             }
             return realizacionDeUnaAccion;
 
