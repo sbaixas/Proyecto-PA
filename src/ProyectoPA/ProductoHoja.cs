@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProyectoPA
 {
-    class ProductoHoja : Producto
+    public class ProductoHoja : Producto
     {
 /****************Getters y Setters******************/
         private string color;

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProyectoPA
 {
-    class SetDeProducto : Producto
+    public class SetDeProducto : Producto
     {
         private double descuento;
 

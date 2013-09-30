@@ -172,6 +172,10 @@ namespace ProyectoPA
             }
         }
 
+        public static void Cerrar_mes()
+        {
+            date.cerrar_mes();
+        }
         public static List<Registro> Ranking_producto()
         {
             List<Registro> ranking = new List<Registro>();
