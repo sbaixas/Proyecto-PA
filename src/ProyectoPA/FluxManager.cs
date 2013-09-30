@@ -9,32 +9,30 @@ namespace ProyectoPA
     [Serializable]
     static class FluxManager
     {
+        //atributos//
         private static Date date;
+        private static List<Registro> registro_venta = new List<Registro>();
+        private static List<Registro> registro_ingreso = new List<Registro>();
+        private static int balance = 0;
 
+       //Getters y Setters//
         internal static Date Date
         {
             get { return FluxManager.date; }
             set { FluxManager.date = value; }
         }     
-
-        private static List<Registro> registro_venta = new List<Registro>();
-
-        internal static List<Registro> Registro_venta1
+        internal static List<Registro> Registro_venta
         {
             get { return FluxManager.registro_venta; }
             set { FluxManager.registro_venta = value; }
         }
-
-        private static List<Registro> registro_ingreso = new List<Registro>();
-
-        internal static List<Registro> Registro_ingreso1
+        internal static List<Registro> Registro_ingreso
         {
             get { return FluxManager.registro_ingreso; }
             set { FluxManager.registro_ingreso = value; }
         }
 
-        private  static int balance = 0;
-
+        //metodos//
         //  se ingresa al historial un producto que se ingresa 
         public static void Ingreso_producto(int id, int cantidad, int costo)
         {
@@ -63,7 +61,6 @@ namespace ProyectoPA
             }
             
         }   
-
         public static void VerHistorialDeMovimientos()
         {
         }
@@ -73,11 +70,6 @@ namespace ProyectoPA
         public static void GraficarBalances()
         {
         }
-
-       
-
-      
-
         public static void Cerrar_mes()
         {
             date.cerrar_mes();

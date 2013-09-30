@@ -8,31 +8,29 @@ namespace ProyectoPA
 {
     class Manager
     {
+        //Atributos//
         private static List<Producto> productos = new List<Producto>();
+        private static int idCount = 0;
+        private static List<string> categorias = new List<string>();
 
+        //Getters y Setters//
         public static List<Producto> Productos
         {
             get { return Manager.productos; }
             set { Manager.productos = value; }
         }
-
-        private static int idCount = 0;
-
         public static int IdCount
         {
             get { return Manager.idCount; }
             set { Manager.idCount = value; }
         }
-
-        private static List<string> categorias = new List<string>();
-
         public static List<string> Categorias
         {
             get { return Manager.categorias; }
             set { Manager.categorias = value; }
         }
 
-        /************************agregar un nuevo tipo de producto*********************************************/
+        //Metodos//
         public static void AgregarCategoria(string nombre)
         {
             categorias.Add(nombre);
@@ -61,7 +59,6 @@ namespace ProyectoPA
                 return false;
             }
         }
-         
         public static bool AgregarSet(int descuento, List<int> cantidades, List<int> ids, string nombre)
         {
             bool funcionCompleta = false;
@@ -119,7 +116,7 @@ namespace ProyectoPA
             }
             return false;
         }
-        /*Metodos para modificar atributos, devuelven true si se efectuo la modificación, y false si no encontro al producto*/
+            /*Metodos para modificar atributos, devuelven true si se efectuo la modificación, y false si no encontro al producto*/
             /*Metodos para modificar los atributos de los productos en general*/
         public static bool ModificarNombre(int id, string nombre)
         {

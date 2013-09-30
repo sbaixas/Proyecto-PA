@@ -39,10 +39,11 @@ namespace ProyectoPA
             MenuPrincipal = raiz;
             current = raiz;
             //testing//
+            /*
             Manager.AgregarCategoria("cosa");
             Manager.AgregarProducto(3000, 2033, 4544, "ferrari rojo", "rojo", 0);
             Manager.AgregarProducto(30000, 20534, 452, "platano", "verde", 0);
-            Manager.AgregarProducto(30000, 204, 4533, "playStation", "azul",0);
+            Manager.AgregarProducto(30000, 204, 4533, "playStation", "azul",0);*/
 
             //se agregan las 5 subopciones principales//
             raiz.agregarHijo("Productos", " Manager");
@@ -109,7 +110,7 @@ namespace ProyectoPA
             //se navega en el programa//
             navegar();
             //dejar como comentario si no se esta programando//
-            mostrarTodadLasOpciones(); Console.ReadLine();
+           // mostrarTodadLasOpciones(); Console.ReadLine();//
         }
 
         //Introduccion//
@@ -1481,11 +1482,11 @@ namespace ProyectoPA
         /*Esto lo hizo matias*/
         public void VerReportesDeVenta()
         {
-            int largo = FluxManager.Registro_venta1.Count;
+            int largo = FluxManager.Registro_venta.Count;
             
             for (int i = 0; i < largo; i++)
             {
-                Registro a = FluxManager.Registro_venta1[i];
+                Registro a = FluxManager.Registro_venta[i];
                 Date b = a.Fecha;
                 int cantidad = a.Cantidad;
                 string fecha = b.Retornar_fecha();
@@ -1495,11 +1496,11 @@ namespace ProyectoPA
         }
         public  void VerReportesDeIngreso()
         {
-            int largo = FluxManager.Registro_ingreso1.Count;
+            int largo = FluxManager.Registro_ingreso.Count;
             
             for (int i = 0; i < largo; i++)
             {
-                Registro a = FluxManager.Registro_venta1[i];
+                Registro a = FluxManager.Registro_venta[i];
                 Date b = a.Fecha;
                 int cantidad = a.Cantidad;
                 string fecha = b.Retornar_fecha();
@@ -1510,11 +1511,11 @@ namespace ProyectoPA
         // se imprime el historial de ingresos con fecha especificada por el usuario desde me1/año1 hasta mes2/año2
         public  void Ver_historial_con_fecha_ingresos(int mes1, int año1, int mes2, int año2)
         {
-            int largo = FluxManager.Registro_ingreso1.Count;
+            int largo = FluxManager.Registro_ingreso.Count;
             int i;
             for (i = 0; i < largo; i++)
             {
-                Registro a = FluxManager.Registro_ingreso1[i];
+                Registro a = FluxManager.Registro_ingreso[i];
                 Date b = a.Fecha;
                 int cantidad = a.Cantidad;
                 string fecha = b.Retornar_fecha();
@@ -1534,11 +1535,11 @@ namespace ProyectoPA
         // se imprime el historial de ventas con fecha especificada por el usuario desde me1/año1 hasta mes2/año2
         public void Ver_historial_con_fecha_ventas(int mes1, int año1, int mes2, int año2)
         {
-            int largo = FluxManager.Registro_venta1.Count;
+            int largo = FluxManager.Registro_venta.Count;
             int i;
             for (i = 0; i < largo; i++)
             {
-                Registro a = FluxManager.Registro_ingreso1[i];
+                Registro a = FluxManager.Registro_ingreso[i];
                 Date b = a.Fecha;
                 int cantidad = a.Cantidad;
                 string fecha = b.Retornar_fecha();
@@ -1558,7 +1559,7 @@ namespace ProyectoPA
         public static List<Registro> Ranking_producto()
         {
             List<Registro> ranking = new List<Registro>();
-            foreach (Registro a in FluxManager.Registro_venta1)
+            foreach (Registro a in FluxManager.Registro_venta)
             {
                 string nombre1 = a.Nombre;
                 int precio = a.Precio;
@@ -1574,7 +1575,7 @@ namespace ProyectoPA
                 }
                 if (k == 0)
                 {
-                    foreach (Registro c in FluxManager.Registro_venta1)
+                    foreach (Registro c in FluxManager.Registro_venta)
                     {
                         string nombre2 = c.Nombre;
                         if (nombre1 == nombre2)
