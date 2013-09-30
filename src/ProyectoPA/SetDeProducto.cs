@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProyectoPA
 {
+    [Serializable]
     public class SetDeProducto : Producto
     {
         private double descuento;

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProyectoPA
 {
+    [Serializable]
     public class ProductoHoja : Producto
     {
 /****************Getters y Setters******************/
